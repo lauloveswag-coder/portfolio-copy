@@ -1896,12 +1896,30 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       });
     }
 
+    // Fade the nav dock out while a panel is being actively scrolled (it
+    // overlaps content otherwise), and bring it back once scrolling settles.
+    function initDockScrollHide() {
+      const dock = document.querySelector('.organic-dock');
+      if (!dock) return;
+      let hideTimeout;
+
+      document.addEventListener('scroll', (e) => {
+        if (!e.target.classList || !e.target.classList.contains('panel-content')) return;
+        dock.classList.add('is-scroll-hidden');
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+          dock.classList.remove('is-scroll-hidden');
+        }, 500);
+      }, true); // capture: 'scroll' doesn't bubble, so listen on the way down
+    }
+
     // Default initialization
     window.addEventListener('DOMContentLoaded', () => {
       setLanguage('en');
       switchShowroomProject('cat-sketches');
       initDraggableCards();
       initArchiveSearch();
+      initDockScrollHide();
     });
   </script>
 

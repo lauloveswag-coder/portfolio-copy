@@ -90,6 +90,15 @@ body {
   box-shadow: none;
   backdrop-filter: none;
   border-radius: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Fades out while a panel is actively being scrolled, so it stops
+   overlapping content underneath — reappears once scrolling settles. */
+.organic-dock.is-scroll-hidden {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
 }
 
 .organic-dock-item {
