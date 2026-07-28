@@ -28,9 +28,12 @@
   var WINDOW_SIZE = 4; // how many cards are mounted at once (current + 3 waiting)
   var PRELOAD_AHEAD = 1; // how many images beyond the visible window to warm in cache
   var CASCADE_STAGGER_MS = 90; // delay between each card's entrance in the cascade
-  // Generic archival annotation words for the handwritten corner caption —
+  // Generic archival annotation words for the handwritten caption —
   // deterministically picked per card, not fabricated per-image captions.
   var CAPTION_WORDS = ['sketch', 'study', 'draft', 'idea', 'keep', 'revisit'];
+  // Real photographed clip (existing site asset) pinning the whole pile —
+  // resolved relative to the hosting page, same convention as data-folder.
+  var CLIP_IMAGE_PATH = 'scrapbook_element_11.png';
 
   var TEMPLATE = document.createElement('template');
   TEMPLATE.innerHTML =
@@ -83,7 +86,18 @@
       this._stackEl.appendChild(p);
     }
 
+    _addClipFixture() {
+      var clip = document.createElement('img');
+      clip.className = 'stack__clip';
+      clip.src = CLIP_IMAGE_PATH;
+      clip.alt = '';
+      clip.setAttribute('aria-hidden', 'true');
+      this._stackEl.appendChild(clip);
+    }
+
     _buildInitialWindow() {
+      this._addClipFixture();
+
       var count = Math.min(WINDOW_SIZE, this._files.length);
       var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var canObserve = 'IntersectionObserver' in window;

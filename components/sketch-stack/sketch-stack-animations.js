@@ -26,10 +26,18 @@
     return (hash - Math.floor(hash)) * 2 - 1;
   }
 
-  /** Rotation for a card, in the -8deg..+8deg range the brief calls for. */
+  /**
+   * Rotation for a card, in the -8deg..+8deg range the brief calls for.
+   * Guarantees a minimum magnitude (40% of maxDeg) so a card never lands
+   * near-flat by chance of the hash — every card should read as visibly
+   * tilted, matching a real shuffled pile rather than a design-system grid.
+   */
   function tiltForIndex(index, maxDeg) {
     maxDeg = maxDeg || 8;
-    return noise(index, 1) * maxDeg;
+    var n = noise(index, 1);
+    var sign = n < 0 ? -1 : 1;
+    var minDeg = maxDeg * 0.4;
+    return sign * (minDeg + Math.abs(n) * (maxDeg - minDeg));
   }
 
   /**
@@ -42,10 +50,10 @@
     var tilt = tiltForIndex(manifestIndex, 8);
     // Base fan-out per depth layer, plus per-card jitter so neighbours
     // don't sit in a neat radial fan — a shuffled pile, not a hand of cards.
-    var jitterX = noise(manifestIndex, 2) * 10;
-    var jitterY = noise(manifestIndex, 3) * 8;
-    var translateY = offset * 9 + jitterY * (offset === 0 ? 0.3 : 1);
-    var translateX = offset * 6 * (manifestIndex % 2 === 0 ? 1 : -1) + jitterX * (offset === 0 ? 0.3 : 1);
+    var jitterX = noise(manifestIndex, 2) * 14;
+    var jitterY = noise(manifestIndex, 3) * 10;
+    var translateY = offset * 13 + jitterY * (offset === 0 ? 0.3 : 1);
+    var translateX = offset * 10 * (manifestIndex % 2 === 0 ? 1 : -1) + jitterX * (offset === 0 ? 0.3 : 1);
     var scale = 1 - offset * 0.03;
     var opacity = Math.max(1 - offset * 0.07, 0.72);
 
