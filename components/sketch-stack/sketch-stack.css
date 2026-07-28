@@ -1,0 +1,121 @@
+/**
+ * Styles for <sketch-stack>. Loaded inside the component's Shadow DOM via
+ * <link>, so nothing here can leak onto the rest of the site and no global
+ * site styles (Tailwind utilities included) can leak in — this file is the
+ * complete, self-contained visual language for the stack.
+ *
+ * Look and feel: a designer's desk / archive pile of printed sheets —
+ * plain paper mounts, soft realistic shadows, restrained tilt. No tape,
+ * pins, stickers, or bright scrapbook colors.
+ */
+
+:host {
+  --card-w: 320px;
+  --card-h: 420px;
+  --paper: #FCFAF6;
+  --ink: #1E1E1E;
+  --transition-duration: 0.6s;
+  --exit-duration: 0.65s;
+
+  display: flex;
+  justify-content: center;
+  padding: 24px 0 48px;
+}
+
+.stack {
+  position: relative;
+  width: var(--card-w);
+  height: var(--card-h);
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: var(--paper);
+  border-radius: 4px;
+  will-change: transform, opacity;
+  transition:
+    transform var(--transition-duration) cubic-bezier(0.16, 1, 0.3, 1),
+    opacity var(--transition-duration) cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow var(--transition-duration) cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: 50% 50%;
+  pointer-events: none;
+  font: inherit;
+  color: inherit;
+}
+
+/* A slim paper "mat" border around the image, like a mounted print. */
+.card__mat {
+  position: absolute;
+  inset: 0;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 2px;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.card--exiting {
+  transition-duration: var(--exit-duration);
+}
+
+/* Only the top card is a real, focusable, clickable control. */
+.card--top {
+  cursor: pointer;
+  pointer-events: auto;
+}
+.card--top:focus-visible {
+  outline: 2px solid #9882AC;
+  outline-offset: 4px;
+}
+
+.sr-hint {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---- Responsive: desktop (default) > tablet > mobile ---- */
+@media (max-width: 1024px) {
+  :host {
+    --card-w: 260px;
+    --card-h: 340px;
+  }
+}
+
+@media (max-width: 640px) {
+  :host {
+    --card-w: 220px;
+    --card-h: 290px;
+    padding: 16px 0 36px;
+  }
+  /* Keep a comfortable tap target even though the card itself is smaller. */
+  .card--top {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+/* ---- Respect reduced-motion: shorten and simplify to a cross-fade ---- */
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    --transition-duration: 0.15s;
+    --exit-duration: 0.15s;
+  }
+  .card {
+    transition-property: opacity;
+  }
+}

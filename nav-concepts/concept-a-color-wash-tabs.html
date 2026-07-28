@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept A — Color-Wash File Tabs</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#FCFAF6', creamdark: '#F7F3EE', charcoal: '#1E1E1E',
+          sage: '#A7B89E', sagelight: '#D5DFD1',
+          purple: '#9882AC', purplelight: '#E7DFEF',
+          pink: '#E8D1C5', pinklight: '#F4ECE7'
+        }
+      }
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --slide-out: -110vh;   /* how far the old panel travels when leaving */
+    --slide-in: 110vh;     /* how far the new panel starts before sliding in */
+    --wash-duration: .5s;
+    --panel-duration: .5s;
+  }
+  body{ font-family:'Inter',sans-serif; }
+  .font-serif-fashion{ font-family:'Playfair Display',serif; }
+  .font-mono{ font-family:'Space Mono',monospace; }
+  .font-syne{ font-family:'Syne',sans-serif; }
+
+  /* Full-viewport color wash layer that sits behind everything */
+  #wash{
+    position:fixed; inset:0; z-index:0;
+    background-color:#FCFAF6;
+    transition:background-color var(--wash-duration) ease;
+  }
+
+  .proto-badge{
+    position:fixed; top:12px; left:12px; z-index:50;
+    font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.08em;
+    background:#1E1E1E; color:#FCFAF6; padding:6px 10px; border-radius:999px;
+    text-transform:uppercase; opacity:.85;
+  }
+
+  .stage{ position:relative; z-index:10; min-height:100vh; overflow:hidden; }
+
+  .panel{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    padding:8vh 6vw 14vh;
+    transform:translateY(0); opacity:0;
+    transition:transform var(--panel-duration) cubic-bezier(.4,0,.2,1), opacity var(--panel-duration) ease;
+    pointer-events:none;
+  }
+  .panel.is-active{ opacity:1; pointer-events:auto; position:relative; }
+  .panel.is-leaving{ transform:translateY(var(--slide-out)); opacity:0; position:absolute; }
+  .panel.is-entering{ transform:translateY(var(--slide-in)); opacity:0; }
+  .panel.is-entering.is-settled{ transform:translateY(0); opacity:1; }
+
+  /* Folder-tab bar */
+  .tab-bar{
+    position:fixed; left:0; right:0; bottom:0; z-index:40;
+    display:flex; justify-content:center; gap:6px;
+    padding:0 5vw 0;
+  }
+  .tab{
+    font-family:'Space Mono',monospace; font-weight:700; font-size:11px; letter-spacing:.08em;
+    text-transform:uppercase; color:#1E1E1E;
+    padding:14px 26px 16px;
+    border:1px solid rgba(30,30,30,.12); border-bottom:none;
+    clip-path: polygon(12% 0, 88% 0, 100% 100%, 0% 100%);
+    transform:translateY(6px) rotate(0deg);
+    transition:transform .22s cubic-bezier(.34,1.56,.64,1), box-shadow .22s ease, translate .22s ease;
+    cursor:pointer;
+    box-shadow:0 2px 0 rgba(30,30,30,.05);
+  }
+  .tab:nth-child(odd){ transform:translateY(6px) rotate(-1deg); }
+  .tab:nth-child(even){ transform:translateY(6px) rotate(1deg); }
+  .tab:hover{ transform:translateY(0px) rotate(0deg); box-shadow:0 -6px 14px rgba(30,30,30,.12); }
+  .tab.is-current{ transform:translateY(-6px) rotate(0deg); box-shadow:0 -8px 18px rgba(30,30,30,.14); }
+
+  .tab[data-color="sage"]{ background:#A7B89E; }
+  .tab[data-color="purple"]{ background:#9882AC; color:#FCFAF6; }
+  .tab[data-color="pink"]{ background:#E8D1C5; }
+  .tab[data-color="charcoal"]{ background:#1E1E1E; color:#FCFAF6; }
+
+  /* Hotspot pattern (project detail) */
+  .hotspot{
+    position:absolute; width:18px; height:18px; border-radius:999px;
+    background:#9882AC; border:2px solid #FCFAF6;
+    box-shadow:0 0 0 0 rgba(152,130,172,.55);
+    animation:pulse 2.2s infinite;
+    cursor:pointer;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(152,130,172,.5); }
+    70%{ box-shadow:0 0 0 14px rgba(152,130,172,0); }
+    100%{ box-shadow:0 0 0 0 rgba(152,130,172,0); }
+  }
+  .hotspot-caption{
+    position:absolute; width:220px; padding:14px 16px;
+    background:#FCFAF6; border:1px solid rgba(30,30,30,.1); border-radius:12px;
+    box-shadow:0 10px 30px rgba(30,30,30,.12);
+    font-family:'Inter',sans-serif; font-size:12px; line-height:1.5; color:#1E1E1E;
+    opacity:0; transform:translateY(8px) scale(.96); pointer-events:none;
+    transition:opacity .22s ease, transform .22s ease;
+    z-index:20;
+  }
+  .hotspot-caption.is-open{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+
+  /* Mobile adaptation: lighter, simpler motion + stacked tabs */
+  @media (max-width:767px){
+    :root{
+      --slide-out: 26px;
+      --slide-in: -18px;
+      --panel-duration: .25s;
+      --wash-duration: .3s;
+    }
+    .tab-bar{ flex-direction:column; gap:0; padding:0; }
+    .tab{
+      clip-path:none; border-radius:0; border:1px solid rgba(30,30,30,.1); border-bottom:none;
+      transform:none !important; width:100%; text-align:center; padding:14px 0;
+    }
+    .tab:hover{ transform:none; box-shadow:none; }
+    .tab.is-current{ transform:none; }
+    .panel{ padding:6vh 6vw 28vh; }
+  }
+</style>
+</head>
+<body class="bg-cream">
+
+  <div id="wash"></div>
+  <div class="proto-badge">Concept A — Color-Wash File Tabs</div>
+
+  <main class="stage" id="stage">
+
+    <section class="panel is-active" data-section="about">
+      <div class="max-w-xl text-center">
+        <div class="font-mono text-[10px] uppercase tracking-widest text-charcoal/50 mb-4">Exhibit / Biography.txt</div>
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">About Laura.</h1>
+        <p class="text-charcoal/70 leading-relaxed">A fashion designer and creative director working across costume, editorial styling and digital exhibition design. This panel washes sage when selected — click another tab to feel the folder swap.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-section="portfolio">
+      <div class="max-w-3xl w-full">
+        <div class="font-mono text-[10px] uppercase tracking-widest text-charcoal/50 mb-4 text-center">Portfolio Index</div>
+        <h1 class="font-serif-fashion italic text-5xl md:text-6xl text-charcoal mb-8 text-center">Selected Work.</h1>
+        <div class="relative w-full max-w-md mx-auto aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+          <img src="../dior.jpg" class="w-full h-full object-cover" alt="Dior Costume Design">
+          <button class="hotspot" style="top:38%; left:58%;" onclick="toggleHotspot(event,'a-hotspot-1')"></button>
+          <div class="hotspot-caption" id="a-hotspot-1" style="top:44%; left:62%;">
+            <strong class="font-syne block mb-1">Dior Costume Design</strong>
+            Click-to-reveal project detail — the same pattern would sit on every thumbnail in the real index.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" data-section="services">
+      <div class="max-w-xl text-center">
+        <div class="font-mono text-[10px] uppercase tracking-widest text-charcoal/50 mb-4">Commissions</div>
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">Services.</h1>
+        <p class="text-charcoal/70 leading-relaxed">Costume design, creative direction, styling and bespoke commission work. This panel washes pink — notice the whole background repaints, not just the tab.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-section="inquiries">
+      <div class="max-w-xl text-center">
+        <div class="font-mono text-[10px] uppercase tracking-widest text-cream/60 mb-4">Get In Touch</div>
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-cream mb-6">Inquiries.</h1>
+        <p class="text-cream/70 leading-relaxed">For commissions and collaboration requests. This tab washes charcoal for contrast — a deliberate "close the folder" tone.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="tab-bar">
+    <button class="tab is-current" data-color="sage" data-target="about">About</button>
+    <button class="tab" data-color="purple" data-target="portfolio">Portfolio</button>
+    <button class="tab" data-color="pink" data-target="services">Services</button>
+    <button class="tab" data-color="charcoal" data-target="inquiries">Inquiries</button>
+  </nav>
+
+<script>
+  const washColors = {
+    about: '#D5DFD1',      // sagelight
+    portfolio: '#E7DFEF',  // purplelight
+    services: '#F4ECE7',   // pinklight
+    inquiries: '#1E1E1E'   // charcoal
+  };
+
+  const wash = document.getElementById('wash');
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.panel');
+  let current = 'about';
+  let animating = false;
+
+  function goTo(target){
+    if (target === current || animating) return;
+    animating = true;
+
+    const currentPanel = document.querySelector(`.panel[data-section="${current}"]`);
+    const nextPanel = document.querySelector(`.panel[data-section="${target}"]`);
+
+    wash.style.backgroundColor = washColors[target];
+
+    currentPanel.classList.remove('is-active');
+    currentPanel.classList.add('is-leaving');
+
+    nextPanel.classList.add('is-entering');
+    // force reflow so the entering transform is applied before we animate to settled
+    void nextPanel.offsetWidth;
+    requestAnimationFrame(() => nextPanel.classList.add('is-settled'));
+
+    tabs.forEach(t => t.classList.toggle('is-current', t.dataset.target === target));
+
+    setTimeout(() => {
+      currentPanel.classList.remove('is-leaving');
+      nextPanel.classList.remove('is-entering', 'is-settled');
+      nextPanel.classList.add('is-active');
+      current = target;
+      animating = false;
+    }, 520);
+  }
+
+  tabs.forEach(tab => tab.addEventListener('click', () => goTo(tab.dataset.target)));
+
+  function toggleHotspot(e, id){
+    e.stopPropagation();
+    document.getElementById(id).classList.toggle('is-open');
+  }
+</script>
+</body>
+</html>

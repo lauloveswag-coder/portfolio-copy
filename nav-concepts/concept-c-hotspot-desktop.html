@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept C — Interactive Hotspot Desktop</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: { colors: {
+      cream:'#FCFAF6', creamdark:'#F7F3EE', charcoal:'#1E1E1E',
+      sage:'#A7B89E', sagelight:'#D5DFD1', purple:'#9882AC', purplelight:'#E7DFEF',
+      pink:'#E8D1C5', pinklight:'#F4ECE7'
+    } } }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+<style>
+  body{ font-family:'Inter',sans-serif; }
+  .font-serif-fashion{ font-family:'Playfair Display',serif; }
+  .font-mono{ font-family:'Space Mono',monospace; }
+  .font-syne{ font-family:'Syne',sans-serif; }
+
+  .proto-badge{
+    position:fixed; top:12px; left:12px; z-index:60;
+    font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.08em;
+    background:#1E1E1E; color:#FCFAF6; padding:6px 10px; border-radius:999px;
+    text-transform:uppercase; opacity:.85;
+  }
+
+  .stage{ position:relative; min-height:100vh; overflow:hidden; background:#FCFAF6; }
+
+  /* Iris-wipe overlay used for the full-page transition */
+  #iris{
+    position:fixed; inset:0; z-index:30; pointer-events:none;
+    clip-path:circle(0% at 50% 50%);
+    transition:clip-path .6s cubic-bezier(.65,0,.35,1);
+  }
+  #iris.is-open{ clip-path:circle(150% at var(--ox,50%) var(--oy,50%)); }
+
+  .panel{ position:absolute; inset:0; display:none; align-items:center; justify-content:center; padding:8vh 6vw 10vh; }
+  .panel.is-active{ display:flex; }
+
+  /* ---- Hero with pulsing hotspots ---- */
+  .hero-wrap{ position:relative; width:100%; max-width:520px; margin:0 auto; }
+  .hero-photo{ width:100%; border-radius:24px; display:block; box-shadow:0 20px 50px rgba(30,30,30,.15); }
+
+  .hotspot{
+    position:absolute; width:16px; height:16px; margin:-8px;
+    border-radius:999px; background:#9882AC; border:2px solid #fff;
+    cursor:pointer; z-index:5;
+  }
+  .hotspot::after{
+    content:''; position:absolute; inset:-6px; border-radius:999px;
+    border:2px solid #9882AC; opacity:.6;
+    animation:ring 2s ease-out infinite;
+  }
+  @keyframes ring{
+    0%{ transform:scale(.6); opacity:.7; }
+    100%{ transform:scale(2.4); opacity:0; }
+  }
+  .hotspot-flag{
+    position:absolute; left:22px; top:50%; transform:translateY(-50%) translateX(-8px);
+    background:#1E1E1E; color:#FCFAF6; font-family:'Space Mono',monospace;
+    font-size:10px; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap;
+    padding:6px 10px; border-radius:6px; opacity:0;
+    transition:opacity .2s ease, transform .2s ease;
+    pointer-events:none;
+  }
+  .hotspot:hover{ transform:scale(1.3); }
+  .hotspot:hover .hotspot-flag{ opacity:1; transform:translateY(-50%) translateX(0); }
+
+  /* Fallback simple nav — always visible, real focusable buttons */
+  .fallback-nav{
+    margin-top:36px; display:flex; justify-content:center; gap:22px; flex-wrap:wrap;
+  }
+  .fallback-nav button{
+    font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em;
+    text-transform:uppercase; color:#1E1E1E; opacity:.6;
+    padding:6px 4px; border-bottom:1px solid transparent;
+    transition:opacity .2s ease, border-color .2s ease;
+  }
+  .fallback-nav button:hover, .fallback-nav button:focus-visible{
+    opacity:1; border-color:#9882AC; outline:none;
+  }
+
+  /* Secondary hotspot inside a section: project detail pattern */
+  .detail-hotspot{
+    position:absolute; width:16px; height:16px; border-radius:999px;
+    background:#E8D1C5; border:2px solid #fff; cursor:pointer;
+    box-shadow:0 2px 6px rgba(30,30,30,.25);
+  }
+  .detail-caption{
+    position:absolute; width:220px; padding:14px 16px;
+    background:#fff; border:1px solid rgba(30,30,30,.1); border-radius:12px;
+    box-shadow:0 10px 30px rgba(30,30,30,.14);
+    font-size:12px; line-height:1.5; color:#1E1E1E;
+    opacity:0; transform:translateY(8px) scale(.96); pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .detail-caption.is-open{ opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+
+  .back-link{
+    font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+    color:#1E1E1E; opacity:.6; cursor:pointer; display:inline-block; margin-bottom:24px;
+  }
+  .back-link:hover{ opacity:1; }
+
+  @media (max-width:767px){
+    /* Hotspots are hard to hit precisely on a small photo — disable them
+       and promote the fallback nav to a full, primary tappable list. */
+    .hotspot{ display:none; }
+    .fallback-nav{
+      flex-direction:column; gap:0; margin-top:24px; width:100%;
+    }
+    .fallback-nav button{
+      opacity:1; width:100%; padding:14px 0; border-bottom:1px solid rgba(30,30,30,.08);
+      font-size:12px;
+    }
+    #iris{ transition:opacity .25s ease; clip-path:none; opacity:0; }
+    #iris.is-open{ clip-path:none; opacity:1; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="proto-badge">Concept C — Interactive Hotspot Desktop</div>
+  <div id="iris"></div>
+
+  <main class="stage" id="stage">
+
+    <section class="panel is-active" data-section="home">
+      <div class="w-full">
+        <div class="text-center mb-8">
+          <div class="font-mono text-[10px] uppercase tracking-widest text-charcoal/50 mb-3">Portfolio // 2022–2026</div>
+          <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal">Portfolio.</h1>
+        </div>
+        <div class="hero-wrap">
+          <img class="hero-photo" src="../laura-bio.jpg" alt="Laura Garçon">
+          <button class="hotspot" style="top:16%; left:22%;" data-target="about" onclick="goTo(event,'about')">
+            <span class="hotspot-flag">01 Biography</span>
+          </button>
+          <button class="hotspot" style="top:34%; left:74%;" data-target="portfolio" onclick="goTo(event,'portfolio')">
+            <span class="hotspot-flag">02 Portfolio</span>
+          </button>
+          <button class="hotspot" style="top:66%; left:26%;" data-target="services" onclick="goTo(event,'services')">
+            <span class="hotspot-flag">03 Commissions</span>
+          </button>
+          <button class="hotspot" style="top:82%; left:68%;" data-target="inquiries" onclick="goTo(event,'inquiries')">
+            <span class="hotspot-flag">04 Inquiries</span>
+          </button>
+        </div>
+        <nav class="fallback-nav" aria-label="Site sections">
+          <button data-target="about" onclick="goTo(event,'about')">About</button>
+          <button data-target="portfolio" onclick="goTo(event,'portfolio')">Portfolio</button>
+          <button data-target="services" onclick="goTo(event,'services')">Services</button>
+          <button data-target="inquiries" onclick="goTo(event,'inquiries')">Inquiries</button>
+        </nav>
+      </div>
+    </section>
+
+    <section class="panel" data-section="about">
+      <div class="max-w-xl text-center">
+        <span class="back-link" onclick="goTo(event,'home')">&larr; Back</span>
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">About Laura.</h1>
+        <p class="text-charcoal/70 leading-relaxed">Opened via an iris wipe expanding from wherever you clicked — the transition originates from the hotspot itself, not a generic edge of the screen.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-section="portfolio">
+      <div class="max-w-3xl w-full text-center">
+        <span class="back-link" onclick="goTo(event,'home')">&larr; Back</span>
+        <h1 class="font-serif-fashion italic text-5xl md:text-6xl text-charcoal mb-8">Selected Work.</h1>
+        <div class="relative w-full max-w-md mx-auto aspect-[4/3] rounded-2xl overflow-hidden shadow-xl">
+          <img src="../dior.jpg" class="w-full h-full object-cover" alt="Dior Costume Design">
+          <button class="detail-hotspot" style="top:38%; left:58%;" onclick="toggleCaption(event,'c-caption-1')"></button>
+          <div class="detail-caption" id="c-caption-1" style="top:44%; left:62%;">
+            <strong class="font-syne block mb-1">Dior Costume Design</strong>
+            A second, smaller hotspot for project detail — distinct from the nav hotspots on the hero.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" data-section="services">
+      <div class="max-w-xl text-center">
+        <span class="back-link" onclick="goTo(event,'home')">&larr; Back</span>
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">Services.</h1>
+        <p class="text-charcoal/70 leading-relaxed">Costume design, creative direction, styling and bespoke commission work.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-section="inquiries">
+      <div class="max-w-xl text-center">
+        <span class="back-link" onclick="goTo(event,'home')">&larr; Back</span>
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">Inquiries.</h1>
+        <p class="text-charcoal/70 leading-relaxed">For commissions and collaboration requests.</p>
+      </div>
+    </section>
+
+  </main>
+
+<script>
+  const iris = document.getElementById('iris');
+  let current = 'home';
+  let animating = false;
+
+  function goTo(evt, target){
+    if (target === current || animating) return;
+    animating = true;
+
+    const rect = evt.currentTarget.getBoundingClientRect();
+    const ox = ((rect.left + rect.width/2) / window.innerWidth) * 100;
+    const oy = ((rect.top + rect.height/2) / window.innerHeight) * 100;
+    iris.style.setProperty('--ox', ox + '%');
+    iris.style.setProperty('--oy', oy + '%');
+    iris.style.background = target === 'home' ? '#FCFAF6' : '#F7F3EE';
+
+    iris.classList.add('is-open');
+
+    setTimeout(() => {
+      document.querySelector(`.panel[data-section="${current}"]`).classList.remove('is-active');
+      document.querySelector(`.panel[data-section="${target}"]`).classList.add('is-active');
+      current = target;
+    }, 320);
+
+    setTimeout(() => {
+      iris.classList.remove('is-open');
+      animating = false;
+    }, 640);
+  }
+
+  function toggleCaption(e, id){
+    e.stopPropagation();
+    document.getElementById(id).classList.toggle('is-open');
+  }
+</script>
+</body>
+</html>

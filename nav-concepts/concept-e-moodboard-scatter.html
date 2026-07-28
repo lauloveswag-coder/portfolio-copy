@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept E — Pinned Tags: Moodboard Scatter</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: { colors: {
+      cream:'#FCFAF6', creamdark:'#F7F3EE', charcoal:'#1E1E1E',
+      sage:'#A7B89E', purple:'#9882AC', pink:'#E8D1C5'
+    } } }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  body{ font-family:'Inter',sans-serif; background:#FCFAF6; }
+  .font-serif-fashion{ font-family:'Playfair Display',serif; }
+  .font-mono{ font-family:'Space Mono',monospace; }
+
+  .proto-badge{
+    position:fixed; top:12px; left:12px; z-index:70;
+    font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.08em;
+    background:#1E1E1E; color:#FCFAF6; padding:6px 10px; border-radius:999px;
+    text-transform:uppercase; opacity:.85;
+  }
+
+  #wash{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-color: rgba(30,30,30,0);
+    transition: background-color .6s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .stage{ position:relative; z-index:5; min-height:100vh; }
+  .panel{ display:none; align-items:center; justify-content:center; min-height:100vh; padding:10vh 6vw 30vh; opacity:0; transform:translateY(10px); }
+  .panel.is-active{ display:flex; }
+  .panel.is-visible{ opacity:1; transform:translateY(0); transition:opacity .55s cubic-bezier(0.16,1,0.3,1), transform .55s cubic-bezier(0.16,1,0.3,1); }
+
+  /* ---- Scattered / layered moodboard cluster ---- */
+  .board-nav{
+    position:fixed; left:0; right:0; bottom:0; z-index:50;
+    height:190px;
+  }
+  .cluster{
+    position:relative; width:100%; max-width:560px; height:100%; margin:0 auto;
+  }
+  .tag-unit{
+    position:absolute; cursor:pointer;
+    transform:rotate(var(--tilt)) scale(.94);
+    transition: transform .55s cubic-bezier(0.16,1,0.3,1), z-index 0s;
+  }
+  .tag-unit .pin-photo{
+    position:absolute; z-index:2; pointer-events:none;
+    filter:drop-shadow(0 3px 4px rgba(30,30,30,.28));
+  }
+  .tag-card{
+    display:block; position:relative; z-index:1; background:#F7F3EE;
+    border:1px solid rgba(30,30,30,.08);
+    padding:16px 18px 14px; min-width:112px; text-align:center;
+    box-shadow:2px 3px 0 rgba(30,30,30,.06);
+    opacity:.6; filter:saturate(.65);
+    transition: box-shadow .55s cubic-bezier(0.16,1,0.3,1), opacity .55s cubic-bezier(0.16,1,0.3,1), filter .55s cubic-bezier(0.16,1,0.3,1);
+  }
+  .tag-card .label{
+    font-family:'Space Mono',monospace; font-weight:700; font-size:10.5px;
+    letter-spacing:.08em; text-transform:uppercase; color:#1E1E1E;
+  }
+  .tag-card .caption{
+    display:block; font-family:'Playfair Display',serif; font-style:italic;
+    font-size:11.5px; color:#1E1E1E; opacity:.55; margin-top:3px;
+  }
+
+  .tag-unit:hover{ z-index:15; }
+  .tag-unit:hover .tag-card{ opacity:.85; }
+
+  .tag-unit.is-current{ transform:rotate(var(--tilt)) scale(1.12) translateY(-14px); z-index:20; }
+  .tag-unit.is-current .tag-card{
+    opacity:1; filter:saturate(1);
+    box-shadow:5px 9px 0 rgba(30,30,30,.10), 0 16px 26px rgba(30,30,30,.14);
+  }
+
+  .crop-frame{ position:relative; overflow:hidden; }
+  .crop-frame img{ position:absolute; max-width:none; }
+
+  @media (max-width:767px){
+    .board-nav{ height:auto; background:#FCFAF6; border-top:1px solid rgba(30,30,30,.08); }
+    .cluster{ max-width:none; height:auto; }
+    .tag-unit{
+      position:static; display:block; width:100%; transform:none !important; z-index:auto !important;
+    }
+    .tag-unit .pin-photo{ display:none; }
+    .tag-unit.is-current .pin-photo{
+      display:block; position:absolute; top:-12px; left:14px; width:22px;
+    }
+    .tag-card{
+      width:100%; min-width:0; text-align:left; padding:14px 20px 14px 20px;
+      border-radius:0; border-left:3px solid transparent;
+      opacity:1; filter:none; box-shadow:none;
+      border-bottom:1px solid rgba(30,30,30,.06);
+    }
+    .tag-card .caption{ display:none; }
+    .tag-unit.is-current{ transform:none !important; }
+    .tag-unit.is-current .tag-card{
+      border-left-color:#9882AC; box-shadow:none; padding-left:24px;
+    }
+    .panel{ padding:8vh 6vw 40vh; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="proto-badge">Concept E — Moodboard Scatter</div>
+  <div id="wash"></div>
+
+  <main class="stage" id="stage">
+
+    <section class="panel is-active" data-section="about" data-color="sage">
+      <div class="max-w-xl text-center">
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">About Laura.</h1>
+        <p class="text-charcoal/70 leading-relaxed">Four tags scattered and overlapping like a corkboard cluster — each pinned down by a different real object. Click one to bring it forward.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-section="portfolio" data-color="purple">
+      <div class="max-w-xl text-center">
+        <h1 class="font-serif-fashion italic text-5xl md:text-6xl text-charcoal mb-6">Selected Work.</h1>
+        <p class="text-charcoal/70 leading-relaxed">A barely-there purple wash — under 15% tint — signals the folder change without ever becoming a flat color fill.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-section="services" data-color="pink">
+      <div class="max-w-xl text-center">
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">Services.</h1>
+        <p class="text-charcoal/70 leading-relaxed">Costume design, creative direction, styling and bespoke commission work.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-section="inquiries" data-color="charcoal">
+      <div class="max-w-xl text-center">
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">Inquiries.</h1>
+        <p class="text-charcoal/70 leading-relaxed">For commissions and collaboration requests.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="board-nav">
+    <div class="cluster">
+
+      <button class="tag-unit is-current" data-target="about" data-wash="rgba(167,184,158,.12)"
+              style="--tilt:-2deg; left:6%; top:28px;">
+        <img class="pin-photo" src="../scrapbook_element_14.png" style="width:30px; top:-16px; left:50%; transform:translateX(-50%);" alt="">
+        <span class="tag-card">
+          <span class="label">About</span>
+          <span class="caption">the designer</span>
+        </span>
+      </button>
+
+      <button class="tag-unit" data-target="portfolio" data-wash="rgba(152,130,172,.12)"
+              style="--tilt:2deg; left:29%; top:6px;">
+        <img class="pin-photo" src="../scrapbook_element_17.png" style="width:20px; top:-32px; right:10px; transform:rotate(8deg);" alt="">
+        <span class="tag-card">
+          <span class="label">Portfolio</span>
+          <span class="caption">the archive</span>
+        </span>
+      </button>
+
+      <button class="tag-unit" data-target="services" data-wash="rgba(232,209,197,.14)"
+              style="--tilt:-1deg; left:54%; top:34px;">
+        <img class="pin-photo" src="../scrapbook_element_12.png" style="width:28px; top:-15px; left:50%; transform:translateX(-50%);" alt="">
+        <span class="tag-card">
+          <span class="label">Services</span>
+          <span class="caption">the atelier</span>
+        </span>
+      </button>
+
+      <button class="tag-unit" data-target="inquiries" data-wash="rgba(30,30,30,.08)"
+              style="--tilt:1.5deg; left:78%; top:10px;">
+        <span class="crop-frame pin-photo" style="width:30px; height:56px; top:-30px; left:50%; transform:translateX(-50%);">
+          <img src="../scrapbook_element_10.png" style="width:48px; height:auto; left:-9px; top:-14px;" alt="">
+        </span>
+        <span class="tag-card">
+          <span class="label">Inquiries</span>
+          <span class="caption">get in touch</span>
+        </span>
+      </button>
+
+    </div>
+  </nav>
+
+<script>
+  const wash = document.getElementById('wash');
+  const tags = document.querySelectorAll('.tag-unit');
+  let current = 'about';
+  let animating = false;
+
+  function goTo(target, washColor){
+    if (target === current || animating) return;
+    animating = true;
+
+    wash.style.backgroundColor = washColor;
+
+    const currentPanel = document.querySelector(`.panel[data-section="${current}"]`);
+    const nextPanel = document.querySelector(`.panel[data-section="${target}"]`);
+
+    currentPanel.classList.remove('is-visible');
+    setTimeout(() => {
+      currentPanel.classList.remove('is-active');
+      nextPanel.classList.add('is-active');
+      void nextPanel.offsetWidth;
+      nextPanel.classList.add('is-visible');
+      current = target;
+      animating = false;
+    }, 300);
+
+    tags.forEach(t => t.classList.toggle('is-current', t.dataset.target === target));
+  }
+
+  document.querySelector(`.panel[data-section="about"]`).classList.add('is-visible');
+
+  tags.forEach(t => t.addEventListener('click', () => goTo(t.dataset.target, t.dataset.wash)));
+</script>
+</body>
+</html>

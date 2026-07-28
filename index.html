@@ -1,0 +1,1915 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>LAURA GARCON | Digital Exhibition Atelier</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name='description' content='Explore the premium digital exhibition of Laura Garcon. Blending costume design, creative AI direction, zine aesthetics, and bilingual translations.'>
+  <meta name='keywords' content='Fashion Design, Graphic Design, AI Creative, Creative Direction, Luxury Portfolio, Zine Exhibition'>
+  <meta name='author' content='Laura Garcon'>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src='https://cdn.tailwindcss.com'></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          borderRadius: {
+            '4xl': '2rem',
+            '5xl': '2.5rem'
+          },
+          colors: {
+            cream: '#FCFAF6',
+            creamdark: '#F7F3EE',
+            charcoal: '#1E1E1E',
+            sage: '#A7B89E',
+            sagelight: '#D5DFD1',
+            purple: '#9882AC',
+            purplelight: '#E7DFEF',
+            pink: '#E8D1C5',
+            pinklight: '#F4ECE7',
+            hotpink: '#F43F5E'
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Google Fonts - Caveat for handwriting overlays -->
+  <link rel='preconnect' href='https://fonts.googleapis.com'>
+  <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+  <link href='https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap' rel='stylesheet'>
+  
+  <!-- External Stylesheet -->
+  <link rel='stylesheet' href='styles.css'>
+</head>
+<body class='bg-cream select-none min-h-screen relative pb-36 overflow-x-hidden'>
+
+  <!-- Background Organic Exhibition Blobs -->
+  <div class='bg-blob-sage top-10 -left-20'></div>
+  <div class='bg-blob-purple bottom-20 -right-20'></div>
+
+  <!-- Editorial Top Header -->
+  <header class='w-full px-8 py-6 flex items-center justify-between z-30 relative'>
+    <div class='flex items-center space-x-6'>
+      <h1 class='font-syne font-extrabold text-xl tracking-wider text-charcoal uppercase flex items-center gap-2'>
+        LAURA GARCON
+        <span class='w-2 h-2 bg-hotpink rounded-full animate-pulse'></span>
+      </h1>
+      <span class='hidden lg:inline-block border-l border-charcoal/10 h-5'></span>
+      <span class='hidden lg:inline-block font-mono text-[10px] tracking-widest text-charcoal/50 uppercase translatable' 
+            data-en='Fashion Design • Creative Direction • Digital Portfolio' 
+            data-fr='Design de Mode • Direction Artistique • Portfolio Numérique'>
+        Fashion Design • Creative Direction • Digital Portfolio
+      </span>
+    </div>
+    
+    <!-- Top Controls -->
+    <div class='flex items-center space-x-6'>
+      <div class='flex border border-charcoal/10 rounded-full bg-creamdark font-mono text-[11px] p-0.5'>
+        <button id='lang-btn-en' class='px-4 py-1.5 rounded-full bg-pink text-charcoal font-bold transition-all focus:outline-none'>
+          EN
+        </button>
+        <button id='lang-btn-fr' class='px-4 py-1.5 rounded-full text-charcoal hover:bg-pink/30 transition-all focus:outline-none'>
+          FR
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero / Central Landing Exhibition Cover -->
+  <main class='max-w-7xl mx-auto px-8 py-6 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10'>
+    
+    <!-- Left Intro Column (Spacious Editorial Layout) -->
+    <div class='lg:col-span-6 space-y-8 py-8 flex flex-col justify-center min-h-[400px]'>
+      <div class='space-y-4'>
+        <div class='organic-ribbon inline-block translatable' data-en='PORTFOLIO // 2022–2026' data-fr='PORTFOLIO // 2022–2026'>
+          PORTFOLIO // 2022–2026
+        </div>
+        <h2 class='font-serif-fashion italic text-6xl md:text-8xl text-charcoal leading-none tracking-tight'>
+          Portfolio.
+        </h2>
+      </div>
+      
+      <p class='font-sans text-sm leading-relaxed text-charcoal/70 max-w-md' data-key='hero-desc'></p>
+      
+      <!-- Interactive Gateways -->
+      <div class='pt-6 flex flex-wrap gap-4 items-center'>
+        <button id='hero-btn-portfolio' class='px-8 py-3.5 rounded-full bg-purple text-cream font-mono text-xs font-bold uppercase tracking-wider hover:bg-purple/90 transition-all shadow-organic shadow-organic-hover translatable'
+                data-en='Explore Portfolio' data-fr='Explorer le Portfolio'>
+          Explore Portfolio
+        </button>
+        <button id='hero-btn-about' class='px-8 py-3.5 rounded-full bg-creamdark text-charcoal font-mono text-xs font-bold uppercase tracking-wider border border-charcoal/10 hover:bg-pink/30 transition-all shadow-organic shadow-organic-hover translatable'
+                data-en='About' data-fr='À Propos'>
+          About
+        </button>
+        <button id='hero-btn-contact' class='px-8 py-3.5 rounded-full bg-creamdark text-charcoal font-mono text-xs font-bold uppercase tracking-wider border border-charcoal/10 hover:bg-pink/30 transition-all shadow-organic shadow-organic-hover translatable'
+                data-en='Contact' data-fr='Contact'>
+          Contact
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Column (Visual Anchor & Integrated Archival Labels) -->
+    <div class='lg:col-span-6 relative flex items-center justify-center w-full min-h-[480px]'>
+      
+      <!-- Cover Portrait Frame -->
+      <div class='relative w-full max-w-[400px] aspect-[3/4] bg-creamdark border border-charcoal/5 rounded-3xl overflow-hidden shadow-organic group'>
+        <img src='laura-bio.jpg' alt='Laura Garçon Portrait' class='w-full h-full object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100 scale-105 group-hover:scale-100'>
+        
+        <!-- Subtle dark gradient overlay to ensure text legibility -->
+        <div class='absolute inset-0 bg-gradient-to-t from-charcoal/40 via-charcoal/5 to-transparent opacity-80 pointer-events-none'></div>
+
+        <!-- Archival Navigation Labels (Integrated overlay entries) -->
+        <div class='absolute inset-0 p-8 flex flex-col justify-between z-20'>
+          
+          <!-- Top Row Labels -->
+          <div class='flex justify-between items-start w-full pointer-events-auto'>
+            <!-- 01 // Biography -->
+            <button onclick="openPanel('panel-about')" class='archival-overlay-label text-left focus:outline-none'>
+              <span class='num'>01</span>
+              <span class='label-text translatable' data-en='BIOGRAPHY' data-fr='BIOGRAPHIE'>BIOGRAPHY</span>
+              <span class='arrow'>→</span>
+            </button>
+
+            <!-- 02 // Portfolio -->
+            <button onclick="openPanel('panel-portfolio')" class='archival-overlay-label text-right focus:outline-none'>
+              <span class='num'>02</span>
+              <span class='label-text translatable' data-en='PORTFOLIO INDEX' data-fr='INDEX DU PORTFOLIO'>PORTFOLIO INDEX</span>
+              <span class='arrow'>→</span>
+            </button>
+          </div>
+
+          <!-- Bottom Row Labels -->
+          <div class='flex justify-between items-end w-full pointer-events-auto'>
+            <!-- 03 // Commissions & Services -->
+            <button onclick="openPanel('panel-universe')" class='archival-overlay-label text-left focus:outline-none'>
+              <span class='num'>03</span>
+              <span class='label-text translatable' data-en='COMMISSIONS' data-fr='SERVICES'>COMMISSIONS</span>
+              <span class='arrow'>→</span>
+            </button>
+
+            <!-- 04 // Inquiries -->
+            <button onclick="openPanel('panel-journal')" class='archival-overlay-label text-right focus:outline-none'>
+              <span class='num'>04</span>
+              <span class='label-text translatable' data-en='INQUIRIES' data-fr='DEMANDES'>INQUIRIES</span>
+              <span class='arrow'>→</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Scrolling Marquee Project Index Section -->
+    <section class="marquee-index-section w-full lg:col-span-12 overflow-hidden py-6 border-y border-charcoal/10 relative">
+      <div class="marquee-track flex whitespace-nowrap">
+        <div class="marquee-content flex items-center gap-16 animate-marquee">
+          <!-- Round 1 -->
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('dior');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Dior Costume Design" data-fr="Design de Costume Dior">Dior Costume Design</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('met');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="MET Gala Costume" data-fr="Costume MET Gala">MET Gala Costume</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('structure');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Structure &amp; Flou" data-fr="Structure &amp; Flou">Structure &amp; Flou</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('final');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Final Collection" data-fr="Collection Finale">Final Collection</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('layout');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Layout &amp; Research" data-fr="Mise en Page &amp; Recherche">Layout &amp; Research</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('trends');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Trend Forecasting" data-fr="Cahier de Tendances">Trend Forecasting</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('b1');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Bachelor I: Fundamentals" data-fr="Bachelor I : Fondamentaux">Bachelor I: Fundamentals</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('b2');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Bachelor II: Florence Residency" data-fr="Bachelor II : Résidence Florence">Bachelor II: Florence Residency</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('b3');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Bachelor III: Nancy Atelier" data-fr="Bachelor III : Atelier Nancy">Bachelor III: Nancy Atelier</button>
+          <button onclick="openArchiveTab('personal'); switchShowroomProject('social');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Content Creation &amp; Campaigns" data-fr="Création de Contenu &amp; Campagnes">Content Creation &amp; Campaigns</button>
+          <button onclick="openArchiveTab('personal'); switchShowroomProject('personal-crochet');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Crochet &amp; Experimental Knits" data-fr="Crochet &amp; Tricot Expérimental">Crochet &amp; Experimental Knits</button>
+          
+          <!-- Round 2 -->
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('dior');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Dior Costume Design" data-fr="Design de Costume Dior">Dior Costume Design</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('met');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="MET Gala Costume" data-fr="Costume MET Gala">MET Gala Costume</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('structure');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Structure &amp; Flou" data-fr="Structure &amp; Flou">Structure &amp; Flou</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('final');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Final Collection" data-fr="Collection Finale">Final Collection</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('layout');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Layout &amp; Research" data-fr="Mise en Page &amp; Recherche">Layout &amp; Research</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('trends');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Trend Forecasting" data-fr="Cahier de Tendances">Trend Forecasting</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('b1');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Bachelor I: Fundamentals" data-fr="Bachelor I : Fondamentaux">Bachelor I: Fundamentals</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('b2');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Bachelor II: Florence Residency" data-fr="Bachelor II : Résidence Florence">Bachelor II: Florence Residency</button>
+          <button onclick="openArchiveTab('academic'); switchShowroomProject('b3');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Bachelor III: Nancy Atelier" data-fr="Bachelor III : Atelier Nancy">Bachelor III: Nancy Atelier</button>
+          <button onclick="openArchiveTab('personal'); switchShowroomProject('social');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Content Creation &amp; Campaigns" data-fr="Création de Contenu &amp; Campagnes">Content Creation &amp; Campaigns</button>
+          <button onclick="openArchiveTab('personal'); switchShowroomProject('personal-crochet');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Crochet &amp; Experimental Knits" data-fr="Crochet &amp; Tricot Expérimental">Crochet &amp; Experimental Knits</button>
+        </div>
+      </div>
+      <script>
+        if (typeof openArchiveTab === 'undefined') {
+          window.openArchiveTab = function(tabName) {
+            openPanel('panel-portfolio');
+          };
+        }
+      </script>
+    </section>
+
+  </main>
+
+  <!-- FLOATING NAVIGATION DOCK ("SOMMAIRE") -->
+  <nav class='fixed bottom-0 md:bottom-8 inset-x-0 md:left-1/2 md:right-auto md:-translate-x-1/2 z-50 organic-dock'>
+    <button id='dock-btn-panel-about' class='organic-dock-item' style='left:2%; top:26px; --tilt:-2deg;'>
+      <img class='dock-pin' src='scrapbook_element_14.png' style='width:30px; top:-16px; left:50%; transform:translateX(-50%);' alt=''>
+      <span class='dock-label translatable' data-en='About' data-fr='À Propos'>About</span>
+      <span class='dock-caption translatable' data-en='the designer' data-fr='la créatrice'>the designer</span>
+    </button>
+    <button id='dock-btn-panel-portfolio' class='organic-dock-item' style='left:27%; top:4px; --tilt:2deg;'>
+      <img class='dock-pin' src='scrapbook_element_17.png' style='width:20px; top:-32px; right:10px; transform:rotate(8deg);' alt=''>
+      <span class='dock-label translatable' data-en='Portfolio' data-fr='Portfolio'>Portfolio</span>
+      <span class='dock-caption translatable' data-en='the archive' data-fr="l'archive">the archive</span>
+    </button>
+    <button id='dock-btn-panel-universe' class='organic-dock-item' style='left:52%; top:30px; --tilt:-1deg;'>
+      <img class='dock-pin' src='scrapbook_element_12.png' style='width:28px; top:-15px; left:50%; transform:translateX(-50%);' alt=''>
+      <span class='dock-label translatable' data-en='Services' data-fr='Services'>Services</span>
+      <span class='dock-caption translatable' data-en='the atelier' data-fr="l'atelier">the atelier</span>
+    </button>
+    <button id='dock-btn-panel-journal' class='organic-dock-item' style='left:76%; top:8px; --tilt:1.5deg;'>
+      <span class='dock-pin' style='position:absolute; overflow:hidden; width:30px; height:56px; top:-30px; left:50%; transform:translateX(-50%);'>
+        <img src='scrapbook_element_10.png' style='position:absolute; width:48px; height:auto; left:-9px; top:-14px;' alt=''>
+      </span>
+      <span class='dock-label translatable' data-en='Inquiries' data-fr='Demandes'>Inquiries</span>
+      <span class='dock-caption translatable' data-en='get in touch' data-fr='contactez-moi'>get in touch</span>
+    </button>
+  </nav>
+
+  <!-- PANEL 1: ABOUT (À PROPOS) -->
+  <div id='panel-about' class='editorial-panel'>
+    <div class='panel-header bg-purplelight'>
+      <span class='font-mono text-xs font-bold uppercase tracking-widest translatable' data-en='EXHIBIT / BIOGRAPHY.TXT' data-fr='EXPOSITION / BIOGRAPHIE.TXT'>EXHIBIT / BIOGRAPHY.TXT</span>
+    </div>
+    <div class='panel-content'>
+      <div class='relative grid grid-cols-1 md:grid-cols-12 gap-12 items-center'>
+        
+        <!-- Bio text column -->
+        <div class='md:col-span-7 space-y-6 z-10'>
+          <div class='font-sans text-xs text-charcoal/70 leading-relaxed space-y-4 pt-4'>
+            <p data-key='about-para-1'></p>
+            <p data-key='about-para-2'></p>
+            <p data-key='about-para-3'></p>
+            <p data-key='about-para-4'></p>
+          </div>
+
+          <!-- Skills box (Relocated to left column for clean minimalist styling) -->
+          <div class='pt-6 border-t border-charcoal/5'>
+            <h4 class='font-mono text-[9px] font-bold uppercase tracking-widest text-charcoal/40 mb-3 translatable' data-en='SKILL MATRIX' data-fr='MATRICE DE COMPÉTENCES'>SKILL MATRIX</h4>
+            <div class='flex flex-wrap gap-2'>
+              <span class='px-3 py-1 bg-purplelight rounded-full text-[10px] font-mono text-charcoal/80'>Pattern Tailoring</span>
+              <span class='px-3 py-1 bg-sagelight rounded-full text-[10px] font-mono text-charcoal/80'>Graphic Design</span>
+              <span class='px-3 py-1 bg-pinklight rounded-full text-[10px] font-mono text-charcoal/80'>Visual Research</span>
+              <span class='px-3 py-1 bg-creamdark border border-charcoal/10 rounded-full text-[10px] font-mono text-charcoal/80'>Knitwear &amp; Crochet</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visual / Photobooth Column -->
+        <div class='md:col-span-5 relative flex flex-col items-center justify-center min-h-[420px] py-4 z-10'>
+          
+          <!-- Photobooth Strip Frame -->
+          <div class='photobooth-strip shadow-organic z-10'>
+            <div class='photobooth-frame'>
+              <img src='IMG-20250305-WA0053-ANIMATION.gif' alt='Portrait Crop 1' class='photobooth-img grayscale contrast-125'>
+            </div>
+            <div class='photobooth-frame'>
+              <img src='IMG-20250305-WA0053-ANIMATION.gif' alt='Portrait Crop 2' class='photobooth-img sepia contrast-110'>
+            </div>
+            <div class='photobooth-frame'>
+              <img src='IMG-20250305-WA0053-ANIMATION.gif' alt='Portrait Crop 3' class='photobooth-img'>
+            </div>
+          </div>
+
+          <!-- Overlapping Large Handwriting Section Title -->
+          <span class='font-handwriting text-[7.5rem] md:text-[9.5rem] absolute top-[50%] left-1/2 -translate-x-[48%] -translate-y-1/2 rotate-[-6deg] z-20 select-none pointer-events-none translatable text-purple opacity-95 text-center overlapping-handwriting filter drop-shadow-md'
+                data-en='about<br>myself'
+                data-fr='à propos<br>de moi'
+                style='text-shadow: 0 4px 10px rgba(252, 250, 246, 0.95), 0 2px 4px rgba(30, 30, 30, 0.1);'>
+            about<br>myself
+          </span>
+          
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 2: PORTFOLIO & CASE STUDIES -->
+  <div id='panel-portfolio' class='editorial-panel'>
+    <div class='panel-header bg-sagelight'>
+      <span class='font-mono text-xs font-bold uppercase tracking-widest translatable' data-en='EXHIBIT / PORTFOLIO.DXF' data-fr='EXPOSITION / PORTFOLIO.DXF'>EXHIBIT / PORTFOLIO.DXF</span>
+    </div>
+    <div class='panel-content overflow-y-auto'>
+      <div class='flex flex-col md:flex-row gap-8 min-h-full'>
+        
+        <!-- Left Column: Project Catalog Index -->
+        <div class='w-full md:w-5/12 border-b md:border-b-0 md:border-r border-charcoal/10 pb-6 md:pb-0 md:pr-6 flex flex-col'>
+          
+          <!-- Hidden core buttons to preserve existing JS click mapping and language updates -->
+          <div class='hidden'>
+            <button id='project-btn-b1' class='project-index-item'></button>
+            <button id='project-btn-dior' class='project-index-item'></button>
+            <button id='project-btn-met' class='project-index-item'></button>
+            <button id='project-btn-layout' class='project-index-item'></button>
+            <button id='project-btn-trends' class='project-index-item'></button>
+            <button id='project-btn-structure' class='project-index-item'></button>
+            <button id='project-btn-final' class='project-index-item'></button>
+            <button id='project-btn-personal-crochet' class='project-index-item'></button>
+            <button id='project-btn-social' class='project-index-item'></button>
+          </div>
+
+          <!-- Index Search Slip -->
+          <div class='mb-6 px-2'>
+            <span class='text-[8px] text-charcoal/40 tracking-widest block mb-2 translatable' data-en='ARCHIVE SEARCH // KEYWORDS' data-fr='RECHERCHE D’ARCHIVE // MOTS CLÉS'>ARCHIVE SEARCH // KEYWORDS</span>
+            <input type='text' id='archive-search-input'
+                   class='w-full bg-creamdark border border-charcoal/10 rounded-full px-4 py-2 font-mono text-[9px] uppercase tracking-wider text-charcoal focus:outline-none focus:border-purple placeholder-charcoal/30 transition-all'
+                   placeholder='TRY SKETCHES, CROCHET, 3D...'>
+          </div>
+
+          <!-- Discipline Index: six creative disciplines, each a direct entry point into its gallery -->
+          <div id='archive-board' class='archive-board relative w-full border border-dashed border-charcoal/10 rounded-3xl p-4 bg-creamdark/30 select-none'>
+            <span class='block text-right font-mono text-[7px] text-charcoal/30 tracking-widest pointer-events-none uppercase mb-3 translatable' data-en='SIX DISCIPLINES // SELECT ONE' data-fr='SIX DISCIPLINES // SÉLECTIONNER'>SIX DISCIPLINES // SELECT ONE</span>
+
+            <div class='flex flex-col gap-4'>
+
+              <!-- 01 Sketches -->
+              <button class='archive-card archive-card-accent-sage discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
+                      style='transform: rotate(-1deg);'
+                      data-keywords='sketches illustration concept technical drawing research ideation croquis'
+                      onclick="selectDiscipline('cat-sketches', this)">
+                <div class='flex items-center justify-between'>
+                  <div>
+                    <span class='project-badge-clean'>01</span>
+                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='Sketches' data-fr='Croquis'>Sketches</h3>
+                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Concept work, ideation &amp; technical drawing' data-fr='Travail conceptuel, idéation et dessin technique'>Concept work, ideation &amp; technical drawing</p>
+                  </div>
+                  <span class='font-mono text-lg text-charcoal/30'>→</span>
+                </div>
+              </button>
+
+              <!-- 02 3D Rendering & AI -->
+              <button class='archive-card archive-card-accent-purple discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
+                      style='transform: rotate(1deg);'
+                      data-keywords='3d ai clo3d style3d moda ai digital garment simulation render fashion visualization video'
+                      onclick="selectDiscipline('cat-3d-ai', this)">
+                <div class='flex items-center justify-between'>
+                  <div>
+                    <span class='project-badge-clean'>02</span>
+                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='3D Rendering &amp; AI' data-fr='Rendu 3D &amp; IA'>3D Rendering &amp; AI</h3>
+                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Digital garment simulation &amp; AI-assisted visual exploration' data-fr='Simulation vestimentaire numérique et exploration visuelle assistée par IA'>Digital garment simulation &amp; AI-assisted visual exploration</p>
+                  </div>
+                  <span class='font-mono text-lg text-charcoal/30'>→</span>
+                </div>
+              </button>
+
+              <!-- 03 Crochet -->
+              <button class='archive-card archive-card-accent-pink discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
+                      style='transform: rotate(-0.6deg);'
+                      data-keywords='crochet knits craft yarn textile handmade'
+                      onclick="selectDiscipline('personal-crochet', this)">
+                <div class='flex items-center justify-between'>
+                  <div>
+                    <span class='project-badge-clean'>03</span>
+                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='Crochet' data-fr='Crochet'>Crochet</h3>
+                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Handmade garments, accessories &amp; commissioned work' data-fr='Pièces faites main, accessoires et commandes'>Handmade garments, accessories &amp; commissioned work</p>
+                  </div>
+                  <span class='font-mono text-lg text-charcoal/30'>→</span>
+                </div>
+              </button>
+
+              <!-- 04 Sewing -->
+              <button class='archive-card archive-card-accent-charcoal discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
+                      style='transform: rotate(0.8deg);'
+                      data-keywords='sewing construction garment prototype pattern tailoring finished look'
+                      onclick="selectDiscipline('cat-sewing', this)">
+                <div class='flex items-center justify-between'>
+                  <div>
+                    <span class='project-badge-clean'>04</span>
+                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='Sewing' data-fr='Couture'>Sewing</h3>
+                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Construction, prototypes &amp; finished garments' data-fr='Construction, prototypes et vêtements finis'>Construction, prototypes &amp; finished garments</p>
+                  </div>
+                  <span class='font-mono text-lg text-charcoal/30'>→</span>
+                </div>
+              </button>
+
+              <!-- 05 Archive -->
+              <button class='archive-card archive-card-accent-dashed discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
+                      style='transform: rotate(-1.2deg);'
+                      data-keywords='archive experimental research textile graphic design photography visual exploration branding'
+                      onclick="selectDiscipline('cat-archive', this)">
+                <div class='flex items-center justify-between'>
+                  <div>
+                    <span class='project-badge-clean'>05</span>
+                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='Archive' data-fr='Archives'>Archive</h3>
+                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Experimental work, research &amp; graphic design' data-fr='Travail expérimental, recherche et design graphique'>Experimental work, research &amp; graphic design</p>
+                  </div>
+                  <span class='font-mono text-lg text-charcoal/30'>→</span>
+                </div>
+              </button>
+
+              <!-- 06 Social Media -->
+              <button class='archive-card archive-card-accent-sage discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
+                      style='transform: rotate(0.5deg);'
+                      data-keywords='social media digital creation campaigns branding content instagram tiktok youtube'
+                      onclick="selectDiscipline('social', this)">
+                <div class='flex items-center justify-between'>
+                  <div>
+                    <span class='project-badge-clean'>06</span>
+                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='Social Media' data-fr='Réseaux Sociaux'>Social Media</h3>
+                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Content creation, campaigns &amp; digital storytelling' data-fr='Création de contenu, campagnes et récit numérique'>Content creation, campaigns &amp; digital storytelling</p>
+                  </div>
+                  <span class='font-mono text-lg text-charcoal/30'>→</span>
+                </div>
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Project Showroom content display area -->
+        <div class='w-full md:w-7/12 flex-grow'>
+          <!-- Full-Bleed Clean Modular Portfolio Section -->
+          <div id="academic-portfolio" class="portfolio-container-clean">
+
+            <!-- ==== DISCIPLINE GALLERIES (Sketches / 3D Rendering & AI / Archive / Sewing) ====
+                 Each is a single curated horizontal gallery (.filmstrip-row of .polaroid-frame
+                 items), reused from the existing Social Media page's pattern. To add new work,
+                 drop the file in the matching PORTFOLIO ASSESTS/ subfolder and copy one item
+                 block within that gallery's .filmstrip-row. -->
+
+            <div id="project-showroom-cat-sketches" class="project-showroom-section hidden space-y-6">
+              <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
+                <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Sketches' data-fr='Croquis'>Sketches</h4>
+                <span class='organic-ribbon translatable' data-en='01 // Sketches' data-fr='01 // Croquis'>01 // Sketches</span>
+              </div>
+              <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-sketches-desc'></p>
+              <sketch-stack data-folder="PORTFOLIO ASSESTS/SKETCHES/" data-manifest-key="sketches"></sketch-stack>
+            </div>
+
+            <div id="project-showroom-cat-3d-ai" class="project-showroom-section hidden space-y-6">
+              <!-- Add new videos/renders by dropping a file in PORTFOLIO ASSESTS/3d-ai/ and adding one .polaroid-frame entry above, matching the pattern used here. -->
+              <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
+                <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='3D Rendering &amp; AI' data-fr='Rendu 3D &amp; IA'>3D Rendering &amp; AI</h4>
+                <span class='organic-ribbon translatable' data-en='02 // 3D &amp; AI' data-fr='02 // 3D &amp; IA'>02 // 3D &amp; AI</span>
+              </div>
+              <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-3d-ai-desc'></p>
+              <div class='filmstrip-row'>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-56' style='transform: rotate(-2deg);'>
+            <video src="PORTFOLIO ASSESTS/3d-ai/01kgj03gxhgpzdhxq3v61pzw9x.mp4" class='w-full h-56 object-cover rounded' controls preload='metadata' aria-label="AI-generated fashion video"></video>
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-56' style='transform: rotate(1.5deg);'>
+            <video src="PORTFOLIO ASSESTS/3d-ai/01kgj31nz9maez4gct3rvtn3aw.mp4" class='w-full h-56 object-cover rounded' controls preload='metadata' aria-label="AI-generated fashion video"></video>
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-56' style='transform: rotate(-1deg);'>
+            <video src="PORTFOLIO ASSESTS/3d-ai/01kgj3jpkd0vrr4pxfpdaz78aa.mp4" class='w-full h-56 object-cover rounded' controls preload='metadata' aria-label="AI-generated fashion video"></video>
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-56' style='transform: rotate(2deg);'>
+            <video src="PORTFOLIO ASSESTS/3d-ai/01kgj3mp7q1eypj4556j2f3vfm.mp4" class='w-full h-56 object-cover rounded' controls preload='metadata' aria-label="AI-generated fashion video"></video>
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-56' style='transform: rotate(-1.5deg);'>
+            <video src="PORTFOLIO ASSESTS/3d-ai/2026-01-15T14-27-51_high_fashion_runway_watermarked.mp4" class='w-full h-56 object-cover rounded' controls preload='metadata' aria-label="AI-generated fashion video"></video>
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1deg);'>
+            <img src="PORTFOLIO ASSESTS/3d-ai/20260605_112141_1.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-2deg);'>
+            <img src="PORTFOLIO ASSESTS/3d-ai/20260605_112142_1.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1.5deg);'>
+            <img src="PORTFOLIO ASSESTS/3d-ai/20260605_112144_1 (1).png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-1deg);'>
+            <img src="PORTFOLIO ASSESTS/3d-ai/20260605_112144_1.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(2deg);'>
+            <img src="PORTFOLIO ASSESTS/3d-ai/20260605_112257_1.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-1.5deg);'>
+            <img src="PORTFOLIO ASSESTS/3d-ai/Gemini_Generated_Image_4jrr174jrr174jrr.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1deg);'>
+            <img src="PORTFOLIO ASSESTS/3d-ai/download_1780658850692.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-2deg);'>
+            <img src="PORTFOLIO ASSESTS/3d-ai/download_1780659121138.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1.5deg);'>
+            <img src="PORTFOLIO ASSESTS/3d-ai/download_1780659980596.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-1deg);'>
+            <img src="PORTFOLIO ASSESTS/3d-ai/download_1780659988155.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
+          </div>
+              </div>
+            </div>
+
+            <div id="project-showroom-cat-sewing" class="project-showroom-section hidden space-y-6">
+              <!-- Add new pieces by dropping an exported .jpg/.png in PORTFOLIO ASSESTS/sewing/ and adding one .polaroid-frame entry above. -->
+              <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
+                <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Sewing' data-fr='Couture'>Sewing</h4>
+                <span class='organic-ribbon translatable' data-en='04 // Sewing' data-fr='04 // Couture'>04 // Sewing</span>
+              </div>
+              <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-sewing-desc'></p>
+              <div class='filmstrip-row'>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-2deg);'>
+            <img src="PORTFOLIO ASSESTS/sewing/1.jpeg" class='w-full h-56 object-cover rounded' loading='lazy' alt="Sewn garment">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1.5deg);'>
+            <img src="PORTFOLIO ASSESTS/sewing/2.jpeg" class='w-full h-56 object-cover rounded' loading='lazy' alt="Sewn garment">
+          </div>
+              </div>
+            </div>
+
+            <div id="project-showroom-cat-archive" class="project-showroom-section hidden space-y-6">
+              <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
+                <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Archive' data-fr='Archives'>Archive</h4>
+                <span class='organic-ribbon translatable' data-en='05 // Archive' data-fr='05 // Archives'>05 // Archive</span>
+              </div>
+              <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-archive-desc'></p>
+              <div class='filmstrip-row'>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-2deg);'>
+            <img src="PORTFOLIO ASSESTS/archive/039-vivienne-westwood-spring-1994-ready-to-wear-CN10055443.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="Archive piece">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1.5deg);'>
+            <img src="PORTFOLIO ASSESTS/archive/Illustration 1 layout .png" class='w-full h-56 object-cover rounded' loading='lazy' alt="Archive piece">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-1deg);'>
+            <img src="PORTFOLIO ASSESTS/archive/Screenshot 2024-04-29 at 11.00.54 AM.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="Archive piece">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(2deg);'>
+            <img src="PORTFOLIO ASSESTS/archive/analyti.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="Archive piece">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-1.5deg);'>
+            <img src="PORTFOLIO ASSESTS/archive/charte graphique.jpg" class='w-full h-56 object-cover rounded' loading='lazy' alt="Archive piece">
+          </div>
+          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1deg);'>
+            <img src="PORTFOLIO ASSESTS/archive/logoo.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="Archive piece">
+          </div>
+              </div>
+            </div>
+
+            
+            <!-- Legacy academic project (retired from Works index navigation per user
+                 direction; kept only so the untouched homepage marquee's existing
+                 link to it keeps working — do not re-link this from the new index). -->
+            <div id="project-showroom-dior" class="project-showroom-section project-block-modular hidden">
+              <div class="top-split-grid">
+                <!-- Left Side: Main Image Showcase & Detail Accordions -->
+                <div class="showcase-column-left">
+                  
+                  <!-- Interactive Accordion Bars Below Image -->
+                  <div class="accordion-group-clean">
+                    <button class="accordion-bar-clean" onclick="toggleDetails('dior-care')">
+                      <span>Product Details &amp; Technical Specs</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="dior-care" class="accordion-content-clean hidden">
+                      <p>Silhouette Pattern: Hand-draped wool-crepe tailored jacket. Structure Layout: Asymmetrical structured collar. Completed with couture finishing and interlinings.</p>
+                    </div>
+                    
+                    <button class="accordion-bar-clean" onclick="toggleDetails('dior-delivery')">
+                      <span>Academic Credits &amp; Institution</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="dior-delivery" class="accordion-content-clean hidden">
+                      <p>Completed during exchange at Accademia Italiana, Florence. Focus on pattern drafting, draping, and gender-fluid couture silhouettes.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Side: Clean Typography & Project Specifications List -->
+                <div class="specs-column-right">
+                  <span class="project-badge-clean">B2 • FLORENCE</span>
+                  <h2 class="project-title-editorial">Dior: An Androgynous Collection</h2>
+                  <p class="project-desc-editorial" data-key="dior-desc"></p>
+                  
+                  <div class="features-box-clean">
+                    <h3>Core Competencies</h3>
+                    <ul class="features-list-clean">
+                      <li><strong>Tailoring:</strong> Hand-draped wool-crepe tailoring and structural drapery.</li>
+                      <li><strong>Gender Fluidity:</strong> Prototyping hybrid volumes for masculine/feminine forms.</li>
+                      <li><strong>Inspiration:</strong> Dior heritage re-interpreted through a contemporary muse prism.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Banner Block (Solid Background Fill Card) -->
+              <div class="middle-banner-card-clean color-bg-sage">
+                <div class="banner-text-side">
+                  <h3 class="banner-title-editorial">Couture Process Insight</h3>
+                  <p>"Focusing on androgynous tailoring lines and textile weight research to redefine gender-fluid silhouettes."</p>
+                </div>
+              </div>
+
+              <!-- Bottom "More Work" Suggestion Carousel -->
+              <div class="more-projects-section-clean">
+                <h3 class="carousel-section-title">You Might Like</h3>
+                <div class="more-projects-grid-clean">
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('met')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>MET Gala Costume</h4>
+                    <p>High-fashion editorial prototyping and garment curation matrix.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Structure &amp; Flou</h4>
+                    <p>Organic textile structures derived from psychological and material exploration.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('final')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Final Collection</h4>
+                    <p>Monograph publishing and design formulation of physical garments.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 02 // MET Gala (Modular Split Layout) -->
+            <div id="project-showroom-met" class="project-showroom-section project-block-modular hidden">
+              <div class="top-split-grid">
+                <!-- Left Side: Main Image Showcase & Detail Accordions -->
+                <div class="showcase-column-left">
+                  
+                  <!-- Interactive Accordion Bars Below Image -->
+                  <div class="accordion-group-clean">
+                    <button class="accordion-bar-clean" onclick="toggleDetails('met-care')">
+                      <span>Product Details &amp; Technical Specs</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="met-care" class="accordion-content-clean hidden">
+                      <p>Corsetry specifications, custom eyelets, historical lacing metrics, and delicate fabric stabilization.</p>
+                    </div>
+                    
+                    <button class="accordion-bar-clean" onclick="toggleDetails('met-delivery')">
+                      <span>Academic Credits &amp; Institution</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="met-delivery" class="accordion-content-clean hidden">
+                      <p>Completed during exchange at Accademia Italiana, Florence. Focus on historical corsetry techniques and modern thematic styling narratives.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Side: Clean Typography & Project Specifications List -->
+                <div class="specs-column-right">
+                  <span class="project-badge-clean">B2 • FLORENCE</span>
+                  <h2 class="project-title-editorial">MET Gala: Sleeping Beauties</h2>
+                  <p class="project-desc-editorial" data-key="met-desc"></p>
+                  
+                  <div class="features-box-clean">
+                    <h3>Core Competencies</h3>
+                    <ul class="features-list-clean">
+                      <li><strong>Corsetry:</strong> Symmetrical boning layouts and custom panel construction.</li>
+                      <li><strong>Styling:</strong> Historical silhouette integration with modern organic materials.</li>
+                      <li><strong>Concept:</strong> Narrative translation based on "Reawakening Fashion" exhibition theme.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Banner Block (Solid Background Fill Card) -->
+              <div class="middle-banner-card-clean color-bg-purple">
+                <div class="banner-text-side">
+                  <h3 class="banner-title-editorial">Historical Curation</h3>
+                  <p>"Blending historical dressmaking techniques with organic aesthetics to represent nature and preservation."</p>
+                </div>
+              </div>
+
+              <!-- Bottom "More Work" Suggestion Carousel -->
+              <div class="more-projects-section-clean">
+                <h3 class="carousel-section-title">You Might Like</h3>
+                <div class="more-projects-grid-clean">
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Dior Costume Design</h4>
+                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Structure &amp; Flou</h4>
+                    <p>Organic textile structures derived from psychological and material exploration.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('trends')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Trend Forecasting</h4>
+                    <p>Circular trend forecasting and upcycling concept formulation.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 03 // Structure & Flou (Modular Split Layout) -->
+            <div id="project-showroom-structure" class="project-showroom-section project-block-modular hidden">
+              <div class="top-split-grid">
+                <!-- Left Side: Main Image Showcase & Detail Accordions -->
+                <div class="showcase-column-left">
+                  
+                  <!-- Interactive Accordion Bars Below Image -->
+                  <div class="accordion-group-clean">
+                    <button class="accordion-bar-clean" onclick="toggleDetails('structure-care')">
+                      <span>Product Details &amp; Technical Specs</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="structure-care" class="accordion-content-clean hidden">
+                      <p>170 x 240 mm dual-binded monographs. Munken rough paper 120gsm offset print.</p>
+                    </div>
+                    
+                    <button class="accordion-bar-clean" onclick="toggleDetails('structure-delivery')">
+                      <span>Academic Credits &amp; Institution</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="structure-delivery" class="accordion-content-clean hidden">
+                      <p>Completed at École de Condé Nancy. A dual book exploring structural form vs. psychological fluidity.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Side: Clean Typography & Project Specifications List -->
+                <div class="specs-column-right w-full">
+                  <span class="project-badge-clean">B3 • NANCY</span>
+                  <h2 class="project-title-editorial">Book: Structure &amp; Flou</h2>
+                  
+                  <div class="space-y-4 w-full">
+                    <div class="bg-creamdark/30 p-4 rounded-xl border border-charcoal/5">
+                      <h4 class="font-bold text-xs uppercase tracking-wider text-charcoal border-b border-charcoal/5 pb-1">Part I: Structure</h4>
+                      <p class="font-sans text-[11px] text-charcoal/70 leading-relaxed mt-1" data-key="structure-desc"></p>
+                    </div>
+                    <div class="bg-purplelight/30 p-4 rounded-xl border border-charcoal/5">
+                      <h4 class="font-bold text-xs uppercase tracking-wider text-charcoal border-b border-charcoal/5 pb-1">Part II: Flou</h4>
+                      <p class="font-sans text-[11px] text-charcoal/70 leading-relaxed mt-1" data-key="flou-desc"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Banner Block (Solid Background Fill Card) -->
+              <div class="middle-banner-card-clean color-bg-pink">
+                <div class="banner-text-side">
+                  <h3 class="banner-title-editorial">Design Concept</h3>
+                  <p>"A dual monograph book exploring the binary dialogue between structured architectural patterns and soft, fluid garment drapes."</p>
+                </div>
+              </div>
+
+              <!-- Bottom "More Work" Suggestion Carousel -->
+              <div class="more-projects-section-clean">
+                <h3 class="carousel-section-title">You Might Like</h3>
+                <div class="more-projects-grid-clean">
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Dior Costume Design</h4>
+                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('met')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>MET Gala Costume</h4>
+                    <p>High-fashion editorial prototyping and garment curation matrix.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('final')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Final Collection</h4>
+                    <p>Monograph publishing and design formulation of physical garments.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 04 // Final Collection (Modular Split Layout) -->
+            <div id="project-showroom-final" class="project-showroom-section project-block-modular hidden">
+              <div class="top-split-grid">
+                <!-- Left Side: Main Image Showcase & Detail Accordions -->
+                <div class="showcase-column-left">
+                  
+                  <!-- Interactive Accordion Bars Below Image -->
+                  <div class="accordion-group-clean">
+                    <button class="accordion-bar-clean" onclick="toggleDetails('final-care')">
+                      <span>Product Details &amp; Technical Specs</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="final-care" class="accordion-content-clean hidden">
+                      <p>Collection composition: 6 physical silhouette outfits. Knitwear prototyping: industrial knitting machine metrics and custom jacquard details.</p>
+                    </div>
+                    
+                    <button class="accordion-bar-clean" onclick="toggleDetails('final-delivery')">
+                      <span>Academic Credits &amp; Institution</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="final-delivery" class="accordion-content-clean hidden">
+                      <p>Completed at École de Condé Nancy. Graduation project showcasing months of pattern drafting, textile experimentation, and monograph curation.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Side: Clean Typography & Project Specifications List -->
+                <div class="specs-column-right">
+                  <span class="project-badge-clean">B3 • NANCY</span>
+                  <h2 class="project-title-editorial">Final Collection (PFC)</h2>
+                  <p class="project-desc-editorial" data-key="final-desc"></p>
+                  
+                  <div class="features-box-clean">
+                    <h3>Core Competencies</h3>
+                    <ul class="features-list-clean">
+                      <li><strong>Knitwear:</strong> Knitwear design and volumetric loop prototyping.</li>
+                      <li><strong>Drafting:</strong> Technical garment pattern drafting and scaling.</li>
+                      <li><strong>Direction:</strong> Complete creative direction and collection formulation.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Banner Block (Solid Background Fill Card) -->
+              <div class="middle-banner-card-clean color-bg-sage">
+                <div class="banner-text-side">
+                  <h3 class="banner-title-editorial">Curation &amp; Prototyping</h3>
+                  <p>"Exploring material weight and industrial textures to develop a modern, premium graduation lineup."</p>
+                </div>
+              </div>
+
+              <!-- Bottom "More Work" Suggestion Carousel -->
+              <div class="more-projects-section-clean">
+                <h3 class="carousel-section-title">You Might Like</h3>
+                <div class="more-projects-grid-clean">
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Dior Costume Design</h4>
+                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Structure &amp; Flou</h4>
+                    <p>Organic textile structures derived from psychological and material exploration.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('trends')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Trend Forecasting</h4>
+                    <p>Circular trend forecasting and upcycling concept formulation.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 05 // Layout Design (Modular Split Layout) -->
+            <div id="project-showroom-layout" class="project-showroom-section project-block-modular hidden">
+              <div class="top-split-grid">
+                <!-- Left Side: Main Image Showcase & Detail Accordions -->
+                <div class="showcase-column-left">
+                  
+                  <!-- Interactive Accordion Bars Below Image -->
+                  <div class="accordion-group-clean">
+                    <button class="accordion-bar-clean" onclick="toggleDetails('layout-care')">
+                      <span>Product Details &amp; Technical Specs</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="layout-care" class="accordion-content-clean hidden">
+                      <p>Medium: Editorial print layout and publication grid structures. Software: Adobe InDesign, Photoshop, and Illustrator.</p>
+                    </div>
+                    
+                    <button class="accordion-bar-clean" onclick="toggleDetails('layout-delivery')">
+                      <span>Academic Credits &amp; Institution</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="layout-delivery" class="accordion-content-clean hidden">
+                      <p>Completed at École de Condé Nancy. Focus on visual research, editorial rhythms, and page alignment logic.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Side: Clean Typography & Project Specifications List -->
+                <div class="specs-column-right">
+                  <span class="project-badge-clean">B3 • NANCY</span>
+                  <h2 class="project-title-editorial">Layout &amp; Art Direction</h2>
+                  <p class="project-desc-editorial" data-key="layout-desc"></p>
+                  
+                  <div class="features-box-clean">
+                    <h3>Core Competencies</h3>
+                    <ul class="features-list-clean">
+                      <li><strong>Typography:</strong> Scale rules, hierarchy, and typographic alignments.</li>
+                      <li><strong>Curation:</strong> Visual collection archiving and moodboard curation.</li>
+                      <li><strong>Structure:</strong> Complex multi-column grid alignment systems.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Banner Block (Solid Background Fill Card) -->
+              <div class="middle-banner-card-clean color-bg-purple">
+                <div class="banner-text-side">
+                  <h3 class="banner-title-editorial">Graphic Conception</h3>
+                  <p>"Focusing on alignment, layout hierarchy, and editorial grids to document fashion stories and textures."</p>
+                </div>
+              </div>
+
+              <!-- Bottom "More Work" Suggestion Carousel -->
+              <div class="more-projects-section-clean">
+                <h3 class="carousel-section-title">You Might Like</h3>
+                <div class="more-projects-grid-clean">
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Dior Costume Design</h4>
+                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Structure &amp; Flou</h4>
+                    <p>Organic textile structures derived from psychological and material exploration.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('trends')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Trend Forecasting</h4>
+                    <p>Circular trend forecasting and upcycling concept formulation.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 06 // Trend Forecasting (Modular Split Layout) -->
+            <div id="project-showroom-trends" class="project-showroom-section project-block-modular hidden">
+              <div class="top-split-grid">
+                <!-- Left Side: Main Image Showcase & Detail Accordions -->
+                <div class="showcase-column-left">
+                  
+                  <!-- Interactive Accordion Bars Below Image -->
+                  <div class="accordion-group-clean">
+                    <button class="accordion-bar-clean" onclick="toggleDetails('trends-care')">
+                      <span>Product Details &amp; Technical Specs</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="trends-care" class="accordion-content-clean hidden">
+                      <p>Macro-trend research, zero waste pattern blueprinting, and 100% upcycling fabrication methodology details.</p>
+                    </div>
+                    
+                    <button class="accordion-bar-clean" onclick="toggleDetails('trends-delivery')">
+                      <span>Academic Credits &amp; Institution</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="trends-delivery" class="accordion-content-clean hidden">
+                      <p>Completed at École de Condé Nancy. Curation of a personal forecasting magazine paired with sustainable upcycled designs.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Side: Clean Typography & Project Specifications List -->
+                <div class="specs-column-right">
+                  <span class="project-badge-clean">B3 • NANCY</span>
+                  <h2 class="project-title-editorial">Trends &amp; Upcycling</h2>
+                  <p class="project-desc-editorial" data-key="trends-desc"></p>
+                  
+                  <div class="features-box-clean">
+                    <h3>Core Competencies</h3>
+                    <ul class="features-list-clean">
+                      <li><strong>Sustainability:</strong> Upcycling, textile reuse, and circular patterns.</li>
+                      <li><strong>Forecasting:</strong> Weak signals, cultural analytics, and macro trends.</li>
+                      <li><strong>Blueprint:</strong> Zero waste pattern geometry and fabric conservation.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Banner Block (Solid Background Fill Card) -->
+              <div class="middle-banner-card-clean color-bg-pink">
+                <div class="banner-text-side">
+                  <h3 class="banner-title-editorial">Upcycling Conception</h3>
+                  <p>"Analyzing upcycling methodologies to formulate a circular roadmap for zero waste fashion lines."</p>
+                </div>
+              </div>
+
+              <!-- Bottom "More Work" Suggestion Carousel -->
+              <div class="more-projects-section-clean">
+                <h3 class="carousel-section-title">You Might Like</h3>
+                <div class="more-projects-grid-clean">
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Dior Costume Design</h4>
+                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Structure &amp; Flou</h4>
+                    <p>Organic textile structures derived from psychological and material exploration.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('layout')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Layout Design</h4>
+                    <p>Editorial layout research and publication grid composition studies.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 07 // Bachelor 1 (Modular Split Layout) -->
+            <div id="project-showroom-b1" class="project-showroom-section project-block-modular hidden">
+              <div class="top-split-grid">
+                <!-- Left Side: Main Image Showcase & Detail Accordions -->
+                <div class="showcase-column-left">
+                  <div class="main-image-frame">
+                    <img src="b1-look.jpg" alt="Bachelor 1 Final Look Showcase" class="modular-img">
+                  </div>
+                  
+                  <!-- Interactive Accordion Bars Below Image -->
+                  <div class="accordion-group-clean">
+                    <button class="accordion-bar-clean" onclick="toggleDetails('b1-care')">
+                      <span>Product Care &amp; Technical Details</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="b1-care" class="accordion-content-clean hidden">
+                      <p>Pattern specifications, tailoring metrics, and textile composition analytics compiled during the fabrication phase.</p>
+                    </div>
+                    
+                    <button class="accordion-bar-clean" onclick="toggleDetails('b1-delivery')">
+                      <span>Academic Credits &amp; Institution</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="b1-delivery" class="accordion-content-clean hidden">
+                      <p>Completed at École de Condé Nancy. Focus on core design fundamentals, form exploration, and structural material manipulation.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Side: Clean Typography & Project Specifications List -->
+                <div class="specs-column-right">
+                  <span class="project-badge-clean">NANCY ACADEMY</span>
+                  <h2 class="project-title-editorial">Bachelor I: Fundamentals</h2>
+                  <p class="project-desc-editorial" data-key="b1-desc">
+                    My first year at École de Condé Nancy was an immersive dive into the fundamentals of design across all major fields. Within a multidisciplinary curriculum, I discovered graphics, space, product, and fashion design. This transversal approach enriched my visual culture and built a solid project methodology.
+                  </p>
+                  
+                  <div class="features-box-clean">
+                    <h3>Core Competencies</h3>
+                    <ul class="features-list-clean">
+                      <li><strong>Methodology:</strong> Visual research, concept mapping, and ideation drafting.</li>
+                      <li><strong>Mediums:</strong> Technical drawing, color theory, and volumetric study.</li>
+                      <li><strong>Exploration:</strong> Transversal experimentation across physical and textile mediums.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Banner Block (Solid Background Fill Card) -->
+              <div class="middle-banner-card-clean color-bg-sage">
+                <div class="banner-text-side">
+                  <h3 class="banner-title-editorial">Visual Research &amp; Conception</h3>
+                  <p>A look into the initial charcoal studies and raw drapery layouts that formed the basis of the final silhouette execution.</p>
+                  <button class="banner-btn-clean">View Ideation Log</button>
+                </div>
+                <div class="banner-image-side">
+                  <img src="b1-sketches.jpg" alt="Initial Fashion Sketches" class="banner-embedded-img">
+                </div>
+              </div>
+
+              <!-- Bottom "More Work" Horizontal Suggestion Carousel Grid -->
+              <div class="more-projects-section-clean">
+                <h3 class="carousel-section-title">You Might Like</h3>
+                <div class="more-projects-grid-clean">
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Dior Costume Design</h4>
+                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('met')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>MET Gala Costume</h4>
+                    <p>High-fashion editorial prototyping and garment curation matrix.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Structure &amp; Flou</h4>
+                    <p>Organic textile structures derived from psychological and material exploration.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 08 // Bachelor 2 (Modular Split Layout) -->
+            <div id="project-showroom-b2" class="project-showroom-section project-block-modular hidden">
+              <div class="top-split-grid">
+                <!-- Left Side: Main Image Showcase & Detail Accordions -->
+                <div class="showcase-column-left">
+                  
+                  <!-- Interactive Accordion Bars Below Image -->
+                  <div class="accordion-group-clean">
+                    <button class="accordion-bar-clean" onclick="toggleDetails('b2-care')">
+                      <span>Product Details &amp; Technical Specs</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="b2-care" class="accordion-content-clean hidden">
+                      <p>Exchange curation: Accademia Italiana, Florence. Portfolio development, renaissance draping, and technical pattern layout drafting details.</p>
+                    </div>
+                    
+                    <button class="accordion-bar-clean" onclick="toggleDetails('b2-delivery')">
+                      <span>Academic Credits &amp; Institution</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="b2-delivery" class="accordion-content-clean hidden">
+                      <p>Completed in Florence, Italy. Deep dive into classic Italian tailoring craftsmanship and historical draping structures.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Side: Clean Typography & Project Specifications List -->
+                <div class="specs-column-right">
+                  <span class="project-badge-clean">ACCADEMIA ITALIANA</span>
+                  <h2 class="project-title-editorial">Bachelor II: Florence Residency</h2>
+                  <p class="project-desc-editorial" data-key="b2-desc"></p>
+                  
+                  <div class="features-box-clean">
+                    <h3>Core Competencies</h3>
+                    <ul class="features-list-clean">
+                      <li><strong>Tailoring:</strong> Florentine drape systems and classic garment architectures.</li>
+                      <li><strong>Culture:</strong> Historical collection narratives inspired by Renaissance styles.</li>
+                      <li><strong>Media:</strong> Visual collection archiving and technical studio photography.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Banner Block (Solid Background Fill Card) -->
+              <div class="middle-banner-card-clean color-bg-sage">
+                <div class="banner-text-side">
+                  <h3 class="banner-title-editorial">Atelier Experience</h3>
+                  <p>"Immersing in Italian history and renaissance architecture to design narrative collections."</p>
+                </div>
+              </div>
+
+              <!-- Bottom "More Work" Suggestion Carousel -->
+              <div class="more-projects-section-clean">
+                <h3 class="carousel-section-title">You Might Like</h3>
+                <div class="more-projects-grid-clean">
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Dior Costume Design</h4>
+                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('met')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>MET Gala Costume</h4>
+                    <p>High-fashion editorial prototyping and garment curation matrix.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Structure &amp; Flou</h4>
+                    <p>Organic textile structures derived from psychological and material exploration.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 09 // Bachelor 3 (Modular Split Layout) -->
+            <div id="project-showroom-b3" class="project-showroom-section project-block-modular hidden">
+              <div class="top-split-grid">
+                <!-- Left Side: Main Image Showcase & Detail Accordions -->
+                <div class="showcase-column-left">
+                  
+                  <!-- Interactive Accordion Bars Below Image -->
+                  <div class="accordion-group-clean">
+                    <button class="accordion-bar-clean" onclick="toggleDetails('b3-care')">
+                      <span>Product Details &amp; Technical Specs</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="b3-care" class="accordion-content-clean hidden">
+                      <p>Final year monograph publication compilation, custom patterns, and textile knitting structures.</p>
+                    </div>
+                    
+                    <button class="accordion-bar-clean" onclick="toggleDetails('b3-delivery')">
+                      <span>Academic Credits &amp; Institution</span>
+                      <span class="icon-plus">+</span>
+                    </button>
+                    <div id="b3-delivery" class="accordion-content-clean hidden">
+                      <p>Completed at École de Condé Nancy. Acceleration of project methodologies and design identity maturation.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right Side: Clean Typography & Project Specifications List -->
+                <div class="specs-column-right">
+                  <span class="project-badge-clean">ÉCOLE DE CONDÉ</span>
+                  <h2 class="project-title-editorial">Bachelor III: Nancy Atelier</h2>
+                  <p class="project-desc-editorial" data-key="b3-desc"></p>
+                  
+                  <div class="features-box-clean">
+                    <h3>Core Competencies</h3>
+                    <ul class="features-list-clean">
+                      <li><strong>Maturation:</strong> Advanced technical development and collection direction.</li>
+                      <li><strong>Curation:</strong> Design curation, monograph publishing, and presentation models.</li>
+                      <li><strong>Technique:</strong> Complex knitwear prototyping and circular fashion models.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Middle Banner Block (Solid Background Fill Card) -->
+              <div class="middle-banner-card-clean color-bg-purple">
+                <div class="banner-text-side">
+                  <h3 class="banner-title-editorial">Atelier Presentation</h3>
+                  <p>"Final year research refining pattern drafting, monograph publishing, and visual presentation archives."</p>
+                </div>
+              </div>
+
+              <!-- Bottom "More Work" Suggestion Carousel -->
+              <div class="more-projects-section-clean">
+                <h3 class="carousel-section-title">You Might Like</h3>
+                <div class="more-projects-grid-clean">
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
+                    <span class="mini-badge-clean">B2 • FLORENCE</span>
+                    <h4>Dior Costume Design</h4>
+                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Structure &amp; Flou</h4>
+                    <p>Organic textile structures derived from psychological and material exploration.</p>
+                  </div>
+                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('final')">
+                    <span class="mini-badge-clean">B3 • NANCY</span>
+                    <h4>Final Collection</h4>
+                    <p>Monograph publishing and design formulation of physical garments.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <!-- 10 // Social Media -->
+        <div id='project-showroom-social' class='project-showroom-section hidden space-y-6'>
+            <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/5 pb-4'>
+              <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Content Creation &amp; Campaigns' data-fr='Création de Contenu &amp; Campagnes'>Content Creation &amp; Campaigns</h4>
+              <span class='organic-ribbon translatable' data-en='Social Media' data-fr='Réseaux Sociaux'>Social Media</span>
+            </div>
+            <div class='grid grid-cols-1 lg:grid-cols-12 gap-8 items-center'>
+              <div class='lg:col-span-7 space-y-4'>
+                <p class='font-sans text-sm text-charcoal/70 leading-relaxed' data-key='social-desc'></p>
+                <div class='grid grid-cols-2 gap-4 font-mono text-[10px] pt-4'>
+                  <div class='p-3 bg-creamdark rounded-xl border border-charcoal/5'>
+                    <span class='block text-[8px] text-charcoal/40 uppercase translatable' data-en='Platforms' data-fr='Plateformes'>Platforms</span>
+                    <span class='font-bold'>Instagram, TikTok, YouTube</span>
+                  </div>
+                  <div class='p-3 bg-creamdark rounded-xl border border-charcoal/5'>
+                    <span class='block text-[8px] text-charcoal/40 uppercase translatable' data-en='Focus' data-fr='Axe'>Focus</span>
+                    <span class='font-bold translatable' data-en='Luxury &amp; Storytelling' data-fr='Storytelling &amp; Luxe'>Luxury &amp; Storytelling</span>
+                  </div>
+                </div>
+              </div>
+              <div class='lg:col-span-5 flex justify-center'>
+                <div class='polaroid-frame rotate-[2.5deg] w-64 shadow-organic'>
+                  <div class='mt-3 font-mono text-[9px] text-charcoal/40 text-center'>DIGITAL OUTREACH</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 11 // Personal Work: Crochet & Knits -->
+          <div id='project-showroom-personal-crochet' class='project-showroom-section hidden space-y-6'>
+            <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/5 pb-4'>
+              <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Crochet &amp; Experimental Knits' data-fr='Crochet &amp; Tricot Expérimental'>Crochet &amp; Experimental Knits</h4>
+              <span class='organic-ribbon translatable' data-en='Personal Work' data-fr='Projets Personnels'>Personal Work</span>
+            </div>
+            
+            <div class='personal-slide-container relative z-10'>
+              
+              <!-- Left Column: Text & Chunky Typography -->
+              <div class='lg:col-span-6 space-y-6 relative z-10'>
+                <div class='chunky-highlight-title select-none pointer-events-none opacity-10'>
+                  CRAFT
+                </div>
+                <p class='font-sans text-sm text-charcoal/70 leading-relaxed' data-key='personal-crochet-desc'></p>
+                <div class='border-l-2 border-purple pl-4 italic text-xs text-charcoal/60 leading-relaxed translatable'
+                     data-en='"Transforming organic yarn threads into computational geometric volumes, blending ancient loops with modern structural layouts."'
+                     data-fr='"Transformer des fils de laine organiques en volumes géométriques informatiques, mêlant boucles ancestrales et structures modernes."'>
+                  "Transforming organic yarn threads into computational geometric volumes, blending ancient loops with modern structural layouts."
+                </div>
+              </div>
+
+              <!-- Right Column: Minimalist Photo Grid & Journey lines -->
+              <div class='lg:col-span-6 relative min-h-[300px]'>
+                <!-- SVG journey line connecting elements -->
+                <svg class='journey-path-svg' viewBox='0 0 400 300' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                  <path d='M30 50 C 150 20, 200 280, 350 250' stroke='#9882AC' stroke-width='1.5' stroke-dasharray='4 4' />
+                </svg>
+
+                <div class='minimalist-photo-grid relative z-10'>
+                  <div class='minimal-photo-rect'>
+                    <div class='bg-creamdark p-2 text-center font-mono text-[8px] text-charcoal/50 uppercase tracking-widest'>Process</div>
+                  </div>
+                  <div class='minimal-photo-rect mt-8' style='aspect-ratio: 3/4;'>
+                    <img src="PORTFOLIO ASSESTS/crochet/IMG_20260214_163702821_HDR.jpg" class='w-full h-full object-cover' loading='lazy' alt='Finished crochet piece'>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 3: SERVICES & UNIVERS PERSONNEL -->
+  <div id='panel-universe' class='editorial-panel'>
+    <div class='panel-header bg-pinklight'>
+      <span class='font-mono text-xs font-bold uppercase tracking-widest translatable' data-en='EXHIBIT / OFFERINGS &amp; KNITS' data-fr='EXPOSITION / PRESTATIONS &amp; KNITS'>EXHIBIT / OFFERINGS &amp; KNITS</span>
+    </div>
+    <div class='panel-content'>
+      <div class='space-y-8'>
+        
+        <!-- Services Section -->
+        <div class='grid grid-cols-1 md:grid-cols-2 gap-8'>
+          <div class='space-y-4'>
+            <h3 class='font-serif-fashion italic text-4xl text-charcoal translatable' data-en='Freelance Services' data-fr='Services Freelance'>Freelance Services</h3>
+            <p class='font-sans text-sm text-charcoal/70 leading-relaxed translatable'
+               data-en='Bespoke solutions at the intersection of modern apparel patterns and digital storytelling methodologies.'
+               data-fr='Prestations sur mesure à l’intersection des techniques de patronnage de mode et du storytelling numérique.'>
+              Bespoke solutions at the intersection of modern apparel patterns and digital storytelling methodologies.
+            </p>
+            <ul class='font-mono text-xs space-y-2 text-charcoal/60 list-disc list-inside'>
+              <li class='translatable' data-en='Creative Direction &amp; Styling' data-fr='Direction Artistique &amp; Stylisme'>Creative Direction &amp; Styling</li>
+              <li class='translatable' data-en='Generative AI Visual Pipelines' data-fr='Flux Visuels d’IA Générative'>Generative AI Visual Pipelines</li>
+              <li class='translatable' data-en='Editorial Layout &amp; Zine Publishing' data-fr='Mise en Page Éditoriale &amp; Auto-Édition'>Editorial Layout &amp; Zine Publishing</li>
+            </ul>
+          </div>
+
+          <!-- Content Creation Metric cards -->
+          <div class='bg-creamdark p-6 rounded-3xl border border-charcoal/10 flex flex-col justify-center space-y-4 shadow-organic'>
+            <h4 class='font-mono text-xs font-bold uppercase tracking-wider translatable' data-en='DIGITAL IMPACT' data-fr='IMPACT NUMÉRIQUE'>DIGITAL IMPACT</h4>
+            <div class='grid grid-cols-2 gap-4'>
+              <div class='p-4 bg-cream rounded-2xl text-center shadow-organic'>
+                <span class='block font-serif-fashion italic text-2xl text-purple'>25k+</span>
+                <span class='font-mono text-[9px] text-charcoal/40 uppercase translatable' data-en='Followers' data-fr='Abonnés'>Followers</span>
+              </div>
+              <div class='p-4 bg-cream rounded-2xl text-center shadow-organic'>
+                <span class='block font-serif-fashion italic text-2xl text-sage'>1.2M</span>
+                <span class='font-mono text-[9px] text-charcoal/40 uppercase translatable' data-en='Impressions' data-fr='Vues / Mois'>Impressions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Crochet & Personal Universe Filmstrip -->
+        <div class='space-y-4 border-t border-charcoal/5 pt-8'>
+          <h4 class='font-serif-fashion italic text-2xl text-charcoal translatable' data-en='Personal Universe: Crochet Archive' data-fr='Univers Personnel : Patrons Crochet'>Personal Universe: Crochet Archive</h4>
+          <div class='filmstrip-row'>
+            
+            <div class='polaroid-frame w-56 flex-shrink-0 rotate-[-1.5deg]'>
+              <img src='b1-look.jpg' 
+                   alt='Knitting loop' class='w-full h-32 object-cover rounded-lg'>
+              <h5 class='font-syne-bold font-bold text-[10px] uppercase text-charcoal mt-3 translatable' data-en='Stitch Pattern #12' data-fr='Point Crochet N° 12'>Stitch Pattern #12</h5>
+            </div>
+            
+            <div class='polaroid-frame w-56 flex-shrink-0 rotate-[2deg]'>
+              <h5 class='font-syne-bold font-bold text-[10px] uppercase text-charcoal mt-3 translatable' data-en='Merino Yarn Renders' data-fr='Nuancier Laine Mérinos'>Merino Yarn Renders</h5>
+            </div>
+
+            <div class='polaroid-frame w-56 flex-shrink-0 rotate-[-2.5deg]'>
+              <h5 class='font-syne-bold font-bold text-[10px] uppercase text-charcoal mt-3 translatable' data-en='Modular Lace Top' data-fr='Haut en Dentelle Modulaire'>Modular Lace Top</h5>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 4: JOURNAL & CONTACT -->
+  <div id='panel-journal' class='editorial-panel'>
+    <div class='panel-header bg-creamdark'>
+      <span class='font-mono text-xs font-bold uppercase tracking-widest translatable' data-en='EXHIBIT / INQUIRIES &amp; CONTACT' data-fr='EXPOSITION / DEMANDES &amp; CONTACT'>EXHIBIT / INQUIRIES &amp; CONTACT</span>
+    </div>
+    <div class='panel-content'>
+      <div class='grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start max-w-7xl mx-auto py-8 px-4'>
+        
+        <!-- Left Column: Large Editorial Headline & Intro Invite -->
+        <div class='lg:col-span-5 space-y-8'>
+          <h3 class='font-serif-fashion italic text-5xl md:text-6xl lg:text-7xl text-charcoal leading-[1.1] tracking-tight'>
+            Want to<br>
+            start a<br>
+            <span class='text-purple'>new.</span><br>
+            project?
+          </h3>
+          <p class='font-serif-fashion text-xl md:text-2xl text-charcoal/70 italic translatable' data-en='Or just say hello.' data-fr='Ou simplement dire bonjour.'>
+            Or just say hello.
+          </p>
+          <div class='font-sans text-xs md:text-sm text-charcoal/50 leading-relaxed max-w-sm pt-4 border-t border-charcoal/5 translatable'
+               data-en='Available for freelance projects, collaborations, creative consulting and selected commissions.'
+               data-fr='Disponible pour des projets freelance, des collaborations, du conseil créatif et des commissions sélectionnées.'>
+            Available for freelance projects, collaborations, creative consulting and selected commissions.
+          </div>
+        </div>
+
+        <!-- Right Column: Connect & Inquiry Form -->
+        <div class='lg:col-span-7 space-y-16'>
+          
+          <!-- Connect block (Direct Mail removed entirely) -->
+          <div class='space-y-2 pb-8 border-b border-charcoal/10'>
+            <span class='block font-mono text-[9px] uppercase tracking-widest text-charcoal/40 translatable' data-en='Connect' data-fr='Se Connecter'>Connect</span>
+            <div class='flex flex-wrap gap-x-6 gap-y-2 font-mono text-[10px] text-charcoal/60'>
+              <a href='https://www.instagram.com/_shameless_media/' target='_blank' class='hover:text-purple transition-colors'>Instagram</a>
+              <a href='https://www.linkedin.com/in/laura-garcon/' target='_blank' class='hover:text-purple transition-colors'>LinkedIn</a>
+            </div>
+          </div>
+          
+          <!-- Inquiry Form Block -->
+          <div class='space-y-6'>
+            <span class='block font-mono text-[9px] uppercase tracking-widest text-charcoal/40 translatable' data-en='Inquiry Form' data-fr='Formulaire de Demande'>Inquiry Form</span>
+            
+            <form id='exhibit-contact-form' class='space-y-8'>
+              
+              <div class='relative z-0 w-full border-b border-charcoal/10 focus-within:border-purple transition-colors duration-300 py-2'>
+                <label for='name' class='block font-mono text-[9px] uppercase text-charcoal/40 tracking-wider translatable' data-en='Your Name' data-fr='Votre Nom'>Your Name</label>
+                <input type='text' id='name' required class='block w-full bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 text-sm text-charcoal py-1' placeholder=' '>
+              </div>
+              
+              <div class='relative z-0 w-full border-b border-charcoal/10 focus-within:border-purple transition-colors duration-300 py-2'>
+                <label for='email' class='block font-mono text-[9px] uppercase text-charcoal/40 tracking-wider translatable' data-en='Your Email' data-fr='Votre E-mail'>Your Email</label>
+                <input type='email' id='email' required class='block w-full bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 text-sm text-charcoal py-1' placeholder=' '>
+              </div>
+              
+              <div class='relative z-0 w-full border-b border-charcoal/10 focus-within:border-purple transition-colors duration-300 py-2'>
+                <label for='brand' class='block font-mono text-[9px] uppercase text-charcoal/40 tracking-wider translatable' data-en='Company / Brand' data-fr='Société / Marque'>Company / Brand</label>
+                <input type='text' id='brand' class='block w-full bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 text-sm text-charcoal py-1' placeholder=' '>
+              </div>
+              
+              <div class='relative z-0 w-full border-b border-charcoal/10 focus-within:border-purple transition-colors duration-300 py-2'>
+                <label for='subject' class='block font-mono text-[9px] uppercase text-charcoal/40 tracking-wider translatable' data-en='Subject' data-fr='Objet'>Subject</label>
+                <input type='text' id='subject' required class='block w-full bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 text-sm text-charcoal py-1' placeholder=' '>
+              </div>
+              
+              <div class='relative z-0 w-full border-b border-charcoal/10 focus-within:border-purple transition-colors duration-300 py-2'>
+                <label for='message' class='block font-mono text-[9px] uppercase text-charcoal/40 tracking-wider translatable' data-en='Project Details' data-fr='Détails du Projet'>Project Details</label>
+                <textarea id='message' rows='3' required class='block w-full bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 text-sm text-charcoal py-1 resize-none' placeholder=' '></textarea>
+              </div>
+              
+              <div class='pt-4 flex justify-between items-center'>
+                <button type='submit' class='group flex items-center space-x-3 text-charcoal hover:text-purple transition-colors focus:outline-none'>
+                  <span class='font-mono text-xs font-bold uppercase tracking-wider translatable' data-en="Let's Create Together" data-fr='Créons Ensemble'>Let's Create Together</span>
+                  <span class='text-lg transform group-hover:translate-x-1.5 transition-transform duration-200'>→</span>
+                </button>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Translation & Interactive Exhibition Script -->
+  <script>
+    let currentLang = "en";
+const translations = { en: {}, fr: {} };
+
+translations.en["hero-desc"] = "A premium creative archive showcasing a collection of fashion design projects, creative direction, styling, textile exploration, branding, and digital work.";
+translations.fr["hero-desc"] = "Une archive créative haut de gamme rassemblant mes projets de design de mode, direction artistique, stylisme, exploration textile, image de marque et création digitale.";
+
+translations.en["about-title"] = "The Multi-Disciplinary Loom";
+translations.fr["about-title"] = "Le Métier Pluridisciplinaire";
+
+translations.en["about-para-1"] = "There was a time when I dreamed of sharp tailored suits and a corner office on the top floor of a global corporation. Then, the COVID-19 crisis arrived, prompting me to question my path, as so many did. Stepping back, I realized that spending my days confined to a desk was not the future I envisioned. So, I took a leap of faith to follow my primary passion: creation.";
+translations.fr["about-para-1"] = "Il fut un temps où je rêvais de tailleurs bien repassés et d’un bureau au dernier étage d’une entreprise reconnue mondialement. Et puis, la crise du COVID-19 est privée et j’ai remis en question toute ma vie comme beaucoup de personnes. J’ai pris un peu de recul et j’ai réalisé que rester assise derrière un bureau toute la journée n’était pas ce que je voulais pour mon futur. J’ai alors pris un risque : j’ai suivi ma première passion — la création.";
+
+translations.en["about-para-2"] = "For as long as I can remember, I have loved imagining, transforming, and crafting. Whether through drawing, crochet, interior design, or apparel, creating is what makes me feel truly alive. Working with materials, giving them new form, and weaving new narratives—these are the moments where I truly discover myself.";
+translations.fr["about-para-2"] = "Depuis toujours, j’aime imaginer, transformer, fabriquer. Que ce soit à travers le crochet, le dessin, la déco, ou les vêtements, créer me fait vivre. Travailler la matière, lui donner une nouvelle forme, une nouvelle histoire — c’est dans ces moments-là que je me sens moi-même.";
+
+translations.en["about-para-3"] = "After validating a dual degree in International Relations and Business Management (because aiming high has always been my philosophy), I chose to dedicate myself to fashion design. I studied in France, lived in Florence, and explored South Korea while studying in Daegu—each city, each culture enriching my vision. I do not travel simply to collect destinations, but to broaden my horizons and feed my creative spirit.";
+translations.fr["about-para-3"] = "Après avoir validé un double diplôme en relations internationales et gestion des entreprises (parce que viser grand, c’est un peu mon truc), j’ai choisi de me former au design de mode. J’ai étudié en France, vécu à Florence, découvert la Corée du Sud en étudiant à Daegu — chaque ville, chaque culture m’a enrichie. Je ne voyage pas pour collectionner les destinations, mais pour élargir mes horizons et nourrir ma créativité.";
+
+translations.en["about-para-4"] = "This portfolio is a fragment of my journey: a distillation of my identity and what drives me. It reflects my creative universe, my growth, and my commitment to contributing to a more beautiful world, one design at a time.";
+translations.fr["about-para-4"] = "Ce portfolio, c’est un bout de mon parcours : un concentré de qui je suis, de ce qui m’anime — il reflète mon univers, mon évolution, et ma volonté de contribuer à un monde plus beau, une création à la fois.";
+
+translations.en["dior-desc"] = "For this project, the brief was to design a Spring/Summer 2025 capsule collection, selecting a couture house and a muse. I chose Dior, drawn by the timeless elegance of its codes, and Park Jimin as the muse—a figure who perfectly embodies grace, modernity, and gender fluidity. With this collection, entitled 'An Androgynous Collection,' I aimed to blur the boundaries between masculine and feminine wardrobes. Soft colors, fluid cuts, couture details, and hybrid silhouettes compose a line that pairs strength with delicacy, power with sensitivity. The objective? To re-interpret Dior’s spirit through a contemporary prism, echoing a generation that is freer, more expressive, and deeply engaged with the concept of identity.";
+translations.fr["dior-desc"] = "Pour ce projet, il s’agissait d’imaginer une collection capsule Printemps/Été 2025 en choisissant une maison de couture et une muse. J’ai choisi Dior, pour l’élégance intemporelle de ses codes, et Park Jimin comme muse — une figure qui incarne à merveille la grâce, la modernité et l’ambiguïté de genre. Avec cette collection intitulée “An Androgynous Collection”, j’ai voulu brouiller les frontières du vestiaire masculin et féminin. Couleurs douces, coupes fluides, détails couture et silhouettes hybrides composent une ligne qui conjugue force et délicatesse, puissance et sensibilité. Le but ? Réinterpréter l’esprit Dior à travers un prisme contemporain, en écho avec une génération plus libre, plus expressive, et profondément attachée à la question de l’identité.";
+
+translations.en["met-desc"] = "In this styling project, I designed a mini-collection inspired by the MET Gala 2024 theme: 'Sleeping Beauties: Reawakening Fashion.' My creative approach focused on two main themes: Regency era aesthetics and the fragility of the natural world. I sought to create garments that evoke both the majesty and ephemeral poetry of nature. Airy volumes, lightweight materials, organic details... each piece is conceived as a celebration of natural beauty, as well as a reminder of its vulnerability. This project allowed me to experiment with a more narrative approach to garments, designing each silhouette as a character suspended between dream and reality—a 'sleeping beauty' awakened by fashion for the night of the gala.";
+translations.fr["met-desc"] = "Dans le cadre d’un projet de stylisme, j’ai travaillé sur une mini collection inspirée du thème du MET Gala 2024 : “Sleeping Beauties: Reawakening Fashion”. Ma démarche s’est articulée autour de deux axes principaux : l’esthétique de la Régence (Regency era) et la fragilité du monde naturel. J’ai voulu créer des tenues qui évoquent à la fois la majesté et la poésie éphémère de la nature. Volumes aériens, matières légères, détails organiques… chaque pièce est pensée comme une célébration de la beauté naturelle, mais aussi comme un rappel de sa vulnérabilité. Ce projet m’a permis d’expérimenter une approche plus narrative du vêtement, en concevant chaque silhouette comme un personnage figé entre rêve et réalité — une “belle endormie” que la mode réveille, le temps d’un gala.";
+
+translations.en["structure-desc"] = "This project allowed me to explore garments as architectural objects, conceived through rigidity, geometry, and the way they inhabit space. I chose a unique, organic angle of research: the mushroom, fascinated by its internal and external structures and volumes. Drawing from this natural reference, I developed clean shapes, strong lines, and worked with structured, textured fabrics to evoke both the robustness of mycelium and the apparent fragility of fungal caps. A reflection on the living world as a model of natural engineering, and the garment as a protective extension of the body.";
+translations.fr["structure-desc"] = "Ce projet m’a permis d’expliquer le vêtement comme objet architectural, pensé dans sa rigidité, sa géométrie, et sa manière d’habiter l’espace. J’ai choisi un angle de recherche original et organique : le champignon, fascinée par ses structures internes et externes et ses volumes. À partir de cette référence naturelle, j’ai développé des formes nettes, des lignes affirmées, et travaillé des matières structurantes et texturées pour évoquer à la fois la robustesse du mycélium et la fragilité apparente des chapeaux fongiques. Une réflexion sur le vivant comme modèle d’ingénierie naturelle, et le vêtement comme extension protectrice du corps.";
+
+translations.en["flou-desc"] = "For this second project, I chose to explore a psychological and emotional blur, working around themes of depression and depersonalization. This project book addresses the loss of boundaries, the dissolution of identity, and the absence of contours. I sought to translate this internal floating sensation through deconstructed shapes, hazy layering, fluid and shifting materials, and desaturated colors. The garment becomes the reflection of an altered mental state—between presence and absence, reality and distorted perception. This project enabled me to push textile experimentation in a more intimate, sensory, yet fragile direction. An intention-led study of a blurred world where everything feels unstable—first and foremost, oneself.";
+translations.fr["flou-desc"] = "Pour ce second projet, j’ai choisi d’explorer un flou psychologique et émotionnel, en travaillant sur les thématiques de la dépression et de la dépersonnalisation. Ce book parle de perte de repères, de dissolution de l’identité, d’absence de contours. J’ai cherché à traduire cette sensation de flottement intérieur à travers des formes déconstruites, des superpositions troubles, des matières floues et mouvantes, des couleurs désaturées. Le vêtement devient alors un reflet d’un état mental altéré — entre présence et absence, entre réalité et perception déformée. Ce projet m’a permis de pousser l’expérimentation textile dans une direction plus intime, plus sensorielle, mais aussi plus fragile. Une immersion dans un monde flou, où tout semble instable — à commencer par soi-même.";
+
+translations.en["final-desc"] = "As the year's focal point, my graduation collection is the culmination of months of research, experimentation, sketches, textile selections, and identity reflections. It distills my personal aesthetic, core inspirations, and my commitment to proposing a conscious, bold, and deeply embodied fashion.";
+translations.fr["final-desc"] = "Projet fil rouge de l’année, ma collection de diplôme est l’aboutissement de plusieurs mois de recherches, d’essais, de croquis, de choix de matières et de réflexion identitaire. Elle condense mon esthétique personnelle, mes inspirations fortes, et ma volonté de proposer une mode engagée, audacieuse et incarnée.";
+
+translations.en["layout-desc"] = "This course aimed to develop our graphic sensibility, our ability to conduct coherent visual research, and to build narrative moodboards around varied themes. Each project was an immersion into a unique universe, driven by the experimentation of tools, styles, and artistic references. Subjects covered included: a study of Peru through its visual and textile culture, research around vitiligo, a compositional layout on the iconic duo Vincent Vega & Jules Winnfield (Pulp Fiction), a morphological and historical analysis of the t-shirt and the skirt, and drawing exercises in the style of other artists. These projects enriched my creative universe and strengthened my research methodology.";
+translations.fr["layout-desc"] = "Ce cours avait pour objectif de développer notre oeil graphique, notre capacité à faire des recherches visuelles cohérentes et à créer des moodboards narratifs autour de thématiques variées. Chaque projet était une plongée dans un univers différent, avec pour fil conducteur l’expérimentation d’outils, de styles, et de références artistiques. Parmi les sujets abordés : une étude du Pérou, à travers sa culture visuelle et textile, une recherche autour du vitiligo, un travail de composition sur le duo culte Vincent Vega & Jules Winnfield (Pulp Fiction), une analyse morphologique et historique du t-shirt et de la jupe, ou encore des exercices de dessin dans le style d’autres artistes. Ces projets m’ont permis d’enrichir mon univers créatif, de renforcer ma méthodologie de recherche, et d’expérimenter différentes approches de la narration visuelle.";
+
+translations.en["trends-desc"] = "Creation of a personal trend forecasting magazine from iconographic research, cultural analysis, and weak signals. An exercise in projecting emerging aesthetics. Coupled with a 100% upcycled collection based on the reuse of existing materials—a technical and conceptual challenge to rethink garments within an ethical, circular framework.";
+translations.fr["trends-desc"] = "Création d’un magazine de tendances personnel à partir de recherches iconographiques, analyses culturelles et signaux faibles. Un exercice de projection vers les esthétiques émergentes. Une collection 100% upcyclée, basée sur la réutilisation de matières existantes. Un vrai défi technique et conceptuel pour repenser le vêtement en intégrant une démarche éthique et circulaire.";
+
+translations.en["b1-desc"] = "My first year at École de Condé Nancy was an immersive dive into the fundamentals of design across all major fields. Within a multidisciplinary curriculum, I discovered graphics, space, product, and fashion design. This transversal approach enriched my visual culture and built a solid project methodology, regardless of the final medium. I learned to observe, conceptualize, and experiment through drawing, color, and volume.";
+translations.fr["b1-desc"] = "Ma première année à l’École de Condé Nancy a été une immersion dans les fondamentaux du design, toutes disciplines confondues. Au sein d’un parcours pluridisciplinaire, j’ai eu l’opportunité de découvrir les différents champs du design — graphisme, espace, produit et mode. Cette approche transversale m’a permis d’enrichir ma culture visuelle, et de développer une méthodologie de projet solide, quelle que soit la forme finale. J’ai appris à observer, à conceptualiser, à expérimenter : à travers le dessin, la couleur, le volume.";
+
+translations.en["b2-desc"] = "For my second year of Bachelor, I had the opportunity to study at Accademia Italiana in Florence, an experience as enriching artistically as it was personally. This residency allowed me to immerse myself in Italian culture while deepening my fashion design practice through diverse coursework: fashion history, costume design, photography, and collection visualization.";
+translations.fr["b2-desc"] = "Pour ma deuxième année de Bachelor, j’ai eu la chance d’étudier à l’Accademia Italiana de Florence, une expérience aussi enrichissante sur le plan artistique que personnel. Ce séjour m’a permis de plonger au coeur de la culture italienne tout en approfondissant ma pratique du design de mode à travers des enseignements variés : histoire de la mode, costume design, photographie, et visualisation de collection.";
+
+translations.en["b3-desc"] = "For this final year at École de Condé Nancy, a return to my roots and accelerating to the next level. The academic year was shaped by three major projects, each allowing me to clarify my creative universe and push my technical and conceptual boundaries.";
+translations.fr["b3-desc"] = "Pour cette dernière année à l’École de Condé Nancy, retour aux sources… et passage à la vitesse supérieure. L’année a été rythmée par trois projets majeurs, chacun me permettant de préciser mon univers créatif et de repousser mes limites techniques et conceptuelles.";
+
+translations.en["social-desc"] = "A curated overview of digital campaigns and storytelling across Instagram, TikTok, and YouTube, focusing on luxury brand collaborations, digital content creation, and organic community engagement.";
+translations.fr["social-desc"] = "Un aperçu de mes campagnes numériques sur Instagram, TikTok et YouTube, axé sur les collaborations avec des marques de luxe, la création de contenu digital et l'engagement communautaire organique.";
+
+translations.en["personal-crochet-desc"] = "An ongoing exploration of textile craft and slow fashion. This research focuses on the mathematical structure of crochet loops, using sustainable materials to build architectural knitwear shapes that envelope the body.";
+translations.fr["personal-crochet-desc"] = "Une exploration continue de l'artisanat textile et de la slow fashion. Cette recherche se concentre sur la structure mathématique des mailles de crochet, en utilisant des matières durables pour construire des volumes de tricot architecturaux.";
+
+translations.en["cat-sketches-desc"] = "Fashion sketches, concept work, technical drawings, and ideation — the visual thinking and process behind every collection, before fabric ever enters the picture.";
+translations.fr["cat-sketches-desc"] = "Croquis de mode, travail conceptuel, dessins techniques et idéation — la pensée visuelle et le processus derrière chaque collection, avant même que le tissu n'entre en jeu.";
+
+translations.en["cat-3d-ai-desc"] = "Digital garment simulation and AI-assisted visual exploration — built with tools like CLO 3D, Style3D, and Moda AI to prototype silhouettes and campaigns before they exist in the physical world.";
+translations.fr["cat-3d-ai-desc"] = "Simulation vestimentaire numérique et exploration visuelle assistée par IA — réalisées avec des outils comme CLO 3D, Style3D et Moda AI pour prototyper silhouettes et campagnes avant même qu'elles n'existent dans le monde physique.";
+
+translations.en["cat-archive-desc"] = "Experimental work, research, and graphic design that doesn't sit neatly inside one discipline — visual exploration, branding, and textile research pursued out of curiosity.";
+translations.fr["cat-archive-desc"] = "Travail expérimental, recherche et design graphique qui ne rentrent pas dans une seule discipline — exploration visuelle, identité de marque et recherche textile menées par curiosité.";
+
+translations.en["cat-sewing-desc"] = "Construction, prototypes, and finished garments — the technical craft of pattern-making and tailoring that turns an idea into something wearable.";
+translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements finis — l'artisanat technique du patronage et de la couture qui transforme une idée en pièce portable.";
+
+    // Slide up active exhibition panel
+    function openPanel(id) {
+      const win = document.getElementById(id);
+      const wasActive = win ? win.classList.contains('active') : false;
+
+      document.querySelectorAll('.editorial-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      document.querySelectorAll('.organic-dock-item').forEach(item => {
+        item.classList.remove('active');
+      });
+
+      if (win && !wasActive) {
+        win.classList.add('active');
+        const dockBtn = document.getElementById('dock-btn-' + id);
+        if (dockBtn) {
+          dockBtn.classList.add('active');
+        }
+      }
+    }
+
+    function closePanel(id) {
+      const win = document.getElementById(id);
+      if (win) {
+        win.classList.remove('active');
+      }
+      const dockBtn = document.getElementById('dock-btn-' + id);
+      if (dockBtn) {
+        dockBtn.classList.remove('active');
+      }
+    }
+
+    function toggleDetails(id) {
+      const content = document.getElementById(id);
+      if (!content) return;
+      const isHidden = content.classList.contains('hidden');
+      
+      const parentBlock = content.closest('.accordion-group-clean');
+      if (parentBlock) {
+        parentBlock.querySelectorAll('.accordion-content-clean').forEach(c => {
+          c.classList.add('hidden');
+          const btn = c.previousElementSibling;
+          if (btn) {
+            const icon = btn.querySelector('.icon-plus');
+            if (icon) icon.textContent = '+';
+          }
+        });
+      }
+      
+      if (isHidden) {
+        content.classList.remove('hidden');
+        const btn = content.previousElementSibling;
+        if (btn) {
+          const icon = btn.querySelector('.icon-plus');
+          if (icon) icon.textContent = '-';
+        }
+      }
+    }
+
+    // Toggle catalog accordion collapsible sections
+    function toggleAccordion(id) {
+      const content = document.getElementById(id);
+      if (!content) return;
+      const isHidden = content.classList.contains('hidden');
+      
+      // Close all accordions first for clean visual focus
+      document.querySelectorAll('.accordion-content').forEach(c => {
+        c.classList.add('hidden');
+        const h = c.previousElementSibling;
+        if (h) {
+          const a = h.querySelector('.accordion-arrow');
+          if (a) a.style.transform = 'rotate(0deg)';
+        }
+      });
+
+      if (isHidden) {
+        content.classList.remove('hidden');
+        const header = content.previousElementSibling;
+        if (header) {
+          const arrow = header.querySelector('.accordion-arrow');
+          if (arrow) arrow.style.transform = 'rotate(90deg)';
+        }
+      }
+    }
+
+    // Project Showroom Catalog Switcher
+    function switchShowroomProject(projId) {
+      // Hide all project sections
+      document.querySelectorAll('.project-showroom-section').forEach(sec => sec.classList.add('hidden'));
+      // Show selected section
+      const targetSec = document.getElementById('project-showroom-' + projId);
+      if (targetSec) {
+        targetSec.classList.remove('hidden');
+      }
+
+      // Update sidebar list items active states
+      document.querySelectorAll('.project-index-item').forEach(btn => {
+        btn.classList.remove('active', 'text-purple', 'font-bold');
+        btn.classList.add('text-charcoal/60');
+      });
+
+      const activeBtn = document.getElementById('project-btn-' + projId);
+      if (activeBtn) {
+        activeBtn.classList.add('active', 'text-purple', 'font-bold');
+        activeBtn.classList.remove('text-charcoal/60');
+
+        // Auto-expand parent accordion containing this active button
+        const parentAcc = activeBtn.closest('.accordion-content');
+        if (parentAcc && parentAcc.classList.contains('hidden')) {
+          parentAcc.classList.remove('hidden');
+          const header = parentAcc.previousElementSibling;
+          if (header) {
+            const arrow = header.querySelector('.accordion-arrow');
+            if (arrow) arrow.style.transform = 'rotate(90deg)';
+          }
+        }
+      }
+
+      // Update custom card archive item buttons active states
+      document.querySelectorAll('.archive-item-btn').forEach(btn => {
+        btn.classList.remove('text-purple', 'font-bold');
+      });
+      document.querySelectorAll(`.archive-item-btn[data-proj='${projId}']`).forEach(btn => {
+        btn.classList.add('text-purple', 'font-bold');
+      });
+    }
+
+    // Discipline index tiles (Works section) — each tile is a direct entry
+    // point into its own gallery/page, with a simple selected-state highlight.
+    function selectDiscipline(projId, btn) {
+      switchShowroomProject(projId);
+      document.querySelectorAll('.discipline-tile').forEach(t => t.classList.remove('is-selected'));
+      if (btn) btn.classList.add('is-selected');
+    }
+
+    // Bilingual Dictionary Engine
+    function setLanguage(lang) {
+      currentLang = lang;
+      
+      // Update all elements with translatable class
+      document.querySelectorAll('.translatable').forEach(el => {
+        const value = el.getAttribute('data-' + lang);
+        if (value) {
+          el.innerHTML = value;
+        }
+      });
+
+      // Update data-key database translated items
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[lang] && translations[lang][key]) {
+          el.innerHTML = translations[lang][key];
+        }
+      });
+
+      // Language buttons toggling
+      const btnEn = document.getElementById('lang-btn-en');
+      const btnFr = document.getElementById('lang-btn-fr');
+
+      if (lang === 'en') {
+        btnEn.classList.add('bg-pink', 'font-bold');
+        btnEn.classList.remove('hover:bg-pink/30');
+        btnFr.classList.remove('bg-pink', 'font-bold');
+        btnFr.classList.add('hover:bg-pink/30');
+      } else {
+        btnFr.classList.add('bg-pink', 'font-bold');
+        btnFr.classList.remove('hover:bg-pink/30');
+        btnEn.classList.remove('bg-pink', 'font-bold');
+        btnEn.classList.add('hover:bg-pink/30');
+      }
+      
+      // Update archive search input placeholder
+      const searchInput = document.getElementById('archive-search-input');
+      if (searchInput) {
+        searchInput.placeholder = lang === 'fr' ? 'RECHERCHE (DIOR, CROCHET, FLORENCE...)' : 'TRY DIOR, CROCHET, FLORENCE...';
+      }
+    }
+
+    // Form submit popup handler
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const brand = document.getElementById('brand').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+
+      const dest = atob('bGF1cmEuZ2FyY29uOUBnbWFpbC5jb20=');
+
+      fetch('https://formsubmit.co/ajax/' + dest, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          brand: brand,
+          subject: subject,
+          message: message
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (currentLang === 'fr') {
+          alert('Merci, ' + name + ' ! Votre demande a été transmise.');
+        } else {
+          alert('Thank you, ' + name + '! Your inquiry has been sent to the atelier.');
+        }
+        e.target.reset();
+        closePanel('panel-journal');
+      })
+      .catch(error => {
+        console.error('Error submitting form:', error);
+        if (currentLang === 'fr') {
+          alert('Une erreur est survenue lors de l’envoi. Veuillez réessayer.');
+        } else {
+          alert('An error occurred. Please try again.');
+        }
+      });
+    }
+
+    // Bind Event Listeners
+    document.getElementById('lang-btn-en').addEventListener('click', () => setLanguage('en'));
+    document.getElementById('lang-btn-fr').addEventListener('click', () => setLanguage('fr'));
+
+    // Sommieres Dock listeners
+    document.getElementById('dock-btn-panel-about').addEventListener('click', () => openPanel('panel-about'));
+    document.getElementById('dock-btn-panel-portfolio').addEventListener('click', () => openPanel('panel-portfolio'));
+    document.getElementById('dock-btn-panel-universe').addEventListener('click', () => openPanel('panel-universe'));
+    document.getElementById('dock-btn-panel-journal').addEventListener('click', () => openPanel('panel-journal'));
+
+    // Hero buttons listeners
+    document.getElementById('hero-btn-portfolio').addEventListener('click', () => openPanel('panel-portfolio'));
+    document.getElementById('hero-btn-about').addEventListener('click', () => openPanel('panel-about'));
+    document.getElementById('hero-btn-contact').addEventListener('click', () => openPanel('panel-journal'));
+
+
+
+    // Portfolio primary Catalog switcher listeners
+    const projectsList = ['dior', 'met', 'structure', 'final', 'layout', 'trends', 'b1', 'b2', 'b3', 'social', 'personal-crochet'];
+    projectsList.forEach(proj => {
+      const btn = document.getElementById('project-btn-' + proj);
+      if (btn) {
+        btn.addEventListener('click', () => switchShowroomProject(proj));
+      }
+    });
+
+    // Contact Form submit listener
+    document.getElementById('exhibit-contact-form').addEventListener('submit', handleFormSubmit);
+
+    // Global helper to trigger core showroom button click
+    window.triggerShowroomClick = function(projId) {
+      const coreBtn = document.getElementById('project-btn-' + projId);
+      if (coreBtn) {
+        coreBtn.click();
+      }
+    };
+
+    // Setup drag and drop for archival cards
+    function initDraggableCards() {
+      const board = document.getElementById('archive-board');
+      if (!board) return;
+
+      const cards = board.querySelectorAll('.archive-card');
+      let activeCard = null;
+      let startX = 0;
+      let startY = 0;
+      let origX = 0;
+      let origY = 0;
+      let maxZ = 10;
+
+      cards.forEach(card => {
+        card.addEventListener('mousedown', dragStart);
+        card.addEventListener('touchstart', dragStart, { passive: true });
+      });
+
+      function dragStart(e) {
+        // Disable on mobile viewports
+        if (window.innerWidth < 768) return;
+
+        // Skip drag if clicking on buttons
+        if (e.target.tagName.toLowerCase() === 'button' || e.target.tagName.toLowerCase() === 'a') {
+          return;
+        }
+
+        activeCard = this;
+        activeCard.classList.add('is-dragging');
+        maxZ += 1;
+        activeCard.style.zIndex = maxZ;
+
+        const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+
+        startX = clientX;
+        startY = clientY;
+
+        origX = activeCard.offsetLeft;
+        origY = activeCard.offsetTop;
+
+        document.addEventListener('mousemove', dragMove);
+        document.addEventListener('mouseup', dragEnd);
+        document.addEventListener('touchmove', dragMove, { passive: false });
+        document.addEventListener('touchend', dragEnd);
+      }
+
+      function dragMove(e) {
+        if (!activeCard) return;
+
+        if (e.type === 'touchmove') e.preventDefault();
+
+        const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+
+        const dx = clientX - startX;
+        const dy = clientY - startY;
+
+        let newX = origX + dx;
+        let newY = origY + dy;
+
+        const minX = 0;
+        const maxX = board.clientWidth - activeCard.clientWidth;
+        const minY = 0;
+        const maxY = board.clientHeight - activeCard.clientHeight;
+
+        if (newX < minX) newX = minX;
+        if (newX > maxX) newX = maxX;
+        if (newY < minY) newY = minY;
+        if (newY > maxY) newY = maxY;
+
+        activeCard.style.left = newX + 'px';
+        activeCard.style.top = newY + 'px';
+      }
+
+      function dragEnd() {
+        if (activeCard) {
+          activeCard.classList.remove('is-dragging');
+          activeCard = null;
+        }
+        document.removeEventListener('mousemove', dragMove);
+        document.removeEventListener('mouseup', dragEnd);
+        document.removeEventListener('touchmove', dragMove);
+        document.removeEventListener('touchend', dragEnd);
+      }
+    }
+
+    // Setup keyword search filter
+    function initArchiveSearch() {
+      const input = document.getElementById('archive-search-input');
+      if (!input) return;
+
+      const cards = document.querySelectorAll('.archive-card');
+
+      input.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+
+        if (!query) {
+          cards.forEach(card => card.classList.remove('faded'));
+          return;
+        }
+
+        cards.forEach(card => {
+          const keywords = card.getAttribute('data-keywords').toLowerCase();
+          if (keywords.includes(query)) {
+            card.classList.remove('faded');
+          } else {
+            card.classList.add('faded');
+          }
+        });
+      });
+    }
+
+    // Default initialization
+    window.addEventListener('DOMContentLoaded', () => {
+      setLanguage('en');
+      switchShowroomProject('cat-sketches');
+      initDraggableCards();
+      initArchiveSearch();
+    });
+  </script>
+
+  <!-- Sketches: interactive stack gallery component (self-contained, see components/sketch-stack/) -->
+  <script src="PORTFOLIO ASSESTS/SKETCHES/manifest.js"></script>
+  <script src="components/sketch-stack/sketch-stack-animations.js"></script>
+  <script src="components/sketch-stack/sketch-stack.js"></script>
+</body>
+</html>
+
+

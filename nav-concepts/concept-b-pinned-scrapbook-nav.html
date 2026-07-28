@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept B — Pinned Scrapbook Nav</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: { extend: { colors: {
+      cream:'#FCFAF6', creamdark:'#F7F3EE', charcoal:'#1E1E1E',
+      sage:'#A7B89E', sagelight:'#D5DFD1', purple:'#9882AC', purplelight:'#E7DFEF',
+      pink:'#E8D1C5', pinklight:'#F4ECE7'
+    } } }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Playfair+Display:ital@1&family=Space+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+<style>
+  body{ font-family:'Inter',sans-serif; }
+  .font-serif-fashion{ font-family:'Playfair Display',serif; }
+  .font-mono{ font-family:'Space Mono',monospace; }
+  .font-syne{ font-family:'Syne',sans-serif; }
+  .font-caveat{ font-family:'Caveat',cursive; }
+
+  .proto-badge{
+    position:fixed; top:12px; left:12px; z-index:60;
+    font-family:'Space Mono',monospace; font-size:10px; letter-spacing:.08em;
+    background:#1E1E1E; color:#FCFAF6; padding:6px 10px; border-radius:999px;
+    text-transform:uppercase; opacity:.85;
+  }
+
+  .stage{ position:relative; min-height:100vh; overflow:hidden; background:#FCFAF6; }
+
+  .panel{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    padding:8vh 6vw 22vh;
+    transform:translateY(0) rotate(0deg) scale(1); opacity:0; transform-origin:50% 100%;
+    transition:transform .55s cubic-bezier(.34,1.15,.64,1), opacity .5s ease;
+    pointer-events:none;
+  }
+  .panel.is-active{ opacity:1; pointer-events:auto; position:relative; }
+  .panel.is-leaving{ transform:translateY(-40px) rotate(-3deg) scale(.96); opacity:0; position:absolute; }
+  .panel.is-entering{ transform:translateY(60px) rotate(2deg) scale(.97); opacity:0; }
+  .panel.is-entering.is-settled{ transform:translateY(0) rotate(0deg) scale(1); opacity:1; }
+
+  /* ---- Scrapbook nav: folder tabs peeking from behind a photo/note stack ---- */
+  .nav-row{
+    position:fixed; left:0; right:0; bottom:0; z-index:50;
+    display:flex; justify-content:center; align-items:flex-end;
+    gap:28px; padding:0 5vw 18px;
+  }
+  .stack{
+    position:relative; width:96px; height:150px;
+    display:flex; align-items:flex-end; justify-content:center;
+    cursor:pointer;
+  }
+  .stack .deco-photo{
+    position:absolute; width:74px; height:74px; border-radius:6px;
+    object-fit:cover; background:#F7F3EE; border:4px solid #fff;
+    box-shadow:0 6px 16px rgba(30,30,30,.18);
+    bottom:44px; left:50%;
+    transform:translateX(-50%) rotate(var(--tilt,-4deg));
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1), bottom .3s ease;
+  }
+  .stack .deco-tape{
+    position:absolute; width:46px; top:-8px; left:50%;
+    transform:translateX(-50%) rotate(-6deg);
+    z-index:3; pointer-events:none; opacity:.95;
+  }
+  .stack .deco-pin{
+    position:absolute; width:26px; z-index:4; pointer-events:none;
+    top:26px; left:50%; transform:translateX(-50%);
+  }
+  .stack .tab{
+    position:absolute; bottom:0; width:100%;
+    background:#F7F3EE; border:1px solid rgba(30,30,30,.1); border-bottom:none;
+    border-radius:8px 8px 0 0;
+    font-family:'Space Mono',monospace; font-weight:700; font-size:10px; letter-spacing:.06em;
+    text-transform:uppercase; text-align:center; color:#1E1E1E;
+    padding:8px 4px 10px;
+    box-shadow:0 -2px 8px rgba(30,30,30,.06);
+    z-index:2;
+  }
+  .stack[data-color="sage"] .tab{ background:#D5DFD1; }
+  .stack[data-color="purple"] .tab{ background:#E7DFEF; }
+  .stack[data-color="pink"] .tab{ background:#F4ECE7; }
+  .stack[data-color="cream"] .tab{ background:#F7F3EE; }
+
+  .stack .peek-label{
+    position:absolute; bottom:100%; left:50%; margin-bottom:6px;
+    transform:translateX(-50%) translateY(6px); opacity:0;
+    background:#fff; border:1px solid rgba(30,30,30,.1); border-radius:8px;
+    padding:5px 10px; font-size:11px; white-space:nowrap; color:#1E1E1E;
+    box-shadow:0 6px 14px rgba(30,30,30,.14);
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), opacity .25s ease;
+    pointer-events:none;
+  }
+
+  /* Hover: photo lifts + rotates like peeking underneath, label slides up beside it */
+  .stack:hover .deco-photo{ bottom:60px; transform:translateX(-50%) rotate(calc(var(--tilt,-4deg) * -1.4)); }
+  .stack:hover .peek-label{ transform:translateX(-50%) translateY(0); opacity:1; }
+  .stack.is-current .tab{ box-shadow:0 -6px 16px rgba(30,30,30,.16); }
+  .stack.is-current .deco-photo{ bottom:60px; }
+
+  /* Hotspot pattern (project detail) — the pushpin itself is the clickable marker */
+  .hotspot-pin{
+    position:absolute; width:34px; cursor:pointer; z-index:5;
+    filter:drop-shadow(0 4px 6px rgba(0,0,0,.25));
+    transition:transform .2s ease;
+  }
+  .hotspot-pin:hover{ transform:scale(1.15) rotate(-6deg); }
+  .sticky-note{
+    position:absolute; width:220px; padding:16px 18px 18px;
+    background:#F4ECE7; clip-path:polygon(0 0,100% 0,100% 92%,92% 100%,0 100%);
+    box-shadow:0 12px 26px rgba(30,30,30,.18);
+    font-family:'Inter',sans-serif; font-size:12px; line-height:1.5; color:#1E1E1E;
+    opacity:0; transform:translateY(10px) rotate(-2deg) scale(.94); pointer-events:none;
+    transition:opacity .25s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
+    z-index:10;
+  }
+  .sticky-note.is-open{ opacity:1; transform:translateY(0) rotate(-2deg) scale(1); pointer-events:auto; }
+
+  @media (max-width:767px){
+    .nav-row{
+      flex-direction:column; align-items:stretch; gap:0; padding:0;
+    }
+    .stack{ width:100%; height:auto; }
+    .stack .deco-photo, .stack .deco-tape, .stack .deco-pin, .stack .peek-label{ display:none; }
+    .stack .tab{
+      position:static; border-radius:0; width:100%; padding:14px 0;
+      border-bottom:1px solid rgba(30,30,30,.08);
+    }
+    .stack:hover .deco-photo{ bottom:auto; }
+    .panel{
+      transition:transform .28s ease, opacity .28s ease;
+    }
+    .panel.is-leaving{ transform:translateY(-16px) scale(1); opacity:0; }
+    .panel.is-entering{ transform:translateY(16px) scale(1); opacity:0; }
+    .panel.is-entering.is-settled{ transform:translateY(0) scale(1); opacity:1; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="proto-badge">Concept B — Pinned Scrapbook Nav</div>
+
+  <main class="stage" id="stage">
+
+    <section class="panel is-active" data-section="about">
+      <div class="max-w-xl text-center">
+        <div class="font-caveat text-3xl text-purple mb-2 -rotate-2">the designer behind it</div>
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">About Laura.</h1>
+        <p class="text-charcoal/70 leading-relaxed">Hover a folder tab below — a photo lifts up from the stack like you're peeking underneath a page. Click to flip the whole spread.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-section="portfolio">
+      <div class="max-w-3xl w-full">
+        <h1 class="font-serif-fashion italic text-5xl md:text-6xl text-charcoal mb-8 text-center">Selected Work.</h1>
+        <div class="relative w-full max-w-md mx-auto aspect-[4/3] rounded-lg overflow-hidden shadow-xl rotate-1">
+          <img src="../dior.jpg" class="w-full h-full object-cover" alt="Dior Costume Design">
+          <img src="../scrapbook_element_4.png" class="hotspot-pin" style="top:34%; left:56%;" onclick="toggleNote(event,'b-note-1')" alt="pin hotspot">
+          <div class="sticky-note" id="b-note-1" style="top:40%; left:60%;">
+            <strong class="font-syne block mb-1">Dior Costume Design</strong>
+            The pushpin is the hotspot — click it to pop up project detail, exactly like unpinning a note.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" data-section="services">
+      <div class="max-w-xl text-center">
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">Services.</h1>
+        <p class="text-charcoal/70 leading-relaxed">Costume design, creative direction, styling and bespoke commission work — arranged like a page freshly flipped into view.</p>
+      </div>
+    </section>
+
+    <section class="panel" data-section="inquiries">
+      <div class="max-w-xl text-center">
+        <h1 class="font-serif-fashion italic text-5xl md:text-7xl text-charcoal mb-6">Inquiries.</h1>
+        <p class="text-charcoal/70 leading-relaxed">For commissions and collaboration requests — reach out any time.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <nav class="nav-row">
+    <div class="stack is-current" data-color="sage" data-target="about" style="--tilt:-5deg;">
+      <img class="deco-photo" src="../laura-bio.jpg" alt="">
+      <img class="deco-tape" src="../scrapbook_element_2.png" alt="">
+      <span class="peek-label">Biography</span>
+      <button class="tab">About</button>
+    </div>
+    <div class="stack" data-color="purple" data-target="portfolio" style="--tilt:4deg;">
+      <img class="deco-photo" src="../trends.jpg" alt="">
+      <img class="deco-pin" src="../scrapbook_element_12.png" alt="">
+      <span class="peek-label">Portfolio Index</span>
+      <button class="tab">Portfolio</button>
+    </div>
+    <div class="stack" data-color="pink" data-target="services" style="--tilt:-3deg;">
+      <img class="deco-photo" src="../bachelor2.jpg" alt="">
+      <img class="deco-pin" src="../scrapbook_element_14.png" alt="">
+      <span class="peek-label">Commissions</span>
+      <button class="tab">Services</button>
+    </div>
+    <div class="stack" data-color="cream" data-target="inquiries" style="--tilt:5deg;">
+      <img class="deco-photo" src="../layout.jpg" alt="">
+      <img class="deco-tape" src="../scrapbook_element_10.png" alt="">
+      <span class="peek-label">Get In Touch</span>
+      <button class="tab">Inquiries</button>
+    </div>
+  </nav>
+
+<script>
+  const stacks = document.querySelectorAll('.stack');
+  let current = 'about';
+  let animating = false;
+
+  function goTo(target){
+    if (target === current || animating) return;
+    animating = true;
+
+    const currentPanel = document.querySelector(`.panel[data-section="${current}"]`);
+    const nextPanel = document.querySelector(`.panel[data-section="${target}"]`);
+
+    currentPanel.classList.remove('is-active');
+    currentPanel.classList.add('is-leaving');
+
+    nextPanel.classList.add('is-entering');
+    void nextPanel.offsetWidth;
+    requestAnimationFrame(() => nextPanel.classList.add('is-settled'));
+
+    stacks.forEach(s => s.classList.toggle('is-current', s.dataset.target === target));
+
+    setTimeout(() => {
+      currentPanel.classList.remove('is-leaving');
+      nextPanel.classList.remove('is-entering', 'is-settled');
+      nextPanel.classList.add('is-active');
+      current = target;
+      animating = false;
+    }, 580);
+  }
+
+  stacks.forEach(s => s.addEventListener('click', () => goTo(s.dataset.target)));
+
+  function toggleNote(e, id){
+    e.stopPropagation();
+    document.getElementById(id).classList.toggle('is-open');
+  }
+</script>
+</body>
+</html>
