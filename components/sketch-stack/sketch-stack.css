@@ -4,9 +4,12 @@
  * site styles (Tailwind utilities included) can leak in — this file is the
  * complete, self-contained visual language for the stack.
  *
- * Look and feel: a designer's desk / archive pile of printed sheets —
- * plain paper mounts, soft realistic shadows, restrained tilt. No tape,
- * pins, stickers, or bright scrapbook colors.
+ * Look and feel: a shuffled stack of index cards/polaroids on a desk —
+ * pronounced tilt, uneven jitter, soft directional shadows, aged-cardstock
+ * grain, sharp (not rounded) paper edges. Typography mixes a bold
+ * condensed grotesk (Syne, already loaded site-wide) for a corner index
+ * tag with a handwritten accent (Caveat, already loaded site-wide) for a
+ * small caption — reusing existing site fonts, no new font dependency.
  */
 
 :host {
@@ -14,8 +17,10 @@
   --card-h: 420px;
   --paper: #FCFAF6;
   --ink: #1E1E1E;
+  --accent: #9882AC;
   --transition-duration: 0.6s;
   --exit-duration: 0.65s;
+  --entrance-duration: 0.4s;
 
   display: flex;
   justify-content: center;
@@ -33,9 +38,12 @@
   inset: 0;
   margin: 0;
   padding: 0;
-  border: none;
-  background: var(--paper);
-  border-radius: 4px;
+  border: 1px solid rgba(30, 30, 30, 0.06);
+  background-color: var(--paper);
+  /* Subtle aged-cardstock grain, generated in CSS — no image asset needed. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.11  0 0 0 0 0.11  0 0 0 0 0.11  0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-blend-mode: multiply;
+  border-radius: 1px;
   will-change: transform, opacity;
   transition:
     transform var(--transition-duration) cubic-bezier(0.16, 1, 0.3, 1),
@@ -60,13 +68,51 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 2px;
+  border-radius: 1px;
   -webkit-user-drag: none;
   user-select: none;
 }
 
+/* Corner index tag — bold condensed grotesk, archival-stamp feel. */
+.card__tag {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 2;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(252, 250, 246, 0.88);
+  padding: 3px 7px;
+  border-radius: 1px;
+  pointer-events: none;
+}
+
+/* Handwritten caption — a small sticky-note-style accent, not a headline. */
+.card__caption {
+  position: absolute;
+  bottom: 6px;
+  right: 12px;
+  z-index: 2;
+  font-family: 'Caveat', cursive;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  transform: rotate(-3deg);
+  pointer-events: none;
+  text-shadow: 0 1px 0 rgba(252, 250, 246, 0.6);
+}
+
 .card--exiting {
   transition-duration: var(--exit-duration);
+}
+
+.card--entering {
+  transition-duration: var(--entrance-duration);
+  transition-timing-function: cubic-bezier(0.2, 0.9, 0.3, 1.05);
 }
 
 /* Only the top card is a real, focusable, clickable control. */
@@ -75,7 +121,7 @@
   pointer-events: auto;
 }
 .card--top:focus-visible {
-  outline: 2px solid #9882AC;
+  outline: 2px solid var(--accent);
   outline-offset: 4px;
 }
 
@@ -107,6 +153,9 @@
     min-width: 44px;
     min-height: 44px;
   }
+  .card__caption {
+    font-size: 17px;
+  }
 }
 
 /* ---- Respect reduced-motion: shorten and simplify to a cross-fade ---- */
@@ -114,6 +163,7 @@
   :host {
     --transition-duration: 0.15s;
     --exit-duration: 0.15s;
+    --entrance-duration: 0.15s;
   }
   .card {
     transition-property: opacity;

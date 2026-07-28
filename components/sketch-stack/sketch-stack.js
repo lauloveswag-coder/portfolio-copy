@@ -27,6 +27,10 @@
 
   var WINDOW_SIZE = 4; // how many cards are mounted at once (current + 3 waiting)
   var PRELOAD_AHEAD = 1; // how many images beyond the visible window to warm in cache
+  var CASCADE_STAGGER_MS = 90; // delay between each card's entrance in the cascade
+  // Generic archival annotation words for the handwritten corner caption —
+  // deterministically picked per card, not fabricated per-image captions.
+  var CAPTION_WORDS = ['sketch', 'study', 'draft', 'idea', 'keep', 'revisit'];
 
   var TEMPLATE = document.createElement('template');
   TEMPLATE.innerHTML =
@@ -81,16 +85,61 @@
 
     _buildInitialWindow() {
       var count = Math.min(WINDOW_SIZE, this._files.length);
+      var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var canObserve = 'IntersectionObserver' in window;
+      var useCascade = canObserve && !prefersReduced;
+
       for (var offset = 0; offset < count; offset++) {
         var manifestIndex = (this._currentIndex + offset) % this._files.length;
-        var card = this._createCard(manifestIndex, offset, /*instant*/ true);
+        var card = this._createCard(manifestIndex, offset, useCascade ? 'cascade' : 'instant');
         this._cards.push(card);
         this._stackEl.appendChild(card.el);
       }
       this._preloadAhead();
+
+      if (useCascade) {
+        this._setupCascadeObserver();
+      }
     }
 
-    _createCard(manifestIndex, offset, instant) {
+    /**
+     * Plays the cascade-in entrance once, the first time the stack actually
+     * becomes visible (page load with Sketches as the default tab, or later
+     * navigation into it) — not on every re-visit.
+     */
+    _setupCascadeObserver() {
+      var self = this;
+      var observer = new IntersectionObserver(function (entries) {
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].isIntersecting) {
+            observer.disconnect();
+            self._playCascadeEntrance();
+            break;
+          }
+        }
+      }, { threshold: 0.1 });
+      observer.observe(this);
+    }
+
+    _playCascadeEntrance() {
+      var self = this;
+      this._cards.forEach(function (card, i) {
+        setTimeout(function () {
+          card.el.style.transition = '';
+          card.el.classList.add('card--entering');
+          self._applyOffsetStyles(card);
+
+          var onEnd = function (e) {
+            if (e.target !== card.el) return;
+            card.el.classList.remove('card--entering');
+            card.el.removeEventListener('transitionend', onEnd);
+          };
+          card.el.addEventListener('transitionend', onEnd);
+        }, i * CASCADE_STAGGER_MS);
+      });
+    }
+
+    _createCard(manifestIndex, offset, mode) {
       var self = this;
       var el = document.createElement('button');
       el.className = 'card';
@@ -108,17 +157,38 @@
       mat.appendChild(img);
       el.appendChild(mat);
 
+      // Typography mix: bold condensed grotesk index tag + handwritten
+      // accent caption, both using fonts already loaded site-wide.
+      var tag = document.createElement('span');
+      tag.className = 'card__tag';
+      tag.textContent = 'N°' + String(manifestIndex + 1).padStart(2, '0');
+      el.appendChild(tag);
+
+      var caption = document.createElement('span');
+      caption.className = 'card__caption';
+      caption.textContent = CAPTION_WORDS[manifestIndex % CAPTION_WORDS.length];
+      el.appendChild(caption);
+
       el.addEventListener('click', function () {
         self._advance();
       });
 
       var card = { el: el, manifestIndex: manifestIndex, offset: offset };
 
-      if (instant) {
+      if (mode === 'cascade') {
+        var start = this._animations.getEntranceStartTransform(offset, manifestIndex);
         el.style.transition = 'none';
-      }
-      this._applyOffsetStyles(card);
-      if (instant) {
+        el.style.transform = start.transform;
+        el.style.opacity = String(start.opacity);
+        el.style.boxShadow = 'none';
+        el.style.zIndex = String(100 - offset);
+        el.classList.toggle('card--top', offset === 0);
+        el.tabIndex = offset === 0 ? 0 : -1;
+        el.setAttribute('aria-hidden', offset === 0 ? 'false' : 'true');
+        void el.offsetWidth;
+      } else {
+        el.style.transition = 'none';
+        this._applyOffsetStyles(card);
         // Force layout so the transition-less initial position is committed
         // before we re-enable transitions for future updates.
         void el.offsetWidth;
@@ -176,7 +246,7 @@
         if (self._files.length > self._cards.length) {
           var newOffset = self._cards.length;
           var newManifestIndex = (self._currentIndex + newOffset) % self._files.length;
-          var newCard = self._createCard(newManifestIndex, newOffset, true);
+          var newCard = self._createCard(newManifestIndex, newOffset, 'instant');
           self._cards.push(newCard);
           self._stackEl.appendChild(newCard.el);
         }
