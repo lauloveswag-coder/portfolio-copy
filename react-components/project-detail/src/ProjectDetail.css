@@ -1,0 +1,227 @@
+/* Scoped to .pd-* — this component is not loaded on the same page as the
+   main site's styles.css, but it's namespaced anyway so it's safe to drop
+   in later without colliding with anything there. */
+
+.pd-container {
+  /* Same soft macOS-squircle curve used on the site's folder component
+     (.folder-back / .folder-front), reused everywhere in this window so
+     every panel reads as one consistent shape language. */
+  --pd-radius: 26px;
+  --pd-accent: #a4b35e;
+  --pd-grey: #f1f1f1;
+  --pd-border: rgba(0, 0, 0, 0.1);
+
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  background: var(--pd-grey);
+  border-radius: var(--pd-radius);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border: 1px solid var(--pd-border);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif;
+  box-sizing: border-box;
+}
+.pd-container *,
+.pd-container *::before,
+.pd-container *::after {
+  box-sizing: border-box;
+}
+
+/* Header */
+.pd-header {
+  min-height: 38px;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  border-bottom: 1px solid var(--pd-border);
+}
+.pd-traffic-lights {
+  display: flex;
+  gap: 8px;
+  width: 60px;
+}
+.pd-light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+.pd-light--red { background: #ff5f56; }
+.pd-light--yellow { background: #ffbd2e; }
+.pd-light--green { background: #27c93f; }
+
+.pd-title {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Layout */
+.pd-body {
+  display: flex;
+  min-height: 420px;
+  padding: 10px;
+  gap: 10px;
+}
+
+.pd-toolbar {
+  width: 50px;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: calc(var(--pd-radius) * 0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  gap: 10px;
+  border: 1px solid var(--pd-border);
+}
+.pd-tool {
+  width: 34px;
+  height: 34px;
+  border-radius: calc(var(--pd-radius) * 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  cursor: default;
+}
+.pd-tool--active {
+  background: white;
+  color: #222;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.pd-tool-spacer {
+  flex-grow: 1;
+}
+.pd-color-indicator {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--pd-accent);
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.pd-workspace {
+  flex-grow: 1;
+  min-width: 0;
+  background: white;
+  border-radius: calc(var(--pd-radius) * 0.6);
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  padding: clamp(16px, 4vw, 40px);
+  gap: clamp(16px, 4vw, 40px);
+  border: 1px solid var(--pd-border);
+}
+
+.pd-canvas-main {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 240px;
+}
+.pd-hero-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(15px 15px 20px rgba(0, 0, 0, 0.1));
+}
+/* Visual chrome only — no drawing logic attached to this canvas. */
+.pd-canvas-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--pd-radius) * 0.3);
+  pointer-events: none;
+}
+
+.pd-item-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: minmax(70px, 1fr);
+  gap: 20px;
+}
+.pd-detail-box {
+  border-radius: calc(var(--pd-radius) * 0.7);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pd-accent);
+  /* No hard border on images, per the site's existing rule — separation
+     comes from a soft shadow instead, matching the folder component's
+     shadow treatment (.folder-front). */
+  box-shadow:
+    2px 5px 0 rgba(30, 30, 30, 0.06),
+    0 14px 26px rgba(30, 30, 30, 0.16);
+}
+.pd-detail-box img {
+  /* max- (not fixed) width/height so a portrait photo scales down to fit
+     fully inside the box instead of overflowing past 80% width and
+     getting clipped by the box's own overflow:hidden. */
+  max-width: 80%;
+  max-height: 80%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Palette */
+.pd-bottom-bar {
+  padding: 15px;
+  border-top: 1px solid var(--pd-border);
+  display: flex;
+  justify-content: center;
+}
+.pd-color-shelf {
+  display: flex;
+  gap: 10px;
+}
+.pd-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: none;
+  cursor: default;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+/* Responsive: fluid layout instead of the fixed 1000x600 reference, and
+   the item grid collapses down as space tightens. */
+@media (max-width: 860px) {
+  .pd-workspace {
+    grid-template-columns: 1fr;
+  }
+  .pd-item-grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(60px, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .pd-body {
+    flex-direction: column;
+  }
+  .pd-toolbar {
+    width: 100%;
+    flex-direction: row;
+    padding: 8px;
+  }
+  .pd-tool-spacer {
+    display: none;
+  }
+  .pd-item-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1256,39 +1256,57 @@ body {
   align-items: center;
 }
 
-/* Wraps the folder icon (tab + body) and its spilling-out preview items,
-   so the caption below can sit in normal flow instead of overlaying the
-   pattern. */
+/* Wraps the folder icon (back + front panels) and its spilling-out preview
+   items, so the caption below can sit in normal flow instead of overlaying
+   the pattern. */
 .folder-visual {
   position: relative;
   display: block;
   width: 100%;
-  padding-top: 34px; /* headroom for preview items poking up above the tab */
+  padding-top: 34px; /* headroom for preview items poking up above the back panel */
 }
 
 .folder-shape {
   position: relative;
   display: block;
+  height: 100px;
+  margin-top: 14px;
 }
 
-.folder-tab {
+/* Rear panel: the folder's own material, not a shaded copy of the front.
+   Solid color (no pattern). Clipped into an actual tab-notch silhouette —
+   a taller flap on the left (0 to 40% width, full height) stepping DOWN
+   at a sharp right angle to a shorter shelf (40% to 100% width) — matching
+   real folder-icon anatomy, not a diagonal/skewed cut. Sits full height
+   behind everything so this notch peeks out above the front panel: the
+   tab peeks out further than the shelf, since the shelf's top edge sits
+   only 4px above the front panel while the tab's sits 20px above it. */
+.folder-back {
   position: absolute;
-  top: 0;
-  left: 10px;
-  width: 42%;
-  height: 18px;
-  border-radius: 8px 8px 0 0;
-  background-color: var(--folder-tab-color);
+  inset: 0;
+  /* Same curvature as .folder-front — a pronounced macOS-squircle radius,
+     not a tight/small one — so the two panels read as one consistent
+     folder material. */
+  border-radius: 26px;
+  background-color: var(--folder-back-color);
+  clip-path: polygon(0 0, 40% 0, 40% 16px, 100% 16px, 100% 100%, 0 100%);
+  box-shadow: 0 10px 20px rgba(30, 30, 30, 0.14);
   z-index: 1;
 }
 
-.folder-body {
-  position: relative;
-  display: block;
-  margin-top: 10px;
-  min-height: 76px;
-  padding: 14px 12px 12px;
-  border-radius: 4px 16px 16px 16px;
+/* Front panel: shorter than the back panel and rounded, sits lower so the
+   back panel's tab shows above it. Its own top edge crosses the lower
+   portion of the tucked-in preview photos (z-index 2), so they read as
+   slipped inside the folder's opening rather than pinned on top of it. */
+.folder-front {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100% - 20px);
+  /* Matches .folder-back's radius exactly, for one consistent squircle
+     curve across both panels. */
+  border-radius: 26px;
   background-color: var(--folder-bg-color);
   background-image: var(--folder-pattern, none);
   background-size: var(--folder-pattern-size, auto);
@@ -1299,10 +1317,10 @@ body {
   z-index: 3;
 }
 
-/* Preview items sit BETWEEN the tab (z-index 1) and the body (z-index 3),
-   not above everything — that's what makes them read as tucked inside the
-   folder's opening rather than pinned on top of it: the body's top edge
-   naturally covers the bottom portion of each item. */
+/* Preview items sit BETWEEN the back panel (z-index 1) and the front panel
+   (z-index 3) — positioned low enough that the front panel's top edge
+   crosses their lower third at rest, so they read as tucked inside the
+   folder's opening, not floating above it. */
 .folder-preview {
   position: absolute;
   top: 0;
@@ -1317,25 +1335,28 @@ body {
   transform: translateY(0);
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-/* The "sleeve" effect: hovering a folder slides its tucked-in items
-   further out of the opening, on top of the node's existing tilt+scale
-   hover — purely additive, doesn't change the click/nav behavior below. */
+/* The "sleeve" effect: hovering a folder slides its tucked-in items further
+   out of the opening — a clear pull-out motion, on top of the node's
+   existing tilt+scale hover — purely additive, doesn't change the
+   click/nav behavior below. */
 .hub-node:hover .folder-preview {
-  transform: translateY(-14px);
+  transform: translateY(-26px);
 }
 .folder-preview-img {
   position: absolute;
-  top: -34px;
+  top: 4px;
   left: 0;
   width: 64px;
   height: 84px;
   object-fit: cover;
-  border: 2px solid var(--cream);
-  border-radius: 2px;
+  /* No polaroid frame — image bleeds to its own edge. Same soft
+     rounded-squircle curve as the folder panels, scaled to this
+     element's smaller size. */
+  border-radius: 16px;
   box-shadow: 0 8px 16px rgba(30, 30, 30, 0.24);
 }
 .folder-preview-img--1 { transform: translateX(-72%) rotate(-9deg); z-index: 1; }
-.folder-preview-img--2 { top: -40px; transform: translateX(-4%) rotate(7deg); z-index: 2; }
+.folder-preview-img--2 { top: -2px; transform: translateX(-4%) rotate(7deg); z-index: 2; }
 /* Single-item folders (no second real asset yet) center the one photo. */
 .folder-preview-img--solo { transform: translateX(-50%) rotate(-6deg); }
 
@@ -1358,9 +1379,9 @@ body {
    macOS icons) rather than a flat color fill — this is a deliberate,
    explicit exception to the site's normally-restrained surfaces. */
 
-/* 01 Sketches — dark brown ground, light-blue polka dots, periwinkle tab */
+/* 01 Sketches — periwinkle back tab, dark brown ground, light-blue polka dots */
 .folder--sketches {
-  --folder-tab-color: #8695D6;
+  --folder-back-color: #8695D6;
   --folder-bg-color: #2B1810;
   --folder-pattern:
     radial-gradient(circle, #AFC0E8 7px, transparent 7.5px),
@@ -1369,9 +1390,9 @@ body {
   --folder-pattern-position: 0 0, 17px 17px;
 }
 
-/* 02 3D Rendering & AI — cream ground, black polka dots, dark maroon tab */
+/* 02 3D Rendering & AI — dark maroon back tab, cream ground, black polka dots */
 .folder--3d-ai {
-  --folder-tab-color: #3A1210;
+  --folder-back-color: #3A1210;
   --folder-bg-color: #F1E4C8;
   --folder-pattern:
     radial-gradient(circle, #1A1210 7px, transparent 7.5px),
@@ -1380,9 +1401,9 @@ body {
   --folder-pattern-position: 0 0, 17px 17px;
 }
 
-/* 03 Crochet — pink ground, deep maroon polka dots, matching maroon tab */
+/* 03 Crochet — deep maroon back tab, pink ground, deep maroon polka dots */
 .folder--crochet {
-  --folder-tab-color: #3D0D14;
+  --folder-back-color: #3D0D14;
   --folder-bg-color: #F0A0C0;
   --folder-pattern:
     radial-gradient(circle, #3D0D14 7px, transparent 7.5px),
@@ -1391,9 +1412,9 @@ body {
   --folder-pattern-position: 0 0, 17px 17px;
 }
 
-/* 04 Sewing — pink plaid/tartan crosshatch, solid pink tab */
+/* 04 Sewing — solid pink back tab, pink plaid/tartan crosshatch front */
 .folder--sewing {
-  --folder-tab-color: #D9548C;
+  --folder-back-color: #D9548C;
   --folder-bg-color: #E8A0BC;
   --folder-pattern:
     repeating-linear-gradient(0deg, rgba(196, 40, 40, 0.4) 0px, rgba(196, 40, 40, 0.4) 4px, transparent 4px, transparent 26px),
@@ -1402,17 +1423,17 @@ body {
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.55) 0px, rgba(255, 255, 255, 0.55) 2px, transparent 2px, transparent 13px);
 }
 
-/* 05 Archive — olive-green corduroy ribbing, matching olive tab */
+/* 05 Archive — matching olive back tab, olive-green corduroy ribbing front */
 .folder--archive {
-  --folder-tab-color: #93A94C;
+  --folder-back-color: #93A94C;
   --folder-bg-color: #A3BE55;
   --folder-pattern:
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0px, rgba(255, 255, 255, 0.16) 2px, rgba(0, 0, 0, 0.08) 2px, rgba(0, 0, 0, 0.08) 4px);
 }
 
-/* 06 Social Media — pale-pink ground, sage polka dots, sage tab */
+/* 06 Social Media — sage back tab, pale-pink ground, sage polka dots */
 .folder--social {
-  --folder-tab-color: #94A879;
+  --folder-back-color: #94A879;
   --folder-bg-color: #F6DCE4;
   --folder-pattern:
     radial-gradient(circle, #94A879 7px, transparent 7.5px),
@@ -1458,9 +1479,6 @@ body {
   }
   .folder-visual {
     padding-top: 0;
-  }
-  .folder-tab {
-    left: 16px;
   }
 }
 
