@@ -1199,12 +1199,69 @@ body {
     0px 8px 20px rgba(30, 30, 30, 0.08);
 }
 
-/* Discipline tiles (Works section index) — normal flow, not draggable;
-   .archive-card sets touch-action:none for the old drag behavior, which
-   would block mobile scrolling here, so reset it. */
+/* Discipline tiles (Works section index) — not draggable; .archive-card
+   sets touch-action:none for the old drag behavior, which would block
+   mobile scrolling here, so reset it. */
 .discipline-tile {
   touch-action: auto;
   user-select: auto;
+}
+
+/* ---- Discipline hub: single unified entry screen, six disciplines
+   arranged radially (desktop/tablet), collapsing to a simple stacked
+   list on mobile. Replaces the old two-column list+detail split. ---- */
+.discipline-hub-circle {
+  width: 100%;
+  max-width: 560px;
+  aspect-ratio: 1;
+}
+
+.discipline-hub-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.hub-node {
+  position: absolute;
+  width: 168px;
+  transform: translate(-50%, -50%) rotate(var(--tilt, 0deg));
+}
+.hub-node:hover {
+  z-index: 10;
+}
+
+/* Six points evenly spaced around the circle, starting at 12 o'clock. */
+.hub-node-1 { top: 12%;   left: 50%; }
+.hub-node-2 { top: 31%;   left: 82.9%; }
+.hub-node-3 { top: 69%;   left: 82.9%; }
+.hub-node-4 { top: 88%;   left: 50%; }
+.hub-node-5 { top: 69%;   left: 17.1%; }
+.hub-node-6 { top: 31%;   left: 17.1%; }
+
+@media (max-width: 767px) {
+  .discipline-hub-circle {
+    max-width: none;
+    aspect-ratio: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .discipline-hub-center {
+    position: static;
+    transform: none;
+    width: auto;
+    margin-bottom: 8px;
+  }
+  .hub-node {
+    position: static;
+    width: 100%;
+    transform: none !important;
+  }
 }
 
 /* Video-ready template, mirrors .main-image-frame / .modular-img */

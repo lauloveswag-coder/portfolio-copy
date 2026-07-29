@@ -297,137 +297,102 @@
       <span class='font-mono text-xs font-bold uppercase tracking-widest translatable' data-en='EXHIBIT / PORTFOLIO.DXF' data-fr='EXPOSITION / PORTFOLIO.DXF'>EXHIBIT / PORTFOLIO.DXF</span>
     </div>
     <div class='panel-content overflow-y-auto'>
-      <div class='flex flex-col md:flex-row gap-8 min-h-full'>
-        
-        <!-- Left Column: Project Catalog Index -->
-        <div class='w-full md:w-5/12 border-b md:border-b-0 md:border-r border-charcoal/10 pb-6 md:pb-0 md:pr-6 flex flex-col'>
-          
-          <!-- Hidden core buttons to preserve existing JS click mapping and language updates -->
-          <div class='hidden'>
-            <button id='project-btn-b1' class='project-index-item'></button>
-            <button id='project-btn-dior' class='project-index-item'></button>
-            <button id='project-btn-met' class='project-index-item'></button>
-            <button id='project-btn-layout' class='project-index-item'></button>
-            <button id='project-btn-trends' class='project-index-item'></button>
-            <button id='project-btn-structure' class='project-index-item'></button>
-            <button id='project-btn-final' class='project-index-item'></button>
-            <button id='project-btn-personal-crochet' class='project-index-item'></button>
-            <button id='project-btn-social' class='project-index-item'></button>
-          </div>
 
-          <!-- Index Search Slip -->
-          <div class='mb-6 px-2'>
-            <span class='text-[8px] text-charcoal/40 tracking-widest block mb-2 translatable' data-en='ARCHIVE SEARCH // KEYWORDS' data-fr='RECHERCHE D’ARCHIVE // MOTS CLÉS'>ARCHIVE SEARCH // KEYWORDS</span>
-            <input type='text' id='archive-search-input'
-                   class='w-full bg-creamdark border border-charcoal/10 rounded-full px-4 py-2 font-mono text-[9px] uppercase tracking-wider text-charcoal focus:outline-none focus:border-purple placeholder-charcoal/30 transition-all'
-                   placeholder='TRY SKETCHES, CROCHET, 3D...'>
-          </div>
+      <!-- Hidden core buttons to preserve existing JS click mapping and language updates -->
+      <div class='hidden'>
+        <button id='project-btn-b1' class='project-index-item'></button>
+        <button id='project-btn-dior' class='project-index-item'></button>
+        <button id='project-btn-met' class='project-index-item'></button>
+        <button id='project-btn-layout' class='project-index-item'></button>
+        <button id='project-btn-trends' class='project-index-item'></button>
+        <button id='project-btn-structure' class='project-index-item'></button>
+        <button id='project-btn-final' class='project-index-item'></button>
+        <button id='project-btn-personal-crochet' class='project-index-item'></button>
+        <button id='project-btn-social' class='project-index-item'></button>
+      </div>
 
-          <!-- Discipline Index: six creative disciplines, each a direct entry point into its gallery -->
-          <div id='archive-board' class='archive-board relative w-full border border-dashed border-charcoal/10 rounded-3xl p-4 bg-creamdark/30 select-none'>
-            <span class='block text-right font-mono text-[7px] text-charcoal/30 tracking-widest pointer-events-none uppercase mb-3 translatable' data-en='SIX DISCIPLINES // SELECT ONE' data-fr='SIX DISCIPLINES // SÉLECTIONNER'>SIX DISCIPLINES // SELECT ONE</span>
+      <!-- HUB VIEW: single unified entry screen — six disciplines arranged
+           radially, shown by default. Selecting one replaces this entirely
+           with that discipline's content (see showHub() / selectDiscipline()). -->
+      <div id='discipline-hub'>
 
-            <div class='flex flex-col gap-4'>
-
-              <!-- 01 Sketches -->
-              <button class='archive-card archive-card-accent-sage discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
-                      style='transform: rotate(-1deg);'
-                      data-keywords='sketches illustration concept technical drawing research ideation croquis'
-                      onclick="selectDiscipline('cat-sketches', this)">
-                <div class='flex items-center justify-between'>
-                  <div>
-                    <span class='project-badge-clean'>01</span>
-                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='Sketches' data-fr='Croquis'>Sketches</h3>
-                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Concept work, ideation &amp; technical drawing' data-fr='Travail conceptuel, idéation et dessin technique'>Concept work, ideation &amp; technical drawing</p>
-                  </div>
-                  <span class='font-mono text-lg text-charcoal/30'>→</span>
-                </div>
-              </button>
-
-              <!-- 02 3D Rendering & AI -->
-              <button class='archive-card archive-card-accent-purple discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
-                      style='transform: rotate(1deg);'
-                      data-keywords='3d ai clo3d style3d moda ai digital garment simulation render fashion visualization video'
-                      onclick="selectDiscipline('cat-3d-ai', this)">
-                <div class='flex items-center justify-between'>
-                  <div>
-                    <span class='project-badge-clean'>02</span>
-                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='3D Rendering &amp; AI' data-fr='Rendu 3D &amp; IA'>3D Rendering &amp; AI</h3>
-                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Digital garment simulation &amp; AI-assisted visual exploration' data-fr='Simulation vestimentaire numérique et exploration visuelle assistée par IA'>Digital garment simulation &amp; AI-assisted visual exploration</p>
-                  </div>
-                  <span class='font-mono text-lg text-charcoal/30'>→</span>
-                </div>
-              </button>
-
-              <!-- 03 Crochet -->
-              <button class='archive-card archive-card-accent-pink discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
-                      style='transform: rotate(-0.6deg);'
-                      data-keywords='crochet knits craft yarn textile handmade'
-                      onclick="selectDiscipline('personal-crochet', this)">
-                <div class='flex items-center justify-between'>
-                  <div>
-                    <span class='project-badge-clean'>03</span>
-                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='Crochet' data-fr='Crochet'>Crochet</h3>
-                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Handmade garments, accessories &amp; commissioned work' data-fr='Pièces faites main, accessoires et commandes'>Handmade garments, accessories &amp; commissioned work</p>
-                  </div>
-                  <span class='font-mono text-lg text-charcoal/30'>→</span>
-                </div>
-              </button>
-
-              <!-- 04 Sewing -->
-              <button class='archive-card archive-card-accent-charcoal discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
-                      style='transform: rotate(0.8deg);'
-                      data-keywords='sewing construction garment prototype pattern tailoring finished look'
-                      onclick="selectDiscipline('cat-sewing', this)">
-                <div class='flex items-center justify-between'>
-                  <div>
-                    <span class='project-badge-clean'>04</span>
-                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='Sewing' data-fr='Couture'>Sewing</h3>
-                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Construction, prototypes &amp; finished garments' data-fr='Construction, prototypes et vêtements finis'>Construction, prototypes &amp; finished garments</p>
-                  </div>
-                  <span class='font-mono text-lg text-charcoal/30'>→</span>
-                </div>
-              </button>
-
-              <!-- 05 Archive -->
-              <button class='archive-card archive-card-accent-dashed discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
-                      style='transform: rotate(-1.2deg);'
-                      data-keywords='archive experimental research textile graphic design photography visual exploration branding'
-                      onclick="selectDiscipline('cat-archive', this)">
-                <div class='flex items-center justify-between'>
-                  <div>
-                    <span class='project-badge-clean'>05</span>
-                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='Archive' data-fr='Archives'>Archive</h3>
-                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Experimental work, research &amp; graphic design' data-fr='Travail expérimental, recherche et design graphique'>Experimental work, research &amp; graphic design</p>
-                  </div>
-                  <span class='font-mono text-lg text-charcoal/30'>→</span>
-                </div>
-              </button>
-
-              <!-- 06 Social Media -->
-              <button class='archive-card archive-card-accent-sage discipline-tile w-full text-left rounded-2xl p-4 cursor-pointer'
-                      style='transform: rotate(0.5deg);'
-                      data-keywords='social media digital creation campaigns branding content instagram tiktok youtube'
-                      onclick="selectDiscipline('social', this)">
-                <div class='flex items-center justify-between'>
-                  <div>
-                    <span class='project-badge-clean'>06</span>
-                    <h3 class='font-serif-fashion italic text-xl text-charcoal mt-1 translatable' data-en='Social Media' data-fr='Réseaux Sociaux'>Social Media</h3>
-                    <p class='font-sans text-[11px] text-charcoal/60 mt-1 translatable' data-en='Content creation, campaigns &amp; digital storytelling' data-fr='Création de contenu, campagnes et récit numérique'>Content creation, campaigns &amp; digital storytelling</p>
-                  </div>
-                  <span class='font-mono text-lg text-charcoal/30'>→</span>
-                </div>
-              </button>
-
-            </div>
-          </div>
-
+        <!-- Index Search Slip -->
+        <div class='max-w-xs mx-auto mb-8 px-2'>
+          <span class='text-[8px] text-charcoal/40 tracking-widest block mb-2 text-center translatable' data-en='ARCHIVE SEARCH // KEYWORDS' data-fr='RECHERCHE D’ARCHIVE // MOTS CLÉS'>ARCHIVE SEARCH // KEYWORDS</span>
+          <input type='text' id='archive-search-input'
+                 class='w-full bg-creamdark border border-charcoal/10 rounded-full px-4 py-2 font-mono text-[9px] uppercase tracking-wider text-charcoal text-center focus:outline-none focus:border-purple placeholder-charcoal/30 transition-all'
+                 placeholder='TRY SKETCHES, CROCHET, 3D...'>
         </div>
 
-        <!-- Right Column: Project Showroom content display area -->
-        <div class='w-full md:w-7/12 flex-grow'>
-          <!-- Full-Bleed Clean Modular Portfolio Section -->
-          <div id="academic-portfolio" class="portfolio-container-clean">
+        <!-- Discipline Index: six creative disciplines arranged around a
+             circle, each a direct entry point into its gallery. -->
+        <div id='archive-board' class='archive-board discipline-hub-circle relative mx-auto select-none'>
+
+          <div class='discipline-hub-center'>
+            <span class='block text-center font-mono text-[8px] text-charcoal/40 tracking-widest pointer-events-none uppercase translatable' data-en='Six Disciplines' data-fr='Six Disciplines'>Six Disciplines</span>
+            <span class='block text-center font-serif-fashion italic text-lg text-charcoal/70 pointer-events-none translatable' data-en='Select One' data-fr='Sélectionner'>Select One</span>
+          </div>
+
+          <!-- 01 Sketches -->
+          <button class='archive-card archive-card-accent-sage discipline-tile hub-node hub-node-1 text-left rounded-2xl p-4 cursor-pointer'
+                  style='--tilt: -3deg;'
+                  data-keywords='sketches illustration concept technical drawing research ideation croquis'
+                  onclick="selectDiscipline('cat-sketches', this)">
+            <span class='project-badge-clean'>01</span>
+            <h3 class='font-serif-fashion italic text-lg text-charcoal mt-1 translatable' data-en='Sketches' data-fr='Croquis'>Sketches</h3>
+          </button>
+
+          <!-- 02 3D Rendering & AI -->
+          <button class='archive-card archive-card-accent-purple discipline-tile hub-node hub-node-2 text-left rounded-2xl p-4 cursor-pointer'
+                  style='--tilt: 2deg;'
+                  data-keywords='3d ai clo3d style3d moda ai digital garment simulation render fashion visualization video'
+                  onclick="selectDiscipline('cat-3d-ai', this)">
+            <span class='project-badge-clean'>02</span>
+            <h3 class='font-serif-fashion italic text-lg text-charcoal mt-1 translatable' data-en='3D Rendering &amp; AI' data-fr='Rendu 3D &amp; IA'>3D Rendering &amp; AI</h3>
+          </button>
+
+          <!-- 03 Crochet -->
+          <button class='archive-card archive-card-accent-pink discipline-tile hub-node hub-node-3 text-left rounded-2xl p-4 cursor-pointer'
+                  style='--tilt: -2deg;'
+                  data-keywords='crochet knits craft yarn textile handmade'
+                  onclick="selectDiscipline('personal-crochet', this)">
+            <span class='project-badge-clean'>03</span>
+            <h3 class='font-serif-fashion italic text-lg text-charcoal mt-1 translatable' data-en='Crochet' data-fr='Crochet'>Crochet</h3>
+          </button>
+
+          <!-- 04 Sewing -->
+          <button class='archive-card archive-card-accent-charcoal discipline-tile hub-node hub-node-4 text-left rounded-2xl p-4 cursor-pointer'
+                  style='--tilt: 3deg;'
+                  data-keywords='sewing construction garment prototype pattern tailoring finished look'
+                  onclick="selectDiscipline('cat-sewing', this)">
+            <span class='project-badge-clean'>04</span>
+            <h3 class='font-serif-fashion italic text-lg text-charcoal mt-1 translatable' data-en='Sewing' data-fr='Couture'>Sewing</h3>
+          </button>
+
+          <!-- 05 Archive -->
+          <button class='archive-card archive-card-accent-dashed discipline-tile hub-node hub-node-5 text-left rounded-2xl p-4 cursor-pointer'
+                  style='--tilt: -2.5deg;'
+                  data-keywords='archive experimental research textile graphic design photography visual exploration branding'
+                  onclick="selectDiscipline('cat-archive', this)">
+            <span class='project-badge-clean'>05</span>
+            <h3 class='font-serif-fashion italic text-lg text-charcoal mt-1 translatable' data-en='Archive' data-fr='Archives'>Archive</h3>
+          </button>
+
+          <!-- 06 Social Media -->
+          <button class='archive-card archive-card-accent-sage discipline-tile hub-node hub-node-6 text-left rounded-2xl p-4 cursor-pointer'
+                  style='--tilt: 2.5deg;'
+                  data-keywords='social media digital creation campaigns branding content instagram tiktok youtube'
+                  onclick="selectDiscipline('social', this)">
+            <span class='project-badge-clean'>06</span>
+            <h3 class='font-serif-fashion italic text-lg text-charcoal mt-1 translatable' data-en='Social Media' data-fr='Réseaux Sociaux'>Social Media</h3>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- CONTENT VIEW: full-width, hidden until a discipline is selected -->
+      <div id="academic-portfolio" class="portfolio-container-clean hidden">
+        <button onclick="showHub()" class='back-to-hub-btn font-mono text-[10px] uppercase tracking-widest text-charcoal/50 hover:text-purple transition-colors mb-6 inline-flex items-center gap-2 translatable' data-en='← All Disciplines' data-fr='← Toutes les Disciplines'>← All Disciplines</button>
 
             <!-- ==== DISCIPLINE GALLERIES (Sketches / 3D Rendering & AI / Archive / Sewing) ====
                  Each is a single curated horizontal gallery (.filmstrip-row of .polaroid-frame
@@ -1295,9 +1260,6 @@
           </div>
         </div>
 
-        </div>
-
-      </div>
     </div>
   </div>
 
@@ -1618,6 +1580,13 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         targetSec.classList.remove('hidden');
       }
 
+      // Showing any project/category means leaving the discipline hub —
+      // covers both hub clicks and the homepage marquee's direct calls.
+      const hub = document.getElementById('discipline-hub');
+      const content = document.getElementById('academic-portfolio');
+      if (hub) hub.classList.add('hidden');
+      if (content) content.classList.remove('hidden');
+
       // Update sidebar list items active states
       document.querySelectorAll('.project-index-item').forEach(btn => {
         btn.classList.remove('active', 'text-purple', 'font-bold');
@@ -1656,6 +1625,14 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       switchShowroomProject(projId);
       document.querySelectorAll('.discipline-tile').forEach(t => t.classList.remove('is-selected'));
       if (btn) btn.classList.add('is-selected');
+    }
+
+    // Returns to the discipline hub from a category's content view.
+    function showHub() {
+      const hub = document.getElementById('discipline-hub');
+      const content = document.getElementById('academic-portfolio');
+      if (content) content.classList.add('hidden');
+      if (hub) hub.classList.remove('hidden');
     }
 
     // Bilingual Dictionary Engine
@@ -1788,7 +1765,9 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       const board = document.getElementById('archive-board');
       if (!board) return;
 
-      const cards = board.querySelectorAll('.archive-card');
+      // Exclude hub nodes: they're positioned on a fixed circle now, not
+      // meant to be draggable (an accidental drag would displace them).
+      const cards = board.querySelectorAll('.archive-card:not(.hub-node)');
       let activeCard = null;
       let startX = 0;
       let startY = 0;
@@ -1916,7 +1895,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
     // Default initialization
     window.addEventListener('DOMContentLoaded', () => {
       setLanguage('en');
-      switchShowroomProject('cat-sketches');
+      showHub();
       initDraggableCards();
       initArchiveSearch();
       initDockScrollHide();
