@@ -1265,8 +1265,7 @@ body {
   width: 58%;
   height: 14px;
   border-radius: 7px 7px 0 0;
-  background: var(--folder-color);
-  filter: brightness(0.92);
+  background-color: var(--folder-tab-color);
 }
 
 .folder-body {
@@ -1275,7 +1274,10 @@ body {
   margin-top: 9px;
   padding: 16px 14px 14px;
   border-radius: 3px 16px 16px 16px;
-  background: var(--folder-color);
+  background-color: var(--folder-bg-color);
+  background-image: var(--folder-pattern, none);
+  background-size: var(--folder-pattern-size, auto);
+  background-position: var(--folder-pattern-position, 0 0);
   box-shadow:
     2px 5px 0 rgba(30, 30, 30, 0.06),
     0 14px 26px rgba(30, 30, 30, 0.16);
@@ -1299,12 +1301,80 @@ body {
   box-shadow: 0 6px 14px rgba(30, 30, 30, 0.25);
 }
 
-.folder--sketches { --folder-color: var(--sage); }
-.folder--3d-ai     { --folder-color: var(--purple); }
-.folder--crochet   { --folder-color: var(--pink); }
-.folder--sewing    { --folder-color: #D3A878; }
-.folder--archive   { --folder-color: #B7AFA3; }
-.folder--social    { --folder-color: #A9C0CB; }
+/* Each folder's surface pattern reproduces the reference icon set the
+   user provided (polka dot / plaid / corduroy "Folder Colorizer" style
+   macOS icons) rather than a flat color fill — this is a deliberate,
+   explicit exception to the site's normally-restrained surfaces. */
+
+/* 01 Sketches — dark brown ground, light-blue polka dots, periwinkle tab */
+.folder--sketches {
+  --folder-tab-color: #8695D6;
+  --folder-bg-color: #2B1810;
+  --folder-pattern:
+    radial-gradient(circle, #AFC0E8 7px, transparent 7.5px),
+    radial-gradient(circle, #AFC0E8 7px, transparent 7.5px);
+  --folder-pattern-size: 34px 34px, 34px 34px;
+  --folder-pattern-position: 0 0, 17px 17px;
+}
+/* Dark ground means the shared charcoal title/badge text needs to flip
+   light here — every other folder keeps a pale surface where the default
+   dark text already reads fine. */
+.folder--sketches .project-badge-clean,
+.folder--sketches h3 {
+  color: #F1E4C8;
+}
+
+/* 02 3D Rendering & AI — cream ground, black polka dots, dark maroon tab */
+.folder--3d-ai {
+  --folder-tab-color: #3A1210;
+  --folder-bg-color: #F1E4C8;
+  --folder-pattern:
+    radial-gradient(circle, #1A1210 7px, transparent 7.5px),
+    radial-gradient(circle, #1A1210 7px, transparent 7.5px);
+  --folder-pattern-size: 34px 34px, 34px 34px;
+  --folder-pattern-position: 0 0, 17px 17px;
+}
+
+/* 03 Crochet — pink ground, deep maroon polka dots, matching maroon tab */
+.folder--crochet {
+  --folder-tab-color: #3D0D14;
+  --folder-bg-color: #F0A0C0;
+  --folder-pattern:
+    radial-gradient(circle, #3D0D14 7px, transparent 7.5px),
+    radial-gradient(circle, #3D0D14 7px, transparent 7.5px);
+  --folder-pattern-size: 34px 34px, 34px 34px;
+  --folder-pattern-position: 0 0, 17px 17px;
+}
+
+/* 04 Sewing — pink plaid/tartan crosshatch, solid pink tab */
+.folder--sewing {
+  --folder-tab-color: #D9548C;
+  --folder-bg-color: #E8A0BC;
+  --folder-pattern:
+    repeating-linear-gradient(0deg, rgba(196, 40, 40, 0.4) 0px, rgba(196, 40, 40, 0.4) 4px, transparent 4px, transparent 26px),
+    repeating-linear-gradient(90deg, rgba(196, 40, 40, 0.4) 0px, rgba(196, 40, 40, 0.4) 4px, transparent 4px, transparent 26px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.55) 0px, rgba(255, 255, 255, 0.55) 2px, transparent 2px, transparent 13px),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.55) 0px, rgba(255, 255, 255, 0.55) 2px, transparent 2px, transparent 13px);
+}
+
+/* 05 Archive — olive-green corduroy ribbing, matching olive tab */
+.folder--archive {
+  --folder-tab-color: #93A94C;
+  --folder-bg-color: #A3BE55;
+  --folder-pattern:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0px, rgba(255, 255, 255, 0.16) 2px, rgba(0, 0, 0, 0.08) 2px, rgba(0, 0, 0, 0.08) 4px);
+}
+
+/* 06 Social Media — pale-pink ground, sage polka dots, sage tab */
+.folder--social {
+  --folder-tab-color: #94A879;
+  --folder-bg-color: #F6DCE4;
+  --folder-pattern:
+    radial-gradient(circle, #94A879 7px, transparent 7.5px),
+    radial-gradient(circle, #94A879 7px, transparent 7.5px);
+  --folder-pattern-size: 34px 34px, 34px 34px;
+  --folder-pattern-position: 0 0, 17px 17px;
+}
 
 /* Six points evenly spaced around the circle, starting at 12 o'clock. */
 .hub-node-1 { top: 12%;   left: 50%; }
