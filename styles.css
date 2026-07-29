@@ -1251,6 +1251,19 @@ body {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Wraps the folder icon (tab + body) and its spilling-out preview items,
+   so the caption below can sit in normal flow instead of overlaying the
+   pattern. */
+.folder-visual {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding-top: 34px; /* headroom for preview items poking up above the tab */
 }
 
 .folder-shape {
@@ -1261,19 +1274,21 @@ body {
 .folder-tab {
   position: absolute;
   top: 0;
-  left: 12px;
-  width: 58%;
-  height: 14px;
-  border-radius: 7px 7px 0 0;
+  left: 10px;
+  width: 42%;
+  height: 18px;
+  border-radius: 8px 8px 0 0;
   background-color: var(--folder-tab-color);
+  z-index: 1;
 }
 
 .folder-body {
   position: relative;
   display: block;
-  margin-top: 9px;
-  padding: 16px 14px 14px;
-  border-radius: 3px 16px 16px 16px;
+  margin-top: 10px;
+  min-height: 76px;
+  padding: 14px 12px 12px;
+  border-radius: 4px 16px 16px 16px;
   background-color: var(--folder-bg-color);
   background-image: var(--folder-pattern, none);
   background-size: var(--folder-pattern-size, auto);
@@ -1281,24 +1296,53 @@ body {
   box-shadow:
     2px 5px 0 rgba(30, 30, 30, 0.06),
     0 14px 26px rgba(30, 30, 30, 0.16);
+  z-index: 3;
 }
 
+/* Preview items sit BETWEEN the tab (z-index 1) and the body (z-index 3),
+   not above everything — that's what makes them read as tucked inside the
+   folder's opening rather than pinned on top of it: the body's top edge
+   naturally covers the bottom portion of each item. */
 .folder-preview {
   position: absolute;
-  top: -32px;
+  top: 0;
   left: 50%;
-  transform: translateX(-50%) rotate(-7deg);
-  z-index: 3;
+  /* Wide enough that the site-wide img{max-width:100%} reset never caps
+     the preview photos below — this element has no visible box of its
+     own, it's just a positioning anchor. */
+  width: 240px;
+  height: 0;
+  z-index: 2;
   pointer-events: none;
 }
-.folder-preview img {
-  display: block;
-  width: 82px;
-  height: 60px;
+.folder-preview-img {
+  position: absolute;
+  top: -34px;
+  left: 0;
+  width: 64px;
+  height: 84px;
   object-fit: cover;
-  border: 3px solid var(--cream);
-  border-radius: 3px;
-  box-shadow: 0 6px 14px rgba(30, 30, 30, 0.25);
+  border: 2px solid var(--cream);
+  border-radius: 2px;
+  box-shadow: 0 8px 16px rgba(30, 30, 30, 0.24);
+}
+.folder-preview-img--1 { transform: translateX(-72%) rotate(-9deg); z-index: 1; }
+.folder-preview-img--2 { top: -40px; transform: translateX(-4%) rotate(7deg); z-index: 2; }
+/* Single-item folders (no second real asset yet) center the one photo. */
+.folder-preview-img--solo { transform: translateX(-50%) rotate(-6deg); }
+
+/* Caption lives below the folder icon now, like a handwritten label under
+   a physical folder — not layered on top of its pattern. */
+.folder-caption {
+  margin-top: 14px;
+  text-align: center;
+}
+.folder-caption .project-badge-clean {
+  font-size: 0.65rem;
+  margin-bottom: 2px;
+}
+.folder-caption h3 {
+  margin-top: 0;
 }
 
 /* Each folder's surface pattern reproduces the reference icon set the
@@ -1315,13 +1359,6 @@ body {
     radial-gradient(circle, #AFC0E8 7px, transparent 7.5px);
   --folder-pattern-size: 34px 34px, 34px 34px;
   --folder-pattern-position: 0 0, 17px 17px;
-}
-/* Dark ground means the shared charcoal title/badge text needs to flip
-   light here — every other folder keeps a pale surface where the default
-   dark text already reads fine. */
-.folder--sketches .project-badge-clean,
-.folder--sketches h3 {
-  color: #F1E4C8;
 }
 
 /* 02 3D Rendering & AI — cream ground, black polka dots, dark maroon tab */
@@ -1410,6 +1447,9 @@ body {
      stacked list — keep the folder shape, drop the spilling-out image. */
   .folder-preview {
     display: none;
+  }
+  .folder-visual {
+    padding-top: 0;
   }
   .folder-tab {
     left: 16px;
