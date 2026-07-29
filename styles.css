@@ -1314,6 +1314,14 @@ body {
   height: 0;
   z-index: 2;
   pointer-events: none;
+  transform: translateY(0);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+/* The "sleeve" effect: hovering a folder slides its tucked-in items
+   further out of the opening, on top of the node's existing tilt+scale
+   hover — purely additive, doesn't change the click/nav behavior below. */
+.hub-node:hover .folder-preview {
+  transform: translateY(-14px);
 }
 .folder-preview-img {
   position: absolute;
