@@ -28,6 +28,23 @@
   box-sizing: border-box;
 }
 
+/* Fills its parent instead of sitting as a fixed-size centered card — the
+   parent (the real site's [data-full-bleed] wrapper) is what actually
+   breaks out to the full viewport; this just stops the card from capping
+   itself once there's room to fill. Outer sizing only — everything below
+   this rule (header, toolbar, workspace, item grid, palette) is untouched
+   whether this modifier is applied or not. */
+.pd-container--fullbleed {
+  max-width: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.pd-container--fullbleed .pd-body {
+  flex: 1;
+  min-height: 0;
+}
+
 /* Header */
 .pd-header {
   min-height: 38px;

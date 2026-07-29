@@ -44,6 +44,10 @@
   
   <!-- External Stylesheet -->
   <link rel='stylesheet' href='styles.css'>
+  <!-- ProjectDetail component (Crochet / Sewing interior pages) — built
+       bundle from react-components/project-detail/ (npm run build:embed).
+       Classes are scoped under .pd-*, safe to load globally. -->
+  <link rel='stylesheet' href='react-components/project-detail/dist-embed/project-detail.css'>
 </head>
 <body class='bg-cream select-none min-h-screen relative pb-36 overflow-x-hidden'>
 
@@ -416,21 +420,24 @@
               </div>
             </div>
 
-            <div id="project-showroom-cat-sewing" class="project-showroom-section hidden space-y-6">
-              <!-- Add new pieces by dropping an exported .jpg/.png in PORTFOLIO ASSESTS/sewing/ and adding one .polaroid-frame entry above. -->
-              <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
-                <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Sewing' data-fr='Couture'>Sewing</h4>
-                <span class='organic-ribbon translatable' data-en='04 // Sewing' data-fr='04 // Couture'>04 // Sewing</span>
-              </div>
-              <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-sewing-desc'></p>
-              <div class='filmstrip-row'>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-2deg);'>
-            <img src="PORTFOLIO ASSESTS/sewing/1.jpeg" class='w-full h-56 object-cover rounded' loading='lazy' alt="Sewn garment">
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1.5deg);'>
-            <img src="PORTFOLIO ASSESTS/sewing/2.jpeg" class='w-full h-56 object-cover rounded' loading='lazy' alt="Sewn garment">
-          </div>
-              </div>
+            <div id="project-showroom-cat-sewing" class="project-showroom-section hidden">
+              <!-- ProjectDetail window (see react-components/project-detail/) —
+                   fills the page: title/description live in the window's own
+                   chrome now, and the polaroid filmstrip that used to sit
+                   below the window is rendered inside it (same real assets;
+                   add more via data-accessories). Add new pieces by dropping
+                   an exported .jpg/.png in PORTFOLIO ASSESTS/sewing/ and
+                   adding one entry to data-accessories. -->
+              <div
+                data-project-detail
+                data-full-bleed="true"
+                data-title="Sewing — Project_01"
+                data-accent="#3E5C76"
+                data-hero-src="PORTFOLIO ASSESTS/sewing/1.jpeg"
+                data-hero-alt="Sewn garment, full look"
+                data-accessories='[{"src":"PORTFOLIO ASSESTS/sewing/2.jpeg","alt":"Sewn garment, detail"}]'
+                class="pd-mount--fullbleed"
+              ></div>
             </div>
 
             <div id="project-showroom-cat-archive" class="project-showroom-section hidden space-y-6">
@@ -1169,45 +1176,26 @@
           </div>
 
           <!-- 11 // Personal Work: Crochet & Knits -->
-          <div id='project-showroom-personal-crochet' class='project-showroom-section hidden space-y-6'>
-            <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/5 pb-4'>
-              <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Crochet &amp; Experimental Knits' data-fr='Crochet &amp; Tricot Expérimental'>Crochet &amp; Experimental Knits</h4>
-              <span class='organic-ribbon translatable' data-en='Personal Work' data-fr='Projets Personnels'>Personal Work</span>
-            </div>
-            
-            <div class='personal-slide-container relative z-10'>
-              
-              <!-- Left Column: Text & Chunky Typography -->
-              <div class='lg:col-span-6 space-y-6 relative z-10'>
-                <div class='chunky-highlight-title select-none pointer-events-none opacity-10'>
-                  CRAFT
-                </div>
-                <p class='font-sans text-sm text-charcoal/70 leading-relaxed' data-key='personal-crochet-desc'></p>
-                <div class='border-l-2 border-purple pl-4 italic text-xs text-charcoal/60 leading-relaxed translatable'
-                     data-en='"Transforming organic yarn threads into computational geometric volumes, blending ancient loops with modern structural layouts."'
-                     data-fr='"Transformer des fils de laine organiques en volumes géométriques informatiques, mêlant boucles ancestrales et structures modernes."'>
-                  "Transforming organic yarn threads into computational geometric volumes, blending ancient loops with modern structural layouts."
-                </div>
-              </div>
-
-              <!-- Right Column: Minimalist Photo Grid & Journey lines -->
-              <div class='lg:col-span-6 relative min-h-[300px]'>
-                <!-- SVG journey line connecting elements -->
-                <svg class='journey-path-svg' viewBox='0 0 400 300' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                  <path d='M30 50 C 150 20, 200 280, 350 250' stroke='#9882AC' stroke-width='1.5' stroke-dasharray='4 4' />
-                </svg>
-
-                <div class='minimalist-photo-grid relative z-10'>
-                  <div class='minimal-photo-rect'>
-                    <div class='bg-creamdark p-2 text-center font-mono text-[8px] text-charcoal/50 uppercase tracking-widest'>Process</div>
-                  </div>
-                  <div class='minimal-photo-rect mt-8' style='aspect-ratio: 3/4;'>
-                    <img src="PORTFOLIO ASSESTS/crochet/IMG_20260214_163702821_HDR.jpg" class='w-full h-full object-cover' loading='lazy' alt='Finished crochet piece'>
-                  </div>
-                </div>
-              </div>
-
-            </div>
+          <div id='project-showroom-personal-crochet' class='project-showroom-section hidden'>
+            <!-- ProjectDetail window (see react-components/project-detail/) —
+                 fills the page: title lives in the window's own chrome now.
+                 Only one real crochet asset exists yet, so it's used as the
+                 hero and the filmstrip has just that one frame; add more via
+                 data-accessories once more shots exist.
+                 NOTE: this replaced the old two-column layout, which had a
+                 "CRAFT" watermark + pull-quote that don't have an equivalent
+                 slot in the window chrome — dropped along with the plain
+                 description, not carried over anywhere. -->
+            <div
+              data-project-detail
+              data-full-bleed="true"
+              data-title="Crochet — Project_01"
+              data-accent="#A4B35E"
+              data-hero-src="PORTFOLIO ASSESTS/crochet/IMG_20260214_163702821_HDR.jpg"
+              data-hero-alt="Crochet piece, full look"
+              data-accessories='[]'
+              class="pd-mount--fullbleed"
+            ></div>
           </div>
         </div>
 
@@ -1942,6 +1930,13 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
   <script src="PORTFOLIO ASSESTS/SKETCHES/manifest.js"></script>
   <script src="components/sketch-stack/sketch-stack-animations.js"></script>
   <script src="components/sketch-stack/sketch-stack.js"></script>
+
+  <!-- ProjectDetail: React "project window" template for Crochet/Sewing
+       (self-contained, see react-components/project-detail/). Scans for
+       [data-project-detail] elements below and mounts into them.
+       Deliberately a classic (non-module) script — type="module" is
+       blocked by CORS when loaded from a file:// page in real Chrome. -->
+  <script src="react-components/project-detail/dist-embed/project-detail.js"></script>
 </body>
 </html>
 

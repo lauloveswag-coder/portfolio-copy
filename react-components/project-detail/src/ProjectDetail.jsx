@@ -39,6 +39,14 @@ const DEFAULT_SWATCHES = ['#000000', '#E84545', '#3E5C76', '#FFFFFF'];
  *
  * Fully data-driven so one component serves every discipline: pass a new
  * hero/accessories/accentColor and it's a different project.
+ *
+ * `fullBleed` switches from a fixed-size centered card (the default —
+ * used by this folder's own demo) to filling 100% of its parent's box,
+ * for pages that want the window to BE the page rather than sit on one
+ * (see the real site's [data-project-detail][data-full-bleed] wrapper,
+ * which additionally breaks that parent out to the full viewport width).
+ * This only affects the outer container's sizing — the internal layout
+ * below (hero + item grid, side by side) is unchanged either way.
  */
 export default function ProjectDetail({
   title,
@@ -46,9 +54,10 @@ export default function ProjectDetail({
   accessories = [],
   accentColor,
   swatches = DEFAULT_SWATCHES,
+  fullBleed = false,
 }) {
   return (
-    <div className="pd-container" style={{ '--pd-accent': accentColor }}>
+    <div className={'pd-container' + (fullBleed ? ' pd-container--fullbleed' : '')} style={{ '--pd-accent': accentColor }}>
       <div className="pd-header">
         <div className="pd-traffic-lights">
           <span className="pd-light pd-light--red" />

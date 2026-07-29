@@ -1508,3 +1508,47 @@ body {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
 }
+
+/* ---- ProjectDetail full-bleed wrapper (Sewing / Crochet interior pages) ----
+   Breaks the window out of .portfolio-container-clean's 1200px max-width
+   to span the true viewport width, and sizes it to fill the remaining
+   height below the panel's top bar + back-link — so the window IS the
+   page, not a fixed-size card sitting on one. Scoped to this wrapper
+   class only; doesn't touch .portfolio-container-clean or .panel-content
+   for any other (non-fullbleed) section. */
+.pd-mount--fullbleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 0 20px 40px;
+  box-sizing: border-box;
+  display: flex;
+  /* Without this, flex-direction defaults to row, so the child's flex:1
+     grows its WIDTH not height — the whole vertical fill chain inside
+     the window (.pd-body/.pd-workspace/.pd-canvas-main flex-grow) then
+     has no constrained height to resolve against and every image
+     renders at its native pixel size instead. */
+  flex-direction: column;
+  /* A genuine height, not min-height: min-height is only a floor, so
+     without an actual ceiling here the hero image (via object-fit) has
+     nothing forcing it to shrink to fit and balloons to its native
+     pixel size instead, ballooning this whole flex-grow chain with it.
+     Fixed chrome above this point: 65px panel-header + 36px
+     panel-content top padding + 40px portfolio-container-clean top
+     padding + the back-link's own 15px height + 24px margin-bottom =
+     180px. Fill exactly the rest of the viewport. */
+  height: calc(100vh - 180px);
+}
+.pd-mount--fullbleed > .pd-container--fullbleed {
+  flex: 1;
+}
+
+@media (max-width: 767px) {
+  .pd-mount--fullbleed {
+    min-height: 70vh;
+    padding: 0 12px 32px;
+  }
+}
