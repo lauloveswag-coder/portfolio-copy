@@ -423,19 +423,18 @@
             <div id="project-showroom-cat-sewing" class="project-showroom-section hidden">
               <!-- ProjectDetail window (see react-components/project-detail/) —
                    fills the page: title/description live in the window's own
-                   chrome now, and the polaroid filmstrip that used to sit
-                   below the window is rendered inside it (same real assets;
-                   add more via data-accessories). Add new pieces by dropping
-                   an exported .jpg/.png in PORTFOLIO ASSESTS/sewing/ and
-                   adding one entry to data-accessories. -->
+                   chrome now. Images are auto-discovered from
+                   PORTFOLIO ASSESTS/sewing/ (data-auto-folder) — drop a new
+                   .jpg/.jpeg/.png/.webp in that folder, no HTML edit needed.
+                   Live (no rebuild) only while served via `npm run dev` at
+                   the project root; opened via file:// it uses whatever was
+                   in the folder at the last `npm run build:embed`. -->
               <div
                 data-project-detail
                 data-full-bleed="true"
                 data-title="Sewing — Project_01"
                 data-accent="#3E5C76"
-                data-hero-src="PORTFOLIO ASSESTS/sewing/1.jpeg"
-                data-hero-alt="Sewn garment, full look"
-                data-accessories='[{"src":"PORTFOLIO ASSESTS/sewing/2.jpeg","alt":"Sewn garment, detail"}]'
+                data-auto-folder="PORTFOLIO ASSESTS/sewing/"
                 class="pd-mount--fullbleed"
               ></div>
             </div>
@@ -1179,9 +1178,12 @@
           <div id='project-showroom-personal-crochet' class='project-showroom-section hidden'>
             <!-- ProjectDetail window (see react-components/project-detail/) —
                  fills the page: title lives in the window's own chrome now.
-                 Only one real crochet asset exists yet, so it's used as the
-                 hero and the filmstrip has just that one frame; add more via
-                 data-accessories once more shots exist.
+                 Images are auto-discovered from PORTFOLIO ASSESTS/crochet/
+                 (data-auto-folder) — drop a new .jpg/.jpeg/.png/.webp in
+                 that folder, no HTML edit needed. Live (no rebuild) only
+                 while served via `npm run dev` at the project root; opened
+                 via file:// it uses whatever was in the folder at the last
+                 `npm run build:embed`.
                  NOTE: this replaced the old two-column layout, which had a
                  "CRAFT" watermark + pull-quote that don't have an equivalent
                  slot in the window chrome — dropped along with the plain
@@ -1191,9 +1193,7 @@
               data-full-bleed="true"
               data-title="Crochet — Project_01"
               data-accent="#A4B35E"
-              data-hero-src="PORTFOLIO ASSESTS/crochet/IMG_20260214_163702821_HDR.jpg"
-              data-hero-alt="Crochet piece, full look"
-              data-accessories='[]'
+              data-auto-folder="PORTFOLIO ASSESTS/crochet/"
               class="pd-mount--fullbleed"
             ></div>
           </div>
@@ -1934,9 +1934,32 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
   <!-- ProjectDetail: React "project window" template for Crochet/Sewing
        (self-contained, see react-components/project-detail/). Scans for
        [data-project-detail] elements below and mounts into them.
-       Deliberately a classic (non-module) script — type="module" is
-       blocked by CORS when loaded from a file:// page in real Chrome. -->
-  <script src="react-components/project-detail/dist-embed/project-detail.js"></script>
+
+       Loads one of two ways depending on how THIS page is being viewed:
+         - file:// (opened directly, the normal way) — the prebuilt classic
+           script (dist-embed/project-detail.js). Has to be a classic,
+           non-module script here: type="module" is blocked by CORS when
+           loaded from a file:// page in real Chrome. Crochet/Sewing images
+           reflect whatever existed in their folders at the last
+           `npm run build:embed` (see react-components/project-detail/).
+         - served via the root-level `npm run dev` (Vite) — loads the
+           component's own source as a real ES module instead, which is
+           what makes Crochet/Sewing's data-auto-folder image discovery
+           live: new files dropped into PORTFOLIO ASSESTS/crochet or
+           /sewing appear on save/reload, no build step. See vite.config.js
+           and package.json at the project root. -->
+  <script>
+    (function () {
+      var s = document.createElement('script');
+      if (location.protocol === 'file:') {
+        s.src = 'react-components/project-detail/dist-embed/project-detail.js';
+      } else {
+        s.type = 'module';
+        s.src = '/react-components/project-detail/src/mount.jsx';
+      }
+      document.body.appendChild(s);
+    })();
+  </script>
 </body>
 </html>
 

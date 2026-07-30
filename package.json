@@ -1,0 +1,18 @@
+{
+  "name": "retro-zine-portfolio-dev-server",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Dev-only server for the real index.html, so Crochet/Sewing's image folders can be glob-imported live (import.meta.glob). Unrelated to react-components/project-detail's own package.json, which builds that component's production bundle — this one just serves the whole static site through Vite so image auto-discovery has a live process to run in. Not required to view the site normally (index.html still opens fine via file://); only needed if you want new Crochet/Sewing photos to appear without a rebuild.",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
+    "vite": "^5.4.1"
+  }
+}
