@@ -115,6 +115,22 @@
   color: #222;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+/* Only the eraser gets this, and only when there are layers to clear —
+   it's the one tool with a real action (Clear All), everything else in
+   the rail stays decorative. */
+.pd-tool--clickable {
+  cursor: pointer;
+}
+.pd-tool--clickable:hover {
+  background: rgba(255, 255, 255, 0.7);
+}
+.pd-tool--clickable[aria-disabled='true'] {
+  cursor: default;
+  opacity: 0.35;
+}
+.pd-tool--clickable[aria-disabled='true']:hover {
+  background: none;
+}
 .pd-tool-spacer {
   flex-grow: 1;
 }
@@ -134,6 +150,14 @@
   border-radius: calc(var(--pd-radius) * 0.6);
   display: grid;
   grid-template-columns: 1.4fr 1fr;
+  /* Without this, the implicit row sizes to CONTENT (the hero image's
+     natural aspect ratio) instead of the space actually available —
+     in a fullBleed window that lets the row balloon to whatever height
+     the image "wants" (over 1800px for a portrait photo), pushing it
+     far below the visible area while the workspace box itself stays
+     correctly sized. minmax(0, 1fr) forces the row to fill the
+     container's real height instead. */
+  grid-template-rows: minmax(0, 1fr);
   padding: clamp(16px, 4vw, 40px);
   gap: clamp(16px, 4vw, 40px);
   border: 1px solid var(--pd-border);
@@ -152,6 +176,26 @@
   object-fit: contain;
   filter: drop-shadow(15px 15px 20px rgba(0, 0, 0, 0.1));
 }
+/* Single-select photo swap — absolutely centered on top of the hero
+   ("base"). At most one of these is ever --active at a time (see the
+   `layers` prop doc in ProjectDetail.jsx for why this is single-select,
+   not a multi-layer composite); shown by clicking the matching item-grid
+   thumbnail, cleared by clicking it again or the eraser tool. */
+.pd-layer-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.pd-layer-overlay--active {
+  opacity: 1;
+}
 /* Visual chrome only — no drawing logic attached to this canvas. */
 .pd-canvas-overlay {
   position: absolute;
@@ -167,8 +211,26 @@
   grid-template-columns: 1fr 1fr;
   grid-auto-rows: minmax(70px, 1fr);
   gap: 20px;
+  /* Explicit, not relied-on-by-default: pointer-events is inherited, so
+     without this any ancestor that's pointer-events:none for its own
+     reasons (this codebase has a few, e.g. .editorial-panel pre-open)
+     would silently disable every thumbnail underneath it too. */
+  pointer-events: auto;
+  /* A real project's photo count isn't bounded (auto-discovery can pull
+     in a dozen+ real photos) — once there are more rows than fit in the
+     available height, scroll within this panel instead of overflowing
+     the workspace or getting clipped. align-content:start so short lists
+     don't stretch their rows to fill leftover space. */
+  min-height: 0;
+  overflow-y: auto;
+  align-content: start;
 }
 .pd-detail-box {
+  /* Reset — this is a <button> when it's a single-select swap, a plain
+     <div> otherwise; harmless on the div, necessary on the button. */
+  border: none;
+  padding: 0;
+  font: inherit;
   border-radius: calc(var(--pd-radius) * 0.7);
   overflow: hidden;
   display: flex;
@@ -181,16 +243,31 @@
   box-shadow:
     2px 5px 0 rgba(30, 30, 30, 0.06),
     0 14px 26px rgba(30, 30, 30, 0.16);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.pd-detail-box:where(button) {
+  cursor: pointer;
+}
+.pd-detail-box:where(button):active {
+  transform: scale(0.96);
+}
+/* Selected feedback for the one active thumbnail — a colored glow via
+   box-shadow, not a hard border, per the site's images-have-no-borders
+   rule. Layers on top of (not replacing) the box's existing shadow. */
+.pd-detail-box--selected {
+  box-shadow:
+    0 0 0 3px var(--pd-accent),
+    0 0 0 6px rgba(255, 255, 255, 0.6),
+    2px 5px 0 rgba(30, 30, 30, 0.06),
+    0 14px 26px rgba(30, 30, 30, 0.16);
 }
 .pd-detail-box img {
-  /* max- (not fixed) width/height so a portrait photo scales down to fit
-     fully inside the box instead of overflowing past 80% width and
-     getting clipped by the box's own overflow:hidden. */
-  max-width: 80%;
-  max-height: 80%;
-  width: auto;
-  height: auto;
-  object-fit: contain;
+  /* Fixed box, cropped fill — a grid of real project photos needs
+     uniform-sized thumbnails regardless of each source photo's own
+     aspect ratio, not each box sized/shaped around its own image. */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Palette */

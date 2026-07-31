@@ -17,17 +17,34 @@ import ProjectDetail from './ProjectDetail.jsx';
 //                         outer sizing only, doesn't touch the internal
 //                         hero + item-grid layout
 //   data-swatches         optional JSON array of color strings
+//   data-layers           optional JSON array of single-select swap
+//                         entries — [{"id":"...","layerSrc":"...",
+//                         "layerAlt":"...","thumbSrc":"...",
+//                         "thumbAlt":"..."}, ...]. When present and
+//                         non-empty, the item grid becomes clickable
+//                         buttons — clicking one shows that image over
+//                         the hero, replacing whichever was showing
+//                         before (see ProjectDetail.jsx for why this is
+//                         single-select, not a multi-layer composite) —
+//                         instead of the plain data-accessories gallery.
 //
 // Image source — pick ONE of:
 //   data-auto-folder      a folder path (e.g. "PORTFOLIO ASSESTS/crochet/")
 //                         to auto-discover every image in it — first file
 //                         (alphabetically) becomes the hero, the rest
-//                         become accessories. Resolved by whichever
-//                         `resolveAutoFolder` the calling entry passes in.
+//                         become both the plain accessories gallery AND
+//                         (unless data-layers is also given) auto-derived
+//                         single-select swap entries, one per discovered
+//                         photo. Resolved by whichever `resolveAutoFolder`
+//                         the calling entry passes in.
 //   data-hero-src / -alt
 //   + data-accessories    JSON array of {"src": "...", "alt": "..."} —
 //                         the original explicit/manual way, still
 //                         supported for anything that isn't folder-backed.
+//
+// data-layers, if present, always wins over the auto-derived layers
+// above — use it once you want an explicit, hand-picked set instead of
+// "every photo in the folder."
 
 function parseJSON(raw, fallback) {
   if (!raw) return fallback;
@@ -46,10 +63,19 @@ export function mountAll(resolveAutoFolder) {
 
     let hero;
     let accessories;
+    let autoLayers = [];
     if (el.dataset.autoFolder) {
       const files = resolveAutoFolder(el.dataset.autoFolder);
       hero = files[0] || null;
       accessories = files.slice(1);
+      // One single-select swap entry per discovered photo.
+      autoLayers = accessories.map((item, i) => ({
+        id: 'auto-' + i,
+        layerSrc: item.src,
+        layerAlt: item.alt,
+        thumbSrc: item.src,
+        thumbAlt: item.alt,
+      }));
     } else {
       hero = { src: el.dataset.heroSrc, alt: el.dataset.heroAlt || '' };
       accessories = parseJSON(el.dataset.accessories, []);
@@ -61,9 +87,14 @@ export function mountAll(resolveAutoFolder) {
       hero,
       accessories,
       fullBleed: el.dataset.fullBleed === 'true',
+      layers: autoLayers,
     };
     const swatches = parseJSON(el.dataset.swatches, null);
     if (swatches) props.swatches = swatches;
+    // Explicit data-layers (real cutout art) always overrides the
+    // auto-derived ones above.
+    const explicitLayers = parseJSON(el.dataset.layers, null);
+    if (explicitLayers) props.layers = explicitLayers;
 
     ReactDOM.createRoot(el).render(
       <React.StrictMode>
