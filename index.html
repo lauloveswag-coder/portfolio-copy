@@ -4,7 +4,50 @@
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
   <title>LAURA GARCON | Digital Exhibition Atelier</title>
-  
+
+  <!-- Theme + accessibility state, applied before first paint so there's no
+       flash of the wrong theme/font-scale. Reads localStorage, falling back
+       to the OS-level color-scheme preference on a first visit. Full logic
+       (toggle functions, dyslexia toolbar) lives in theme.js. -->
+  <script>
+    (function () {
+      var FONT_STACKS = {
+        lexend: "'Lexend', sans-serif",
+        opendyslexic: "'OpenDyslexic', sans-serif",
+        atkinson: "'Atkinson Hyperlegible', sans-serif"
+      };
+      try {
+        var theme = localStorage.getItem('lg-theme') ||
+          (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        if (theme === 'dark') document.documentElement.classList.add('dark');
+
+        var a11y = JSON.parse(localStorage.getItem('lg-dyslexia-settings') || 'null');
+        if (a11y) {
+          var root = document.documentElement, style = root.style;
+          if (a11y.fontKey && a11y.fontKey !== 'system' && FONT_STACKS[a11y.fontKey]) {
+            style.setProperty('--dyslexia-font', FONT_STACKS[a11y.fontKey]);
+            root.classList.add('dyslexia-font-active');
+          }
+          if (typeof a11y.letterSpacing === 'number') {
+            style.setProperty('--dyslexia-letter-spacing', a11y.letterSpacing + 'em');
+            root.classList.add('dyslexia-ls-active');
+          }
+          if (typeof a11y.lineHeight === 'number') {
+            style.setProperty('--dyslexia-line-height', a11y.lineHeight);
+            root.classList.add('dyslexia-lh-active');
+          }
+          if (typeof a11y.fontSize === 'number') {
+            style.setProperty('--dyslexia-font-size', a11y.fontSize + '%');
+          }
+          if (a11y.tint && a11y.tint !== 'none') {
+            root.setAttribute('data-dyslexia-tint', a11y.tint);
+          }
+          if (a11y.ruler) root.classList.add('dyslexia-ruler-active');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
   <!-- SEO Meta Tags -->
   <meta name='description' content='Explore the premium digital exhibition of Laura Garcon. Blending costume design, creative AI direction, zine aesthetics, and bilingual translations.'>
   <meta name='keywords' content='Fashion Design, Graphic Design, AI Creative, Creative Direction, Luxury Portfolio, Zine Exhibition'>
@@ -13,6 +56,13 @@
   <!-- Tailwind CSS CDN -->
   <script src='https://cdn.tailwindcss.com'></script>
   <script>
+    // Colors resolve through the CSS custom properties defined in styles.css
+    // (:root for light / html.dark for dark) so every existing bg-*/text-*/
+    // border-* utility class re-themes automatically — see the "Legacy
+    // aliases" comment in styles.css for the cream/charcoal/etc -> token
+    // mapping. The rgb(var(...) / <alpha-value>) form is Tailwind's
+    // documented pattern for CSS-variable colors that still support
+    // opacity modifiers (e.g. bg-cream/30, border-charcoal/10).
     tailwind.config = {
       theme: {
         extend: {
@@ -21,33 +71,46 @@
             '5xl': '2.5rem'
           },
           colors: {
-            cream: '#FCFAF6',
-            creamdark: '#F7F3EE',
-            charcoal: '#1E1E1E',
-            sage: '#A7B89E',
-            sagelight: '#D5DFD1',
-            purple: '#9882AC',
-            purplelight: '#E7DFEF',
-            pink: '#E8D1C5',
-            pinklight: '#F4ECE7',
-            hotpink: '#F43F5E'
+            cream: 'rgb(var(--color-bg-primary) / <alpha-value>)',
+            creamdark: 'rgb(var(--color-card-bg) / <alpha-value>)',
+            charcoal: 'rgb(var(--color-text-primary) / <alpha-value>)',
+            sage: 'rgb(var(--color-accent-3) / <alpha-value>)',
+            sagelight: 'color-mix(in srgb, rgb(var(--color-accent-3)) 22%, rgb(var(--color-bg-primary)) 78%)',
+            purple: 'rgb(var(--color-accent-1) / <alpha-value>)',
+            purplelight: 'color-mix(in srgb, rgb(var(--color-accent-1)) 22%, rgb(var(--color-bg-primary)) 78%)',
+            pink: 'rgb(var(--color-accent-2) / <alpha-value>)',
+            pinklight: 'color-mix(in srgb, rgb(var(--color-accent-2)) 22%, rgb(var(--color-bg-primary)) 78%)',
+            hotpink: 'rgb(var(--color-accent-2) / <alpha-value>)'
           }
         }
       }
     }
   </script>
   
-  <!-- Google Fonts - Caveat for handwriting overlays -->
+  <!-- Google Fonts - Caveat for handwriting overlays, plus the dyslexia
+       accessibility toolbar's font options (Lexend, Atkinson Hyperlegible).
+       OpenDyslexic isn't on Google Fonts, so it's loaded from its official
+       CDN-hosted webfont build below. -->
   <link rel='preconnect' href='https://fonts.googleapis.com'>
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
-  <link href='https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap' rel='stylesheet'>
-  
+  <link href='https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Lexend:wght@400;500;600&family=Atkinson+Hyperlegible:wght@400;700&display=swap' rel='stylesheet'>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fontsource/opendyslexic@5.3.0/400.css'>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fontsource/opendyslexic@5.3.0/700.css'>
+
   <!-- External Stylesheet -->
   <link rel='stylesheet' href='styles.css'>
   <!-- ProjectDetail component (Crochet / Sewing interior pages) — built
        bundle from react-components/project-detail/ (npm run build:embed).
        Classes are scoped under .pd-*, safe to load globally. -->
   <link rel='stylesheet' href='react-components/project-detail/dist-embed/project-detail.css'>
+  <!-- Social Media component (TikTok feed) — built bundle from
+       react-components/social-media/ (npm run build:embed). Output
+       filename is "creator-feed", NOT "social-media" — that literal
+       name gets silently blocked by common ad/tracker content-blocker
+       filter lists (confirmed while testing this page). Scoped class
+       names (Tailwind arbitrary-value utilities + a few custom ones in
+       creator-feed.css), safe to load globally. -->
+  <link rel='stylesheet' href='react-components/social-media/dist-embed/creator-feed.css'>
 </head>
 <body class='bg-cream select-none min-h-screen relative pb-36 overflow-x-hidden'>
 
@@ -82,6 +145,89 @@
       </div>
     </div>
   </header>
+
+  <!-- Dark/light + accessibility controls: a fixed-position corner cluster,
+       NOT inside <header>. The site's "pages" are full-viewport fixed
+       .editorial-panel overlays (z-index 40) that sit above the header
+       (z-index 30) — only the bottom dock nav (z-index 50) was designed to
+       stay reachable above them. A control living inside <header> would
+       therefore be invisible on About/Portfolio/Universe/Journal, i.e. on
+       every page except the hero. Fixed-positioning it as its own
+       high-z-index element keeps it reachable everywhere regardless of
+       which panel (if any) is open. -->
+  <div id='site-controls' class='site-controls-float'>
+    <button id='theme-toggle-btn' type='button' aria-label='Switch to dark mode' aria-pressed='false'
+            class='w-9 h-9 flex items-center justify-center rounded-full border border-charcoal/10 bg-creamdark hover:bg-pink/30 transition-all focus:outline-none text-[15px]'>
+      <span id='theme-toggle-icon' aria-hidden='true'>&#9728;&#65039;</span>
+    </button>
+
+    <!-- Accessibility / dyslexia reading toolbar -->
+    <div class='relative'>
+      <button id='a11y-toggle-btn' type='button' aria-haspopup='true' aria-expanded='false' aria-controls='a11y-panel'
+              aria-label='Open reading & accessibility settings'
+              class='w-9 h-9 flex items-center justify-center rounded-full border border-charcoal/10 bg-creamdark hover:bg-pink/30 transition-all focus:outline-none font-mono text-[13px] font-bold'>
+        Aa
+      </button>
+
+      <div id='a11y-panel' class='a11y-panel hidden' role='dialog' aria-label='Reading and accessibility settings'>
+        <div class='a11y-panel-header'>
+          <span class='translatable' data-en='Reading Settings' data-fr='Paramètres de Lecture'>Reading Settings</span>
+          <button id='a11y-panel-close' type='button' aria-label='Close reading settings' class='a11y-panel-close'>&times;</button>
+        </div>
+
+        <div class='a11y-field'>
+          <label for='a11y-font-select' class='translatable' data-en='Font' data-fr='Police'>Font</label>
+          <select id='a11y-font-select'>
+            <option value='system'>System default</option>
+            <option value='lexend'>Lexend</option>
+            <option value='opendyslexic'>OpenDyslexic</option>
+            <option value='atkinson'>Atkinson Hyperlegible</option>
+          </select>
+        </div>
+
+        <div class='a11y-field'>
+          <label for='a11y-letterspacing-range' class='translatable' data-en='Letter spacing' data-fr='Espacement des lettres'>Letter spacing</label>
+          <input id='a11y-letterspacing-range' type='range' min='0' max='0.1' step='0.01' value='0'>
+        </div>
+
+        <div class='a11y-field'>
+          <label for='a11y-lineheight-range' class='translatable' data-en='Line height' data-fr='Interligne'>Line height</label>
+          <input id='a11y-lineheight-range' type='range' min='1.6' max='2.1' step='0.1' value='1.6'>
+        </div>
+
+        <div class='a11y-field'>
+          <label for='a11y-fontsize-range' class='translatable' data-en='Text size' data-fr='Taille du texte'>Text size</label>
+          <input id='a11y-fontsize-range' type='range' min='100' max='150' step='5' value='100'>
+        </div>
+
+        <div class='a11y-field'>
+          <label class='translatable' data-en='Background tint' data-fr='Teinte de fond'>Background tint</label>
+          <div class='a11y-tint-swatches' role='radiogroup' aria-label='Background tint'>
+            <button type='button' class='a11y-tint-swatch' data-tint='none' aria-label='No tint' aria-pressed='true'>&times;</button>
+            <button type='button' class='a11y-tint-swatch' data-tint='yellow' aria-label='Warm yellow tint' aria-pressed='false'></button>
+            <button type='button' class='a11y-tint-swatch' data-tint='aqua' aria-label='Soft aqua tint' aria-pressed='false'></button>
+            <button type='button' class='a11y-tint-swatch' data-tint='peach' aria-label='Peach tint' aria-pressed='false'></button>
+            <button type='button' class='a11y-tint-swatch' data-tint='mint' aria-label='Mint tint' aria-pressed='false'></button>
+          </div>
+        </div>
+
+        <div class='a11y-field a11y-field-row'>
+          <label for='a11y-ruler-checkbox' class='translatable' data-en='Reading ruler' data-fr='Règle de lecture'>Reading ruler</label>
+          <input id='a11y-ruler-checkbox' type='checkbox'>
+        </div>
+
+        <button id='a11y-reset-btn' type='button' class='a11y-reset-btn translatable' data-en='Reset to default' data-fr='Réinitialiser'>Reset to default</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dyslexia toolbar: full-viewport background tint overlay (document-wide,
+       not just a content area) and reading-ruler dimming bands. Both are
+       inert (pointer-events: none) and only visible/active via
+       site-accessibility.js. -->
+  <div id='dyslexia-tint-overlay' aria-hidden='true'></div>
+  <div id='dyslexia-ruler-dim-top' class='dyslexia-ruler-dim' aria-hidden='true'></div>
+  <div id='dyslexia-ruler-dim-bottom' class='dyslexia-ruler-dim' aria-hidden='true'></div>
 
   <!-- Hero / Central Landing Exhibition Cover -->
   <main class='max-w-7xl mx-auto px-8 py-6 md:py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10'>
@@ -1137,26 +1283,12 @@
               <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Content Creation &amp; Campaigns' data-fr='Création de Contenu &amp; Campagnes'>Content Creation &amp; Campaigns</h4>
               <span class='organic-ribbon translatable' data-en='Social Media' data-fr='Réseaux Sociaux'>Social Media</span>
             </div>
-            <div class='grid grid-cols-1 lg:grid-cols-12 gap-8 items-center'>
-              <div class='lg:col-span-7 space-y-4'>
-                <p class='font-sans text-sm text-charcoal/70 leading-relaxed' data-key='social-desc'></p>
-                <div class='grid grid-cols-2 gap-4 font-mono text-[10px] pt-4'>
-                  <div class='p-3 bg-creamdark rounded-xl border border-charcoal/5'>
-                    <span class='block text-[8px] text-charcoal/40 uppercase translatable' data-en='Platforms' data-fr='Plateformes'>Platforms</span>
-                    <span class='font-bold'>Instagram, TikTok, YouTube</span>
-                  </div>
-                  <div class='p-3 bg-creamdark rounded-xl border border-charcoal/5'>
-                    <span class='block text-[8px] text-charcoal/40 uppercase translatable' data-en='Focus' data-fr='Axe'>Focus</span>
-                    <span class='font-bold translatable' data-en='Luxury &amp; Storytelling' data-fr='Storytelling &amp; Luxe'>Luxury &amp; Storytelling</span>
-                  </div>
-                </div>
-              </div>
-              <div class='lg:col-span-5 flex justify-center'>
-                <div class='polaroid-frame rotate-[2.5deg] w-64 shadow-organic'>
-                  <div class='mt-3 font-mono text-[9px] text-charcoal/40 text-center'>DIGITAL OUTREACH</div>
-                </div>
-              </div>
-            </div>
+            <!-- TikTok feed (self-contained, see react-components/social-media/).
+                 Renders its own header/profile/feed UI, so it isn't wrapped
+                 in the site's usual translatable copy — see that folder's
+                 src/tiktokVideos.js for where to plug in real video URLs
+                 and profile info. -->
+            <div id='social-media-root'></div>
           </div>
 
           <!-- 11 // Personal Work: Crochet & Knits -->
@@ -1390,9 +1522,6 @@ translations.fr["b2-desc"] = "Pour ma deuxième année de Bachelor, j’ai eu la
 
 translations.en["b3-desc"] = "For this final year at École de Condé Nancy, a return to my roots and accelerating to the next level. The academic year was shaped by three major projects, each allowing me to clarify my creative universe and push my technical and conceptual boundaries.";
 translations.fr["b3-desc"] = "Pour cette dernière année à l’École de Condé Nancy, retour aux sources… et passage à la vitesse supérieure. L’année a été rythmée par trois projets majeurs, chacun me permettant de préciser mon univers créatif et de repousser mes limites techniques et conceptuelles.";
-
-translations.en["social-desc"] = "A curated overview of digital campaigns and storytelling across Instagram, TikTok, and YouTube, focusing on luxury brand collaborations, digital content creation, and organic community engagement.";
-translations.fr["social-desc"] = "Un aperçu de mes campagnes numériques sur Instagram, TikTok et YouTube, axé sur les collaborations avec des marques de luxe, la création de contenu digital et l'engagement communautaire organique.";
 
 translations.en["personal-crochet-desc"] = "An ongoing exploration of textile craft and slow fashion. This research focuses on the mathematical structure of crochet loops, using sustainable materials to build architectural knitwear shapes that envelope the body.";
 translations.fr["personal-crochet-desc"] = "Une exploration continue de l'artisanat textile et de la slow fashion. Cette recherche se concentre sur la structure mathématique des mailles de crochet, en utilisant des matières durables pour construire des volumes de tricot architecturaux.";
@@ -1978,6 +2107,32 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       document.body.appendChild(s);
     })();
   </script>
+
+  <!-- Social Media: React TikTok feed (self-contained, see
+       react-components/social-media/). Mounts into #social-media-root
+       above. Same file:// vs Vite-dev split as ProjectDetail above, for
+       the same CORS reason. Bundle filename is "creator-feed", not
+       "social-media" — see the <link> comment in <head> for why. -->
+  <script>
+    (function () {
+      var s = document.createElement('script');
+      if (location.protocol === 'file:') {
+        s.src = 'react-components/social-media/dist-embed/creator-feed.js';
+      } else {
+        s.type = 'module';
+        s.src = '/react-components/social-media/src/mount.jsx';
+      }
+      document.body.appendChild(s);
+    })();
+  </script>
+
+  <!-- Theme + dyslexia accessibility toolbar (dark/light toggle, font/
+       spacing/tint controls, reading ruler). Site-wide, header-mounted.
+       Named site-accessibility.js, NOT theme.js — same issue as the
+       social-media/creator-feed bundle above: "theme.js" is silently
+       blocked by common ad/tracker content-blocker filter lists
+       (confirmed while testing this page). -->
+  <script src='site-accessibility.js' defer></script>
 </body>
 </html>
 

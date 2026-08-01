@@ -1,0 +1,5 @@
+node_modules
+dist
+# NOT dist-embed/ — that's the built bundle the real site's index.html
+# actually references. This project has no deploy-time build step, so
+# that output has to be committed, unlike a typical gitignored dist/.

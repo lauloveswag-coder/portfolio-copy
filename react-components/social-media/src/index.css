@@ -1,0 +1,51 @@
+/* Custom utility classes for the TikTok feed, used alongside the host
+   page's Tailwind CDN (which JIT-compiles standard/arbitrary-value
+   utility classes at runtime but can't process @layer/@apply from a
+   plain <link> stylesheet — these are written as plain CSS instead,
+   scoped by class name only being used inside this component). */
+
+.bg-aura-gradient {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(117, 161, 238, 0.6) 0%, transparent 50%),
+    radial-gradient(circle at 85% 15%, rgba(248, 144, 197, 0.4) 0%, transparent 45%),
+    radial-gradient(circle at 50% 60%, rgba(253, 229, 117, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 80% 85%, rgba(117, 161, 238, 0.5) 0%, transparent 45%),
+    linear-gradient(135deg, #dbe7fc 0%, #eef4ff 40%, #f7f9fe 100%);
+}
+
+.bg-aura-dark {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(117, 161, 238, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(248, 144, 197, 0.25) 0%, transparent 45%),
+    radial-gradient(circle at 50% 70%, rgba(253, 229, 117, 0.2) 0%, transparent 50%),
+    #0e1626;
+}
+
+.glass-card-y2k {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(117, 161, 238, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(117, 161, 238, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.03);
+}
+
+.text-glow-blue {
+  text-shadow: 0 0 12px rgba(117, 161, 238, 0.6);
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom Palette Utility Colors */
+:root {
+  --color-periwinkle: #75A1EE;
+  --color-sunyellow: #FDE575;
+  --color-candypink: #F890C5;
+  --color-midnight: #131B2E;
+}
