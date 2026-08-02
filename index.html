@@ -132,19 +132,25 @@
         Fashion Design • Creative Direction • Digital Portfolio
       </span>
     </div>
-    
-    <!-- Top Controls -->
-    <div class='flex items-center space-x-6'>
-      <div class='flex border border-charcoal/10 rounded-full bg-creamdark font-mono text-[11px] p-0.5'>
-        <button id='lang-btn-en' class='px-4 py-1.5 rounded-full bg-pink text-charcoal font-bold transition-all focus:outline-none'>
-          EN
-        </button>
-        <button id='lang-btn-fr' class='px-4 py-1.5 rounded-full text-charcoal hover:bg-pink/30 transition-all focus:outline-none'>
-          FR
-        </button>
-      </div>
-    </div>
   </header>
+
+  <!-- EN/FR language switcher: fixed-position, NOT inside <header>, for the
+       same reason as #site-controls below — the site's "pages" are
+       full-viewport .editorial-panel overlays (z-index 40) that sit above
+       the header (z-index 30), so a control living inside <header> is only
+       reachable on the hero. Kept as its own element (not merged into
+       #site-controls) so it can sit in the header's former corner spot
+       while #site-controls keeps its own row underneath. -->
+  <div class='lang-switcher-float'>
+    <div class='flex border border-charcoal/10 rounded-full bg-creamdark font-mono text-[11px] p-0.5'>
+      <button id='lang-btn-en' class='px-4 py-1.5 rounded-full bg-pink text-charcoal font-bold transition-all focus:outline-none'>
+        EN
+      </button>
+      <button id='lang-btn-fr' class='px-4 py-1.5 rounded-full text-charcoal hover:bg-pink/30 transition-all focus:outline-none'>
+        FR
+      </button>
+    </div>
+  </div>
 
   <!-- Dark/light + accessibility controls: a fixed-position corner cluster,
        NOT inside <header>. The site's "pages" are full-viewport fixed

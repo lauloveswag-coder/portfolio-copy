@@ -1658,6 +1658,25 @@ html[data-dyslexia-tint="mint"]   #dyslexia-tint-overlay { opacity: 0.16; backgr
 #dyslexia-ruler-dim-bottom { bottom: 0; }
 html.dyslexia-ruler-active .dyslexia-ruler-dim { opacity: 1; }
 
+/* Fixed EN/FR language switcher — sits in the header's former top-right
+   corner spot, above both .editorial-panel (z-index 40) and .organic-dock
+   (z-index 50), so it stays reachable no matter which page/panel is open.
+   See the HTML comment above this element for why it can't just live in
+   <header>. Kept separate from .site-controls-float (below) so the two
+   clusters sit in their own rows and never overlap. */
+.lang-switcher-float {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9995;
+}
+@media (max-width: 640px) {
+  .lang-switcher-float {
+    top: 8px;
+    right: 12px;
+  }
+}
+
 /* Fixed corner cluster (theme + accessibility toggles) — sits above both
    .editorial-panel (z-index 40) and .organic-dock (z-index 50) so it stays
    reachable no matter which page/panel is open. See the HTML comment
