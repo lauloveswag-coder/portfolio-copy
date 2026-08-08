@@ -1310,54 +1310,73 @@ body {
   padding-top: 34px; /* headroom for preview items poking up above the back panel */
 }
 
+/* The folder's shape and proportions come from icons8-folder-240.png, used
+   as a mask — only its alpha channel. Everything visible is still CSS: the
+   per-discipline --folder-back-color / --folder-bg-color / --folder-pattern
+   below are untouched, so the color system is exactly what it was.
+
+   That file is a 240x240 canvas whose opaque folder occupies x 5→234,
+   y 25→204 — i.e. 230x180 with transparent padding around it. So this box
+   is sized to the FOLDER (230:180, the original's true proportions), and
+   each masked layer inside is blown up to the full 240x240 footprint and
+   offset by that padding, landing the folder exactly on this box. Sizing
+   the layers to the canvas instead would shrink the folder and leave dead
+   space on all four sides. */
 .folder-shape {
+  --folder-art: url('icons8-folder-240.png');
+  --folder-art-w: 104.3478%;  /* 240/230 */
+  --folder-art-h: 133.3333%;  /* 240/180 */
+  --folder-art-x: -2.1739%;   /*  -5/230 */
+  --folder-art-y: -13.8889%;  /* -25/180 */
   position: relative;
   display: block;
-  height: 100px;
+  width: 100%;
+  aspect-ratio: 230 / 180;
   margin-top: 14px;
 }
 
-/* Rear panel: the folder's own material, not a shaded copy of the front.
-   Solid color (no pattern). Clipped into an actual tab-notch silhouette —
-   a taller flap on the left (0 to 40% width, full height) stepping DOWN
-   at a sharp right angle to a shorter shelf (40% to 100% width) — matching
-   real folder-icon anatomy, not a diagonal/skewed cut. Sits full height
-   behind everything so this notch peeks out above the front panel: the
-   tab peeks out further than the shelf, since the shelf's top edge sits
-   only 4px above the front panel while the tab's sits 20px above it. */
-.folder-back {
+/* Shared geometry + masking for the two color layers. */
+.folder-back,
+.folder-front {
   position: absolute;
-  inset: 0;
-  /* Same curvature as .folder-front — a pronounced macOS-squircle radius,
-     not a tight/small one — so the two panels read as one consistent
-     folder material. */
-  border-radius: 26px;
+  left: var(--folder-art-x);
+  top: var(--folder-art-y);
+  width: var(--folder-art-w);
+  height: var(--folder-art-h);
+  -webkit-mask-image: var(--folder-art);
+          mask-image: var(--folder-art);
+  -webkit-mask-size: 100% 100%;
+          mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+}
+
+/* Rear panel: the folder's own material, not a shaded copy of the front.
+   Solid color, no pattern. It carries the FULL icon silhouette — tab and
+   body — and the front panel below covers the body part of it, so what
+   stays visible is exactly the tab. The tab-notch geometry that used to be
+   hand-cut here with a clip-path polygon now comes from the PNG itself. */
+.folder-back {
   background-color: var(--folder-back-color);
-  clip-path: polygon(0 0, 40% 0, 40% 16px, 100% 16px, 100% 100%, 0 100%);
-  box-shadow: 0 10px 20px rgb(var(--color-text-primary) / 0.14);
+  /* A mask clips box-shadow away along with the rest of the box, so the
+     cast shadow has to be a filter — which follows the masked silhouette
+     instead of the element's rectangle. */
+  filter: drop-shadow(0 10px 14px rgb(var(--color-text-primary) / 0.18));
   z-index: 1;
 }
 
-/* Front panel: shorter than the back panel and rounded, sits lower so the
-   back panel's tab shows above it. Its own top edge crosses the lower
-   portion of the tucked-in preview photos (z-index 2), so they read as
-   slipped inside the folder's opening rather than pinned on top of it. */
+/* Front panel: the same silhouette cut off at the icon's own body line
+   (y=53 of the 240px canvas — where the shape stops being just the tab and
+   goes full width), so the back panel's tab shows above it. Its top edge
+   crosses the lower portion of the tucked-in preview photos (z-index 2),
+   so they read as slipped inside the folder's opening rather than pinned
+   on top of it. */
 .folder-front {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: calc(100% - 20px);
-  /* Matches .folder-back's radius exactly, for one consistent squircle
-     curve across both panels. */
-  border-radius: 26px;
+  clip-path: inset(22.08% 0 0 0); /* 53/240 */
   background-color: var(--folder-bg-color);
   background-image: var(--folder-pattern, none);
   background-size: var(--folder-pattern-size, auto);
   background-position: var(--folder-pattern-position, 0 0);
-  box-shadow:
-    2px 5px 0 rgb(var(--color-text-primary) / 0.06),
-    0 14px 26px rgb(var(--color-text-primary) / 0.16);
   z-index: 3;
 }
 
@@ -1523,6 +1542,14 @@ body {
   }
   .folder-visual {
     padding-top: 0;
+  }
+  /* The rows go full-width on mobile, and the folder's height now follows
+     its width (fixed proportions), so an uncapped folder would be ~270px
+     tall per row. Pin it to the desktop size and center it instead. */
+  .folder-shape {
+    width: 168px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
