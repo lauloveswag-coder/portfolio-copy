@@ -1676,30 +1676,46 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
        [data-project-detail] elements below and mounts into them.
 
        Loads one of two ways depending on how THIS page is being viewed:
-         - file:// (opened directly, the normal way) — the prebuilt classic
-           script (dist-embed/project-detail.js). Has to be a classic,
-           non-module script here: type="module" is blocked by CORS when
-           loaded from a file:// page in real Chrome. Crochet/Sewing images
+         - file:// (opened directly, the normal way) OR any static host
+           (GitHub Pages, etc.) — the prebuilt classic script
+           (dist-embed/project-detail.js). Has to be a classic, non-module
+           script here: type="module" is blocked by CORS when loaded from a
+           file:// page in real Chrome, and a static host has no bundler to
+           resolve bare imports like "react" anyway. Crochet/Sewing images
            reflect whatever existed in their folders at the last
            `npm run build:embed` (see react-components/project-detail/).
-         - served via the root-level `npm run dev` (Vite) — loads the
-           component's own source as a real ES module instead, which is
-           what makes Crochet/Sewing's data-auto-folder image discovery
-           live: new files dropped into assets/projects/crochet or
-           /sewing appear on save/reload, no build step. See vite.config.js
-           and package.json at the project root. -->
+         - served via the root-level `npm run dev` (Vite, localhost only) —
+           loads the component's own source as a real ES module instead,
+           which is what makes Crochet/Sewing's data-auto-folder image
+           discovery live: new files dropped into assets/projects/crochet
+           or /sewing appear on save/reload, no build step. See
+           vite.config.js and package.json at the project root.
+
+           IMPORTANT: this used to branch on `location.protocol === 'file:'`,
+           which wrongly took the Vite-module branch on ANY http(s) host —
+           including GitHub Pages, where there's no bundler to resolve the
+           module's imports, so the component silently failed to mount
+           (blank Crochet/Sewing and Social Media windows in production).
+           Branching on hostname instead so only the actual local dev
+           server gets the live-module treatment; every other host
+           (file://, GitHub Pages, any other static host) gets the
+           prebuilt bundle. -->
   <script>
     // Both React components load the same two ways, for the same reason, so
     // the branch lives here once. `fileSrc` is the prebuilt classic script
-    // used over file://; `moduleSrc` is the component's own source, loaded
-    // as a real ES module when served through Vite.
+    // used everywhere except the local Vite dev server; `moduleSrc` is the
+    // component's own source, loaded as a real ES module only when running
+    // on `npm run dev` (localhost).
     function loadEmbeddedComponent(fileSrc, moduleSrc) {
       var s = document.createElement('script');
-      if (location.protocol === 'file:') {
-        s.src = fileSrc;
-      } else {
+      var isLocalDevServer =
+        location.protocol !== 'file:' &&
+        (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+      if (isLocalDevServer) {
         s.type = 'module';
         s.src = moduleSrc;
+      } else {
+        s.src = fileSrc;
       }
       document.body.appendChild(s);
     }
