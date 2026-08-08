@@ -2,7 +2,7 @@
  * <sketch-stack> — an interactive layered pile of images.
  *
  * Usage:
- *   <sketch-stack data-folder="PORTFOLIO ASSESTS/SKETCHES/" data-manifest-key="sketches"></sketch-stack>
+ *   <sketch-stack data-folder="assets/projects/sketches/" data-manifest-key="sketches"></sketch-stack>
  *
  * Requires, loaded before this script:
  *   - sketch-stack-animations.js   (defines window.SketchStackAnimations)

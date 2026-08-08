@@ -27,9 +27,9 @@ window.STACK_MANIFESTS["archive"] = [
   "IMG_20241117_192455.jpg",
   "IMG_20241117_192501.jpg",
   "IMG_20241203_155038_690.webp",
-  "Illustration 1 layout .png",
-  "Screenshot 2024-04-29 at 11.00.54\u202fAM.png",
+  "Illustration-1-layout.png",
+  "Screenshot-2024-04-29-at-11.00.54-AM.png",
   "analyti.png",
-  "charte graphique.jpg",
+  "charte-graphique.jpg",
   "logoo.png",
 ];

@@ -8,7 +8,7 @@ import path from 'node:path';
 // manifest.py, for consistency across the site's two auto-discovery
 // mechanisms.
 const SUPPORTED_EXTENSIONS = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif']);
-const AUTO_FOLDERS = ['PORTFOLIO ASSESTS/crochet/', 'PORTFOLIO ASSESTS/sewing/'];
+const AUTO_FOLDERS = ['assets/projects/crochet/', 'assets/projects/sewing/'];
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(here, '../..');

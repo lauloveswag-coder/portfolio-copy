@@ -494,7 +494,7 @@
             <!-- ==== DISCIPLINE GALLERIES (Sketches / 3D Rendering & AI / Archive / Sewing) ====
                  Each is a single curated horizontal gallery (.filmstrip-row of .polaroid-frame
                  items), reused from the existing Social Media page's pattern. To add new work,
-                 drop the file in the matching PORTFOLIO ASSESTS/ subfolder and copy one item
+                 drop the file in the matching assets/projects/ subfolder and copy one item
                  block within that gallery's .filmstrip-row. -->
 
             <div id="project-showroom-cat-sketches" class="project-showroom-section hidden space-y-6">
@@ -503,12 +503,12 @@
                 <span class='organic-ribbon translatable' data-en='01 // Sketches' data-fr='01 // Croquis'>01 // Sketches</span>
               </div>
               <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-sketches-desc'></p>
-              <sketch-stack data-folder="PORTFOLIO ASSESTS/SKETCHES/" data-manifest-key="sketches"></sketch-stack>
+              <sketch-stack data-folder="assets/projects/sketches/" data-manifest-key="sketches"></sketch-stack>
             </div>
 
             <div id="project-showroom-cat-3d-ai" class="project-showroom-section hidden space-y-6">
               <!-- Populated by renderManifestFilmstrip() from
-                   PORTFOLIO ASSESTS/3d-ai/manifest.js -- drop a render or clip in
+                   assets/projects/3d-ai/manifest.js -- drop a render or clip in
                    that folder and regenerate the manifest (see the function's
                    comment; this folder needs --with-video), don't hand-edit
                    entries here. -->
@@ -524,7 +524,7 @@
               <!-- ProjectDetail window (see react-components/project-detail/) —
                    fills the page: title/description live in the window's own
                    chrome now. Images are auto-discovered from
-                   PORTFOLIO ASSESTS/sewing/ (data-auto-folder) — drop a new
+                   assets/projects/sewing/ (data-auto-folder) — drop a new
                    .jpg/.jpeg/.png/.webp in that folder, no HTML edit needed.
                    Live (no rebuild) only while served via `npm run dev` at
                    the project root; opened via file:// it uses whatever was
@@ -534,7 +534,7 @@
                 data-full-bleed="true"
                 data-title="Sewing — Project_01"
                 data-accent="#3E5C76"
-                data-auto-folder="PORTFOLIO ASSESTS/sewing/"
+                data-auto-folder="assets/projects/sewing/"
                 class="pd-mount--fullbleed"
               ></div>
             </div>
@@ -546,7 +546,7 @@
               </div>
               <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-archive-desc'></p>
               <!-- Populated by renderManifestFilmstrip() from
-                   PORTFOLIO ASSESTS/archive/manifest.js -- add a photo to
+                   assets/projects/archive/manifest.js -- add a photo to
                    that folder and regenerate the manifest (see the
                    function's comment), don't hand-edit entries here. -->
               <div class='filmstrip-row' id='archive-filmstrip'></div>
@@ -579,7 +579,7 @@
           <div id='project-showroom-personal-crochet' class='project-showroom-section hidden'>
             <!-- ProjectDetail window (see react-components/project-detail/) —
                  fills the page: title lives in the window's own chrome now.
-                 Images are auto-discovered from PORTFOLIO ASSESTS/crochet/
+                 Images are auto-discovered from assets/projects/crochet/
                  (data-auto-folder) — drop a new .jpg/.jpeg/.png/.webp in
                  that folder, no HTML edit needed. Live (no rebuild) only
                  while served via `npm run dev` at the project root; opened
@@ -594,7 +594,7 @@
               data-full-bleed="true"
               data-title="Crochet — Project_01"
               data-accent="#A4B35E"
-              data-auto-folder="PORTFOLIO ASSESTS/crochet/"
+              data-auto-folder="assets/projects/crochet/"
               class="pd-mount--fullbleed"
             ></div>
           </div>
@@ -919,31 +919,31 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         num: 1, catId: 'cat-sketches', tilt: '-3deg', variant: 'folder--sketches',
         keywords: 'sketches illustration concept technical drawing research ideation croquis',
         nameEn: 'Sketches', nameFr: 'Croquis',
-        previews: ['PORTFOLIO ASSESTS/SKETCHES/fit one final.png', 'PORTFOLIO ASSESTS/SKETCHES/2.png']
+        previews: ['assets/projects/sketches/fit-one-final.png', 'assets/projects/sketches/2.png']
       },
       {
         num: 2, catId: 'cat-3d-ai', tilt: '2deg', variant: 'folder--3d-ai',
         keywords: '3d ai clo3d style3d moda ai digital garment simulation render fashion visualization video',
         nameEn: '3D Rendering &amp; AI', nameFr: 'Rendu 3D &amp; IA',
-        previews: ['PORTFOLIO ASSESTS/3d-ai/20260605_112144_1.png', 'PORTFOLIO ASSESTS/3d-ai/20260605_112141_1.png']
+        previews: ['assets/projects/3d-ai/20260605_112144_1.png', 'assets/projects/3d-ai/20260605_112141_1.png']
       },
       {
         num: 3, catId: 'personal-crochet', tilt: '-2deg', variant: 'folder--crochet',
         keywords: 'crochet knits craft yarn textile handmade',
         nameEn: 'Crochet', nameFr: 'Crochet',
-        previews: ['PORTFOLIO ASSESTS/crochet/IMG_20260214_163702821_HDR.jpg']
+        previews: ['assets/projects/crochet/IMG_20260214_163702821_HDR.jpg']
       },
       {
         num: 4, catId: 'cat-sewing', tilt: '3deg', variant: 'folder--sewing',
         keywords: 'sewing construction garment prototype pattern tailoring finished look',
         nameEn: 'Sewing', nameFr: 'Couture',
-        previews: ['PORTFOLIO ASSESTS/sewing/2.jpeg', 'PORTFOLIO ASSESTS/sewing/1.jpeg']
+        previews: ['assets/projects/sewing/2.jpeg', 'assets/projects/sewing/1.jpeg']
       },
       {
         num: 5, catId: 'cat-archive', tilt: '-2.5deg', variant: 'folder--archive',
         keywords: 'archive experimental research textile graphic design photography visual exploration branding',
         nameEn: 'Archive', nameFr: 'Archives',
-        previews: ['PORTFOLIO ASSESTS/archive/Illustration 1 layout .png', 'PORTFOLIO ASSESTS/archive/Screenshot 2024-04-29 at 11.00.54 AM.png']
+        previews: ['assets/projects/archive/Illustration-1-layout.png', 'assets/projects/archive/Screenshot-2024-04-29-at-11.00.54-AM.png']
       },
       {
         // No dedicated real asset folder exists yet for Social Media, so no
@@ -1631,10 +1631,10 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
     // Default initialization
     window.addEventListener('DOMContentLoaded', () => {
       renderDisciplineFolders();
-      renderManifestFilmstrip('archive-filmstrip', 'archive', 'PORTFOLIO ASSESTS/archive/', {
+      renderManifestFilmstrip('archive-filmstrip', 'archive', 'assets/projects/archive/', {
         image: 'Archive piece'
       });
-      renderManifestFilmstrip('3d-ai-filmstrip', '3d-ai', 'PORTFOLIO ASSESTS/3d-ai/', {
+      renderManifestFilmstrip('3d-ai-filmstrip', '3d-ai', 'assets/projects/3d-ai/', {
         image: 'AI-generated fashion visual',
         video: 'AI-generated fashion video'
       });
@@ -1653,7 +1653,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
   </script>
 
   <!-- Sketches: interactive stack gallery component (self-contained, see components/sketch-stack/) -->
-  <script src="PORTFOLIO ASSESTS/SKETCHES/manifest.js"></script>
+  <script src="assets/projects/sketches/manifest.js"></script>
   <script src="components/sketch-stack/sketch-stack-animations.js"></script>
   <script src="components/sketch-stack/sketch-stack.js"></script>
 
@@ -1661,12 +1661,12 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
        components/sketch-stack/generate-manifest.py), rendered as a plain
        filmstrip instead of the interactive stack — see
        renderManifestFilmstrip() above. -->
-  <script src="PORTFOLIO ASSESTS/archive/manifest.js"></script>
+  <script src="assets/projects/archive/manifest.js"></script>
 
   <!-- 3D & AI: same manifest mechanism, generated with --with-video since
        this folder mixes renders and clips — renderManifestFilmstrip()
        emits an <img> or a <video> per entry accordingly. -->
-  <script src="PORTFOLIO ASSESTS/3d-ai/manifest.js"></script>
+  <script src="assets/projects/3d-ai/manifest.js"></script>
 
   <!-- ProjectDetail: React "project window" template for Crochet/Sewing
        (self-contained, see react-components/project-detail/). Scans for
@@ -1682,7 +1682,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
          - served via the root-level `npm run dev` (Vite) — loads the
            component's own source as a real ES module instead, which is
            what makes Crochet/Sewing's data-auto-folder image discovery
-           live: new files dropped into PORTFOLIO ASSESTS/crochet or
+           live: new files dropped into assets/projects/crochet or
            /sewing appear on save/reload, no build step. See vite.config.js
            and package.json at the project root. -->
   <script>

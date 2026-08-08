@@ -7,7 +7,7 @@ window.STACK_MANIFESTS["3d-ai"] = [
   "2026-01-15T14-27-51_high_fashion_runway_watermarked.mp4",
   "20260605_112141_1.png",
   "20260605_112142_1.png",
-  "20260605_112144_1 (1).png",
+  "20260605_112144_1-(1).png",
   "20260605_112144_1.png",
   "20260605_112257_1.png",
   "Gemini_Generated_Image_4jrr174jrr174jrr.png",

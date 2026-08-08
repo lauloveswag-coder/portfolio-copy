@@ -6,8 +6,8 @@ Optional convenience for adding new work: if you'd rather not hand-edit
 manifest.js, drop your new images in the folder and run this script.
 
 Usage:
-    python3 generate-manifest.py "PORTFOLIO ASSESTS/SKETCHES" sketches
-    python3 generate-manifest.py "PORTFOLIO ASSESTS/3d-ai" 3d-ai --with-video
+    python3 generate-manifest.py "assets/projects/sketches" sketches
+    python3 generate-manifest.py "assets/projects/3d-ai" 3d-ai --with-video
 
 Args:
     folder        Path to the folder of images (relative to the project root,

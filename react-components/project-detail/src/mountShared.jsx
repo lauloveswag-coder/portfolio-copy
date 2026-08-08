@@ -29,7 +29,7 @@ import ProjectDetail from './ProjectDetail.jsx';
 //                         instead of the plain data-accessories gallery.
 //
 // Image source — pick ONE of:
-//   data-auto-folder      a folder path (e.g. "PORTFOLIO ASSESTS/crochet/")
+//   data-auto-folder      a folder path (e.g. "assets/projects/crochet/")
 //                         to auto-discover every image in it — first file
 //                         (alphabetically) becomes the hero, the rest
 //                         become both the plain accessories gallery AND

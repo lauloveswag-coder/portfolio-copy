@@ -9,7 +9,7 @@ import { mountAll, runWhenReady } from './mountShared.jsx';
 // JSON object injected via esbuild `define`, computed by vite.embed.
 // config.js at build time using Node's fs — so images stay on disk as
 // normal files, referenced by plain relative path strings exactly like
-// every other <img src="PORTFOLIO ASSESTS/..."> on this site, no asset
+// every other <img src="assets/projects/..."> on this site, no asset
 // pipeline involved at all. New photos need a rebuild to appear here
 // (there is no way around that for a file://-opened static page — see
 // the audit this was built from), but nothing needs hand-editing: the

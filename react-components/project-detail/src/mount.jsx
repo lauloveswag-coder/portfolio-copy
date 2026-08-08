@@ -18,14 +18,14 @@ import { mountAll, runWhenReady } from './mountShared.jsx';
 // (Vite transforms import.meta.glob calls at compile time regardless of
 // whether the surrounding code path actually executes).
 //
-// File-relative (../../../PORTFOLIO ASSESTS/...), not root-absolute
-// (/PORTFOLIO ASSESTS/...) — this file lives at
+// File-relative (../../../assets/projects/...), not root-absolute
+// (/assets/projects/...) — this file lives at
 // react-components/project-detail/src/mount.jsx, three levels below the
-// actual project root where PORTFOLIO ASSESTS lives, and root-absolute
+// actual project root where assets/projects lives, and root-absolute
 // patterns resolve against each Vite config's own `root` (which isn't
 // the project root for every config that might load this file).
 const AUTO_DISCOVERY_GLOB = import.meta.glob(
-  '../../../PORTFOLIO ASSESTS/{crochet,sewing}/*.{jpg,jpeg,JPG,JPEG,png,PNG,webp,WEBP}',
+  '../../../assets/projects/{crochet,sewing}/*.{jpg,jpeg,JPG,JPEG,png,PNG,webp,WEBP}',
   { eager: true, query: '?url', import: 'default' }
 );
 
