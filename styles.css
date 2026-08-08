@@ -73,30 +73,27 @@ body {
   font-family: 'Syne', sans-serif;
 }
 
-.font-mono-layout {
-  font-family: 'Space Mono', monospace;
-}
-
-/* Background blob gradients (Organic, fluid motion) */
-.bg-blob-sage {
+/* Background blob gradients (Organic, fluid motion) — shared shape/blur/
+   stacking; each blob differs only in size, accent color and drift. */
+.bg-blob-sage,
+.bg-blob-purple {
   position: absolute;
-  width: 45vw;
-  height: 45vw;
-  background: radial-gradient(circle, rgb(var(--color-accent-3) / 0.22) 0%, rgb(var(--color-bg-primary) / 0) 70%);
   border-radius: 50%;
   filter: blur(50px);
   z-index: -1;
+}
+
+.bg-blob-sage {
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, rgb(var(--color-accent-3) / 0.22) 0%, rgb(var(--color-bg-primary) / 0) 70%);
   animation: float-blob 24s ease-in-out infinite alternate;
 }
 
 .bg-blob-purple {
-  position: absolute;
   width: 50vw;
   height: 50vw;
   background: radial-gradient(circle, rgb(var(--color-accent-1) / 0.18) 0%, rgb(var(--color-bg-primary) / 0) 70%);
-  border-radius: 50%;
-  filter: blur(50px);
-  z-index: -1;
   animation: float-blob-reverse 28s ease-in-out infinite alternate;
 }
 
@@ -252,48 +249,6 @@ body {
   border-radius: 10px;
 }
 
-/* Close Button circle */
-.btn-close-circle {
-  width: 36px;
-  height: 36px;
-  border-radius: 9999px;
-  border: 1px solid rgb(var(--color-text-primary) / 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  background: transparent;
-  cursor: pointer;
-}
-.btn-close-circle:hover {
-  background: var(--charcoal);
-  color: var(--cream);
-  border-color: var(--charcoal);
-}
-
-/* Artsy organic images */
-.organic-image-frame {
-  border-radius: 30px;
-  padding: 12px;
-  background: var(--cream-dark);
-  border: 1px solid rgb(var(--color-text-primary) / 0.05);
-  box-shadow: 0 10px 30px rgb(var(--color-text-primary) / 0.01);
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.organic-image-frame:hover {
-  transform: rotate(0deg) scale(1.02) !important;
-}
-
-/* Rotating sparkle Vector Star */
-@keyframes rotatingStar {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.sparkle-star {
-  animation: rotatingStar 18s linear infinite;
-  transform-origin: center;
-}
-
 /* Floating label ribbon */
 .organic-ribbon {
   border: 1px solid rgb(var(--color-text-primary) / 0.08);
@@ -303,22 +258,6 @@ body {
   padding: 6px 16px;
   background: var(--pink-light);
   border-radius: 9999px;
-}
-
-/* Form input */
-.organic-input {
-  background: transparent;
-  border: none;
-  border-bottom: 1.5px solid rgb(var(--color-text-primary) / 0.08);
-  padding: 12px 0;
-  width: 100%;
-  font-family: inherit;
-  font-size: 14px;
-  transition: border-color 0.3s ease;
-}
-.organic-input:focus {
-  outline: none;
-  border-bottom-color: var(--purple);
 }
 
 /* Polaroid image borders with tilt */
@@ -333,11 +272,6 @@ body {
 .polaroid-frame:hover {
   transform: rotate(0deg) scale(1.03);
   box-shadow: 0 25px 45px rgb(var(--color-text-primary) / 0.06);
-}
-
-/* Sub-Tab styles */
-.case-study-tab {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Carousel/Filmstrip slider */
@@ -393,11 +327,6 @@ body {
   #dock-btn-panel-portfolio.active { border-left-color: var(--purple); }
   #dock-btn-panel-universe.active { border-left-color: var(--pink); }
   #dock-btn-panel-journal.active { border-left-color: var(--charcoal); }
-}
-
-/* Pinyon Script cursive style */
-.font-script {
-  font-family: 'Pinyon Script', cursive;
 }
 
 /* Photobooth Strip Styling */
@@ -475,347 +404,6 @@ body {
 /* Tightly stacked line-height for overlapping titles */
 .overlapping-handwriting {
   line-height: 0.75;
-}
-
-/* Custom subtle scrollbar for the catalog panel */
-.max-h-\[60vh\]::-webkit-scrollbar {
-  width: 3px;
-}
-.max-h-\[60vh\]::-webkit-scrollbar-track {
-  background: transparent;
-}
-.max-h-\[60vh\]::-webkit-scrollbar-thumb {
-  background: rgb(var(--color-text-primary) / 0.1);
-  border-radius: 9px;
-}
-
-/* Zine scrapbook overlapping tape accent */
-.zine-tape-accent {
-  position: absolute;
-  width: 50px;
-  height: 16px;
-  background-color: rgba(213, 223, 209, 0.55); /* soft sage tape */
-  backdrop-filter: blur(0.5px);
-  border-left: 1px dashed rgb(var(--color-text-primary) / 0.1);
-  border-right: 1px dashed rgb(var(--color-text-primary) / 0.1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  transform: rotate(-10deg);
-  z-index: 25;
-  pointer-events: none;
-}
-
-/* Isolated Personal Work Slide Container */
-.personal-slide-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-  position: relative;
-  align-items: start;
-}
-
-@media (min-width: 1024px) {
-  .personal-slide-container {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 48px;
-  }
-}
-
-/* Chunky graphic typography wrapper */
-.chunky-highlight-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 3rem;
-  line-height: 0.9;
-  text-transform: uppercase;
-  color: var(--charcoal);
-  position: relative;
-}
-
-@media (min-width: 768px) {
-  .chunky-highlight-title {
-    font-size: 4.5rem;
-  }
-}
-
-/* Minimalist unrotated photo grid */
-.minimalist-photo-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.minimal-photo-rect {
-  border-radius: 12px;
-  overflow: hidden;
-  border: 1px solid rgb(var(--color-text-primary) / 0.05);
-  box-shadow: 0 4px 20px rgb(var(--color-text-primary) / 0.05);
-  transition: transform 0.3s ease;
-}
-
-.minimal-photo-rect:hover {
-  transform: translateY(-4px);
-}
-
-/* Experimental journey line */
-.journey-path-svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-/* Aggressive Zine Scrapbook System - Viewport Breakout */
-.zine-spread-container {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  background-color: var(--cream);
-  padding: 0;
-}
-
-/* Dense Flush Photo Grid */
-.zine-flush-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  width: 100vw;
-  position: relative;
-  overflow: hidden;
-}
-
-.zine-grid-item {
-  position: relative;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
-  border: none;
-  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.zine-grid-item:hover {
-  transform: scale(1.05);
-  z-index: 10;
-}
-
-.zine-grid-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Massive Bleeding Handwriting Overlay */
-.zine-massive-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-6deg);
-  font-family: 'Caveat', cursive;
-  font-weight: 700;
-  font-size: 6rem;
-  color: var(--cream);
-  z-index: 30;
-  pointer-events: none;
-  text-align: center;
-  line-height: 0.8;
-  white-space: nowrap;
-  mix-blend-mode: overlay;
-  text-shadow: 
-    0 8px 30px rgb(var(--color-text-primary) / 0.6), 
-    0 0 40px rgba(255, 255, 255, 0.8);
-}
-
-@media (min-width: 1024px) {
-  .zine-massive-overlay {
-    font-size: 13rem;
-  }
-}
-
-/* Full-Width Color Bands */
-.zine-color-band {
-  width: 100vw;
-  padding: 64px calc(6vw + 16px);
-  position: relative;
-  z-index: 10;
-  margin-top: 0;
-  box-shadow: none;
-}
-
-/* Raw Scribbling Accents */
-.zine-scribble {
-  position: absolute;
-  pointer-events: none;
-  z-index: 25;
-  opacity: 0.7;
-}
-
-/* Overlapping zine tape */
-.zine-tape-raw {
-  position: absolute;
-  width: 90px;
-  height: 24px;
-  background-color: rgb(var(--color-accent-2) / 0.75);
-  border-left: 1px dashed rgb(var(--color-text-primary) / 0.15);
-  border-right: 1px dashed rgb(var(--color-text-primary) / 0.15);
-  transform: rotate(-12deg);
-  z-index: 35;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-}
-/* Reusable Structured Catalog Grid System */
-.catalog-grid-container {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  position: relative;
-  width: 100%;
-}
-
-/* Two-column Split */
-.catalog-top-split {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-}
-
-@media (min-width: 1024px) {
-  .catalog-top-split {
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-  }
-}
-
-/* Left side showcase and details */
-.catalog-showcase-frame {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid rgb(var(--color-text-primary) / 0.08);
-  box-shadow: 0 4px 20px rgb(var(--color-text-primary) / 0.03);
-}
-
-.catalog-showcase-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.catalog-showcase-frame:hover .catalog-showcase-img {
-  transform: scale(1.03);
-}
-
-/* Collapsible extra spec details */
-.catalog-spec-bar {
-  border-bottom: 1px solid rgb(var(--color-text-primary) / 0.08);
-  padding: 14px 0;
-}
-
-.catalog-spec-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--charcoal);
-}
-
-.catalog-spec-content {
-  font-family: 'Inter', sans-serif;
-  font-size: 11px;
-  color: var(--charcoal);
-  opacity: 0.8;
-  line-height: 1.6;
-}
-
-/* Middle banner block */
-.catalog-banner-card {
-  width: 100%;
-  border-radius: 24px;
-  padding: 40px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 32px;
-  align-items: center;
-}
-
-@media (min-width: 768px) {
-  .catalog-banner-card {
-    grid-template-columns: 1.2fr 1fr;
-  }
-}
-
-.catalog-banner-img {
-  width: 100%;
-  aspect-ratio: 16 / 10;
-  border-radius: 16px;
-  object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 15px rgb(var(--color-text-primary) / 0.05);
-}
-
-/* Bottom carousel of recommendations */
-.catalog-carousel-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-@media (min-width: 768px) {
-  .catalog-carousel-grid {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-}
-
-.catalog-card-item {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: transform 0.3s ease;
-  cursor: pointer;
-}
-
-.catalog-card-item:hover {
-  transform: translateY(-4px);
-}
-
-.catalog-card-img-frame {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  border-radius: 16px;
-  overflow: hidden;
-  position: relative;
-  border: 1px solid rgb(var(--color-text-primary) / 0.06);
-}
-
-.catalog-card-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.catalog-card-badge {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 4px 8px;
-  border-radius: 9999px;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 7px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background-color: var(--cream);
-  color: var(--charcoal);
-  border: 1px solid rgb(var(--color-text-primary) / 0.05);
-  z-index: 10;
 }
 
 /* --- CLEAN MODULAR SYSTEM (PORTFOLIO CATALOG STYLE) --- */
@@ -981,7 +569,6 @@ body {
 .color-bg-sage { background-color: color-mix(in srgb, rgb(var(--color-accent-3)) 12%, rgb(var(--color-bg-primary)) 88%); }
 .color-bg-purple { background-color: color-mix(in srgb, rgb(var(--color-accent-1)) 12%, rgb(var(--color-bg-primary)) 88%); }
 .color-bg-pink { background-color: color-mix(in srgb, rgb(var(--color-accent-2)) 12%, rgb(var(--color-bg-primary)) 88%); }
-.color-bg-cream { background-color: var(--cream-dark); }
 
 .banner-title-editorial {
   font-family: "Playfair Display", serif;
@@ -1052,14 +639,6 @@ body {
   padding: 4px 10px;
   border-radius: 50px;
   width: max-content;
-  margin-bottom: 15px;
-}
-
-.suggestion-card-img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 14px;
   margin-bottom: 15px;
 }
 
@@ -1174,67 +753,6 @@ body {
   filter: grayscale(85%);
   pointer-events: none;
   transition: opacity 0.3s ease, filter 0.3s ease;
-}
-
-.archive-item-btn {
-  width: 100%;
-  text-align: left;
-  border-bottom: 1px solid transparent;
-  padding-bottom: 2px;
-}
-
-/* Draggable Archive hierarchy accents */
-.archive-card-accent-sage {
-  border-color: var(--sage) !important;
-}
-.archive-card-accent-sage:hover {
-  border-color: var(--sage) !important;
-  box-shadow: 
-    3px 3px 0px rgb(var(--color-accent-3) / 0.15),
-    0px 6px 16px rgb(var(--color-text-primary) / 0.04);
-}
-
-.archive-card-accent-purple {
-  border-color: var(--purple) !important;
-  background-color: var(--cream-dark) !important;
-}
-.archive-card-accent-purple:hover {
-  border-color: var(--purple) !important;
-  box-shadow:
-    4px 4px 0px rgb(var(--color-accent-1) / 0.2),
-    0px 8px 20px rgb(var(--color-text-primary) / 0.05);
-}
-
-.archive-card-accent-pink {
-  border-color: var(--pink) !important;
-}
-.archive-card-accent-pink:hover {
-  border-color: var(--pink) !important;
-  box-shadow:
-    3px 3px 0px rgb(var(--color-accent-2) / 0.3),
-    0px 6px 16px rgb(var(--color-text-primary) / 0.04);
-}
-
-.archive-card-accent-dashed {
-  border-style: dashed !important;
-  border-color: rgb(var(--color-text-primary) / 0.25) !important;
-}
-.archive-card-accent-dashed:hover {
-  border-color: rgb(var(--color-text-primary) / 0.4) !important;
-  box-shadow:
-    3px 3px 0px rgb(var(--color-text-primary) / 0.06),
-    0px 6px 16px rgb(var(--color-text-primary) / 0.04);
-}
-
-.archive-card-accent-charcoal {
-  border-color: var(--charcoal) !important;
-  background-color: var(--cream-dark) !important;
-}
-.archive-card-accent-charcoal:hover {
-  border-color: var(--charcoal) !important;
-  box-shadow:
-    3px 3px 0px rgb(var(--color-text-primary) / 0.12),
-    0px 6px 16px rgb(var(--color-text-primary) / 0.06);
 }
 
 .discipline-tile.is-selected {
@@ -1452,37 +970,41 @@ body {
    macOS icons) rather than a flat color fill — this is a deliberate,
    explicit exception to the site's normally-restrained surfaces. */
 
+/* Four of the six folders share one identical polka-dot surface — same dot
+   radius, grid pitch and half-step offset — differing only in dot color.
+   The geometry lives here once; each folder below sets --folder-dot-color
+   (plus its own back/ground colors). The two non-dotted folders (Sewing's
+   plaid, Archive's corduroy) keep their own --folder-pattern. */
+.folder--sketches,
+.folder--3d-ai,
+.folder--crochet,
+.folder--social {
+  --folder-pattern:
+    radial-gradient(circle, var(--folder-dot-color) 7px, transparent 7.5px),
+    radial-gradient(circle, var(--folder-dot-color) 7px, transparent 7.5px);
+  --folder-pattern-size: 34px 34px, 34px 34px;
+  --folder-pattern-position: 0 0, 17px 17px;
+}
+
 /* 01 Sketches — periwinkle back tab, dark brown ground, light-blue polka dots */
 .folder--sketches {
   --folder-back-color: #8695D6;
   --folder-bg-color: #2B1810;
-  --folder-pattern:
-    radial-gradient(circle, #AFC0E8 7px, transparent 7.5px),
-    radial-gradient(circle, #AFC0E8 7px, transparent 7.5px);
-  --folder-pattern-size: 34px 34px, 34px 34px;
-  --folder-pattern-position: 0 0, 17px 17px;
+  --folder-dot-color: #AFC0E8;
 }
 
 /* 02 3D Rendering & AI — dark maroon back tab, cream ground, black polka dots */
 .folder--3d-ai {
   --folder-back-color: #3A1210;
   --folder-bg-color: #F1E4C8;
-  --folder-pattern:
-    radial-gradient(circle, #1A1210 7px, transparent 7.5px),
-    radial-gradient(circle, #1A1210 7px, transparent 7.5px);
-  --folder-pattern-size: 34px 34px, 34px 34px;
-  --folder-pattern-position: 0 0, 17px 17px;
+  --folder-dot-color: #1A1210;
 }
 
 /* 03 Crochet — deep maroon back tab, pink ground, deep maroon polka dots */
 .folder--crochet {
   --folder-back-color: #3D0D14;
   --folder-bg-color: #F0A0C0;
-  --folder-pattern:
-    radial-gradient(circle, #3D0D14 7px, transparent 7.5px),
-    radial-gradient(circle, #3D0D14 7px, transparent 7.5px);
-  --folder-pattern-size: 34px 34px, 34px 34px;
-  --folder-pattern-position: 0 0, 17px 17px;
+  --folder-dot-color: #3D0D14;
 }
 
 /* 04 Sewing — solid pink back tab, pink plaid/tartan crosshatch front */
@@ -1508,11 +1030,7 @@ body {
 .folder--social {
   --folder-back-color: #94A879;
   --folder-bg-color: #F6DCE4;
-  --folder-pattern:
-    radial-gradient(circle, #94A879 7px, transparent 7.5px),
-    radial-gradient(circle, #94A879 7px, transparent 7.5px);
-  --folder-pattern-size: 34px 34px, 34px 34px;
-  --folder-pattern-position: 0 0, 17px 17px;
+  --folder-dot-color: #94A879;
 }
 
 /* Six points evenly spaced around the circle, starting at 12 o'clock. */
@@ -1559,21 +1077,6 @@ body {
   .folder-shape {
     width: 152px; /* the desktop 168px node at the same 90% */
   }
-}
-
-/* Video-ready template, mirrors .main-image-frame / .modular-img */
-.main-video-frame {
-  border-radius: 30px;
-  padding: 12px;
-  background: var(--cream-dark);
-  border: 1px solid rgb(var(--color-text-primary) / 0.05);
-  box-shadow: 0 10px 30px rgb(var(--color-text-primary) / 0.01);
-}
-.modular-video {
-  width: 100%;
-  height: auto;
-  border-radius: 20px;
-  display: block;
 }
 
 /* Marquee Scroll Animations */

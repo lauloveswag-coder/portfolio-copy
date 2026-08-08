@@ -323,21 +323,11 @@
     <!-- Scrolling Marquee Project Index Section -->
     <section class="marquee-index-section w-full lg:col-span-12 overflow-hidden py-6 border-y border-charcoal/10 relative">
       <div class="marquee-track flex whitespace-nowrap">
+        <!-- The seamless loop needs this list to appear exactly twice (the
+             animation translates the track -50%). The second copy is cloned
+             from this one at load by initMarqueeLoop(), so the list is only
+             ever edited here. -->
         <div class="marquee-content flex items-center gap-16 animate-marquee">
-          <!-- Round 1 -->
-          <button onclick="openArchiveTab('academic'); switchShowroomProject('dior');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Dior Costume Design" data-fr="Design de Costume Dior">Dior Costume Design</button>
-          <button onclick="openArchiveTab('academic'); switchShowroomProject('met');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="MET Gala Costume" data-fr="Costume MET Gala">MET Gala Costume</button>
-          <button onclick="openArchiveTab('academic'); switchShowroomProject('structure');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Structure &amp; Flou" data-fr="Structure &amp; Flou">Structure &amp; Flou</button>
-          <button onclick="openArchiveTab('academic'); switchShowroomProject('final');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Final Collection" data-fr="Collection Finale">Final Collection</button>
-          <button onclick="openArchiveTab('academic'); switchShowroomProject('layout');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Layout &amp; Research" data-fr="Mise en Page &amp; Recherche">Layout &amp; Research</button>
-          <button onclick="openArchiveTab('academic'); switchShowroomProject('trends');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Trend Forecasting" data-fr="Cahier de Tendances">Trend Forecasting</button>
-          <button onclick="openArchiveTab('academic'); switchShowroomProject('b1');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Bachelor I: Fundamentals" data-fr="Bachelor I : Fondamentaux">Bachelor I: Fundamentals</button>
-          <button onclick="openArchiveTab('academic'); switchShowroomProject('b2');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Bachelor II: Florence Residency" data-fr="Bachelor II : Résidence Florence">Bachelor II: Florence Residency</button>
-          <button onclick="openArchiveTab('academic'); switchShowroomProject('b3');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Bachelor III: Nancy Atelier" data-fr="Bachelor III : Atelier Nancy">Bachelor III: Nancy Atelier</button>
-          <button onclick="openArchiveTab('personal'); switchShowroomProject('social');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Content Creation &amp; Campaigns" data-fr="Création de Contenu &amp; Campagnes">Content Creation &amp; Campaigns</button>
-          <button onclick="openArchiveTab('personal'); switchShowroomProject('personal-crochet');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Crochet &amp; Experimental Knits" data-fr="Crochet &amp; Tricot Expérimental">Crochet &amp; Experimental Knits</button>
-          
-          <!-- Round 2 -->
           <button onclick="openArchiveTab('academic'); switchShowroomProject('dior');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Dior Costume Design" data-fr="Design de Costume Dior">Dior Costume Design</button>
           <button onclick="openArchiveTab('academic'); switchShowroomProject('met');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="MET Gala Costume" data-fr="Costume MET Gala">MET Gala Costume</button>
           <button onclick="openArchiveTab('academic'); switchShowroomProject('structure');" class="marquee-item font-serif-fashion italic text-4xl text-charcoal/80 hover:text-purple transition-colors cursor-pointer translatable" data-en="Structure &amp; Flou" data-fr="Structure &amp; Flou">Structure &amp; Flou</button>
@@ -517,59 +507,17 @@
             </div>
 
             <div id="project-showroom-cat-3d-ai" class="project-showroom-section hidden space-y-6">
-              <!-- Add new videos/renders by dropping a file in PORTFOLIO ASSESTS/3d-ai/ and adding one .polaroid-frame entry above, matching the pattern used here. -->
+              <!-- Populated by renderManifestFilmstrip() from
+                   PORTFOLIO ASSESTS/3d-ai/manifest.js -- drop a render or clip in
+                   that folder and regenerate the manifest (see the function's
+                   comment; this folder needs --with-video), don't hand-edit
+                   entries here. -->
               <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
                 <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='3D Rendering &amp; AI' data-fr='Rendu 3D &amp; IA'>3D Rendering &amp; AI</h4>
                 <span class='organic-ribbon translatable' data-en='02 // 3D &amp; AI' data-fr='02 // 3D &amp; IA'>02 // 3D &amp; AI</span>
               </div>
               <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-3d-ai-desc'></p>
-              <div class='filmstrip-row'>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-56' style='transform: rotate(-2deg);'>
-            <video src="PORTFOLIO ASSESTS/3d-ai/01kgj03gxhgpzdhxq3v61pzw9x.mp4" class='w-full h-56 object-cover rounded' controls preload='metadata' aria-label="AI-generated fashion video"></video>
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-56' style='transform: rotate(1.5deg);'>
-            <video src="PORTFOLIO ASSESTS/3d-ai/01kgj31nz9maez4gct3rvtn3aw.mp4" class='w-full h-56 object-cover rounded' controls preload='metadata' aria-label="AI-generated fashion video"></video>
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-56' style='transform: rotate(-1deg);'>
-            <video src="PORTFOLIO ASSESTS/3d-ai/01kgj3jpkd0vrr4pxfpdaz78aa.mp4" class='w-full h-56 object-cover rounded' controls preload='metadata' aria-label="AI-generated fashion video"></video>
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-56' style='transform: rotate(2deg);'>
-            <video src="PORTFOLIO ASSESTS/3d-ai/01kgj3mp7q1eypj4556j2f3vfm.mp4" class='w-full h-56 object-cover rounded' controls preload='metadata' aria-label="AI-generated fashion video"></video>
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-56' style='transform: rotate(-1.5deg);'>
-            <video src="PORTFOLIO ASSESTS/3d-ai/2026-01-15T14-27-51_high_fashion_runway_watermarked.mp4" class='w-full h-56 object-cover rounded' controls preload='metadata' aria-label="AI-generated fashion video"></video>
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1deg);'>
-            <img src="PORTFOLIO ASSESTS/3d-ai/20260605_112141_1.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-2deg);'>
-            <img src="PORTFOLIO ASSESTS/3d-ai/20260605_112142_1.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1.5deg);'>
-            <img src="PORTFOLIO ASSESTS/3d-ai/20260605_112144_1 (1).png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-1deg);'>
-            <img src="PORTFOLIO ASSESTS/3d-ai/20260605_112144_1.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(2deg);'>
-            <img src="PORTFOLIO ASSESTS/3d-ai/20260605_112257_1.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-1.5deg);'>
-            <img src="PORTFOLIO ASSESTS/3d-ai/Gemini_Generated_Image_4jrr174jrr174jrr.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1deg);'>
-            <img src="PORTFOLIO ASSESTS/3d-ai/download_1780658850692.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-2deg);'>
-            <img src="PORTFOLIO ASSESTS/3d-ai/download_1780659121138.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(1.5deg);'>
-            <img src="PORTFOLIO ASSESTS/3d-ai/download_1780659980596.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
-          </div>
-          <div class='polaroid-frame flex-shrink-0 w-44 md:w-48' style='transform: rotate(-1deg);'>
-            <img src="PORTFOLIO ASSESTS/3d-ai/download_1780659988155.png" class='w-full h-56 object-cover rounded' loading='lazy' alt="AI-generated fashion visual">
-          </div>
-              </div>
+              <div class='filmstrip-row' id='3d-ai-filmstrip'></div>
             </div>
 
             <div id="project-showroom-cat-sewing" class="project-showroom-section hidden">
@@ -661,23 +609,7 @@
               <!-- Bottom "More Work" Suggestion Carousel -->
               <div class="more-projects-section-clean">
                 <h3 class="carousel-section-title">You Might Like</h3>
-                <div class="more-projects-grid-clean">
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('met')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>MET Gala Costume</h4>
-                    <p>High-fashion editorial prototyping and garment curation matrix.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Structure &amp; Flou</h4>
-                    <p>Organic textile structures derived from psychological and material exploration.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('final')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Final Collection</h4>
-                    <p>Monograph publishing and design formulation of physical garments.</p>
-                  </div>
-                </div>
+                <div class="more-projects-grid-clean" data-related="met,structure,final"></div>
               </div>
             </div>
 
@@ -735,23 +667,7 @@
               <!-- Bottom "More Work" Suggestion Carousel -->
               <div class="more-projects-section-clean">
                 <h3 class="carousel-section-title">You Might Like</h3>
-                <div class="more-projects-grid-clean">
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Dior Costume Design</h4>
-                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Structure &amp; Flou</h4>
-                    <p>Organic textile structures derived from psychological and material exploration.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('trends')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Trend Forecasting</h4>
-                    <p>Circular trend forecasting and upcycling concept formulation.</p>
-                  </div>
-                </div>
+                <div class="more-projects-grid-clean" data-related="dior,structure,trends"></div>
               </div>
             </div>
 
@@ -810,23 +726,7 @@
               <!-- Bottom "More Work" Suggestion Carousel -->
               <div class="more-projects-section-clean">
                 <h3 class="carousel-section-title">You Might Like</h3>
-                <div class="more-projects-grid-clean">
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Dior Costume Design</h4>
-                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('met')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>MET Gala Costume</h4>
-                    <p>High-fashion editorial prototyping and garment curation matrix.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('final')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Final Collection</h4>
-                    <p>Monograph publishing and design formulation of physical garments.</p>
-                  </div>
-                </div>
+                <div class="more-projects-grid-clean" data-related="dior,met,final"></div>
               </div>
             </div>
 
@@ -884,23 +784,7 @@
               <!-- Bottom "More Work" Suggestion Carousel -->
               <div class="more-projects-section-clean">
                 <h3 class="carousel-section-title">You Might Like</h3>
-                <div class="more-projects-grid-clean">
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Dior Costume Design</h4>
-                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Structure &amp; Flou</h4>
-                    <p>Organic textile structures derived from psychological and material exploration.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('trends')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Trend Forecasting</h4>
-                    <p>Circular trend forecasting and upcycling concept formulation.</p>
-                  </div>
-                </div>
+                <div class="more-projects-grid-clean" data-related="dior,structure,trends"></div>
               </div>
             </div>
 
@@ -958,23 +842,7 @@
               <!-- Bottom "More Work" Suggestion Carousel -->
               <div class="more-projects-section-clean">
                 <h3 class="carousel-section-title">You Might Like</h3>
-                <div class="more-projects-grid-clean">
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Dior Costume Design</h4>
-                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Structure &amp; Flou</h4>
-                    <p>Organic textile structures derived from psychological and material exploration.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('trends')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Trend Forecasting</h4>
-                    <p>Circular trend forecasting and upcycling concept formulation.</p>
-                  </div>
-                </div>
+                <div class="more-projects-grid-clean" data-related="dior,structure,trends"></div>
               </div>
             </div>
 
@@ -1032,23 +900,7 @@
               <!-- Bottom "More Work" Suggestion Carousel -->
               <div class="more-projects-section-clean">
                 <h3 class="carousel-section-title">You Might Like</h3>
-                <div class="more-projects-grid-clean">
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Dior Costume Design</h4>
-                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Structure &amp; Flou</h4>
-                    <p>Organic textile structures derived from psychological and material exploration.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('layout')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Layout Design</h4>
-                    <p>Editorial layout research and publication grid composition studies.</p>
-                  </div>
-                </div>
+                <div class="more-projects-grid-clean" data-related="dior,structure,layout"></div>
               </div>
             </div>
 
@@ -1115,23 +967,7 @@
               <!-- Bottom "More Work" Horizontal Suggestion Carousel Grid -->
               <div class="more-projects-section-clean">
                 <h3 class="carousel-section-title">You Might Like</h3>
-                <div class="more-projects-grid-clean">
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Dior Costume Design</h4>
-                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('met')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>MET Gala Costume</h4>
-                    <p>High-fashion editorial prototyping and garment curation matrix.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Structure &amp; Flou</h4>
-                    <p>Organic textile structures derived from psychological and material exploration.</p>
-                  </div>
-                </div>
+                <div class="more-projects-grid-clean" data-related="dior,met,structure"></div>
               </div>
             </div>
 
@@ -1189,23 +1025,7 @@
               <!-- Bottom "More Work" Suggestion Carousel -->
               <div class="more-projects-section-clean">
                 <h3 class="carousel-section-title">You Might Like</h3>
-                <div class="more-projects-grid-clean">
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Dior Costume Design</h4>
-                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('met')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>MET Gala Costume</h4>
-                    <p>High-fashion editorial prototyping and garment curation matrix.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Structure &amp; Flou</h4>
-                    <p>Organic textile structures derived from psychological and material exploration.</p>
-                  </div>
-                </div>
+                <div class="more-projects-grid-clean" data-related="dior,met,structure"></div>
               </div>
             </div>
 
@@ -1263,23 +1083,7 @@
               <!-- Bottom "More Work" Suggestion Carousel -->
               <div class="more-projects-section-clean">
                 <h3 class="carousel-section-title">You Might Like</h3>
-                <div class="more-projects-grid-clean">
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('dior')">
-                    <span class="mini-badge-clean">B2 • FLORENCE</span>
-                    <h4>Dior Costume Design</h4>
-                    <p>Gender-fluid historical styling project completed during Erasmus exchange.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('structure')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Structure &amp; Flou</h4>
-                    <p>Organic textile structures derived from psychological and material exploration.</p>
-                  </div>
-                  <div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject('final')">
-                    <span class="mini-badge-clean">B3 • NANCY</span>
-                    <h4>Final Collection</h4>
-                    <p>Monograph publishing and design formulation of physical garments.</p>
-                  </div>
-                </div>
+                <div class="more-projects-grid-clean" data-related="dior,structure,final"></div>
               </div>
             </div>
 
@@ -1603,32 +1407,6 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       }
     }
 
-    // Toggle catalog accordion collapsible sections
-    function toggleAccordion(id) {
-      const content = document.getElementById(id);
-      if (!content) return;
-      const isHidden = content.classList.contains('hidden');
-      
-      // Close all accordions first for clean visual focus
-      document.querySelectorAll('.accordion-content').forEach(c => {
-        c.classList.add('hidden');
-        const h = c.previousElementSibling;
-        if (h) {
-          const a = h.querySelector('.accordion-arrow');
-          if (a) a.style.transform = 'rotate(0deg)';
-        }
-      });
-
-      if (isHidden) {
-        content.classList.remove('hidden');
-        const header = content.previousElementSibling;
-        if (header) {
-          const arrow = header.querySelector('.accordion-arrow');
-          if (arrow) arrow.style.transform = 'rotate(90deg)';
-        }
-      }
-    }
-
     // Project Showroom Catalog Switcher
     function switchShowroomProject(projId) {
       // Hide all project sections
@@ -1656,26 +1434,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       if (activeBtn) {
         activeBtn.classList.add('active', 'text-purple', 'font-bold');
         activeBtn.classList.remove('text-charcoal/60');
-
-        // Auto-expand parent accordion containing this active button
-        const parentAcc = activeBtn.closest('.accordion-content');
-        if (parentAcc && parentAcc.classList.contains('hidden')) {
-          parentAcc.classList.remove('hidden');
-          const header = parentAcc.previousElementSibling;
-          if (header) {
-            const arrow = header.querySelector('.accordion-arrow');
-            if (arrow) arrow.style.transform = 'rotate(90deg)';
-          }
-        }
       }
-
-      // Update custom card archive item buttons active states
-      document.querySelectorAll('.archive-item-btn').forEach(btn => {
-        btn.classList.remove('text-purple', 'font-bold');
-      });
-      document.querySelectorAll(`.archive-item-btn[data-proj='${projId}']`).forEach(btn => {
-        btn.classList.add('text-purple', 'font-bold');
-      });
     }
 
     // Six Disciplines picker — data for the folder buttons rendered into
@@ -1762,25 +1521,70 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       board.insertAdjacentHTML('beforeend', html);
     }
 
+    // Copy for the "You Might Like" cards at the bottom of every project
+    // block. Nine blocks each link to three siblings, so the same six cards
+    // were previously written out by hand up to eight times apiece — one
+    // wording change meant eight edits. The copy lives here once now; each
+    // block only names which projects it points at, via data-related.
+    const RELATED_PROJECT_CARDS = {
+      dior:      { badge: 'B2 • FLORENCE', title: 'Dior Costume Design',  desc: 'Gender-fluid historical styling project completed during Erasmus exchange.' },
+      met:       { badge: 'B2 • FLORENCE', title: 'MET Gala Costume',     desc: 'High-fashion editorial prototyping and garment curation matrix.' },
+      structure: { badge: 'B3 • NANCY',    title: 'Structure &amp; Flou', desc: 'Organic textile structures derived from psychological and material exploration.' },
+      final:     { badge: 'B3 • NANCY',    title: 'Final Collection',     desc: 'Monograph publishing and design formulation of physical garments.' },
+      trends:    { badge: 'B2 • FLORENCE', title: 'Trend Forecasting',    desc: 'Circular trend forecasting and upcycling concept formulation.' },
+      layout:    { badge: 'B3 • NANCY',    title: 'Layout Design',        desc: 'Editorial layout research and publication grid composition studies.' }
+    };
+
+    function renderRelatedProjectCards() {
+      document.querySelectorAll('.more-projects-grid-clean[data-related]').forEach(grid => {
+        grid.innerHTML = grid.dataset.related.split(',').map(id => {
+          const card = RELATED_PROJECT_CARDS[id];
+          if (!card) return '';
+          return '<div class="suggestion-card-clean cursor-pointer" onclick="switchShowroomProject(\'' + id + '\')">' +
+                   '<span class="mini-badge-clean">' + card.badge + '</span>' +
+                   '<h4>' + card.title + '</h4>' +
+                   '<p>' + card.desc + '</p>' +
+                 '</div>';
+        }).join('');
+      });
+    }
+
     // Renders a plain scrolling filmstrip of polaroid photos from a
     // components/sketch-stack/generate-manifest.py-generated manifest —
     // same auto-discovery data source <sketch-stack> uses, just as a
     // static row instead of the interactive stack, for categories that
-    // don't want that interaction (e.g. Archive). After adding photos to
-    // the folder, regenerate with:
+    // don't want that interaction (e.g. Archive, 3D & AI). Handles both
+    // photos and videos, so a folder holding either works. After adding
+    // files to the folder, regenerate with:
     //   python3 components/sketch-stack/generate-manifest.py "<folder>" <manifestKey>
-    function renderManifestFilmstrip(containerId, manifestKey, folder) {
+    // (add --with-video for a folder that contains videos, e.g. 3d-ai).
+    //
+    // `labels` sets the accessible text: { image: ..., video: ... }.
+    var VIDEO_FILE_RE = /\.(mp4|webm|mov)$/i;
+
+    function renderManifestFilmstrip(containerId, manifestKey, folder, labels) {
       var container = document.getElementById(containerId);
       if (!container) return;
       var files = (window.STACK_MANIFESTS || {})[manifestKey];
       if (!files || !files.length) return;
 
+      labels = labels || {};
+      var imageLabel = labels.image || 'Archive piece';
+      var videoLabel = labels.video || '';
+
       var rotations = ['-2deg', '1.5deg', '-1deg', '2deg', '-1.5deg', '1deg'];
       var html = files.map(function (filename, i) {
         var rotation = rotations[i % rotations.length];
+        var isVideo = VIDEO_FILE_RE.test(filename);
+        // Videos get the wider md breakpoint — a portrait clip in a 12rem
+        // frame is unusably small next to its own playback controls.
+        var frameWidth = isVideo ? 'w-44 md:w-56' : 'w-44 md:w-48';
+        var media = isVideo
+          ? '<video src="' + folder + filename + '" class="w-full h-56 object-cover rounded" controls preload="metadata" aria-label="' + videoLabel + '"></video>'
+          : '<img src="' + folder + filename + '" class="w-full h-56 object-cover rounded" loading="lazy" alt="' + imageLabel + '">';
         return (
-          '<div class="polaroid-frame flex-shrink-0 w-44 md:w-48" style="transform: rotate(' + rotation + ');">' +
-            '<img src="' + folder + filename + '" class="w-full h-56 object-cover rounded" loading="lazy" alt="Archive piece">' +
+          '<div class="polaroid-frame flex-shrink-0 ' + frameWidth + '" style="transform: rotate(' + rotation + ');">' +
+            media +
           '</div>'
         );
       }).join('');
@@ -1932,14 +1736,6 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
     // Contact Form submit listener
     document.getElementById('exhibit-contact-form').addEventListener('submit', handleFormSubmit);
 
-    // Global helper to trigger core showroom button click
-    window.triggerShowroomClick = function(projId) {
-      const coreBtn = document.getElementById('project-btn-' + projId);
-      if (coreBtn) {
-        coreBtn.click();
-      }
-    };
-
     // Setup drag and drop for archival cards
     function initDraggableCards() {
       const board = document.getElementById('archive-board');
@@ -2055,6 +1851,22 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       });
     }
 
+    // Builds the marquee's second pass by cloning the first. The scroll
+    // animation translates the track -50%, so the item list has to be
+    // present exactly twice for the wrap-around to be seamless — that
+    // second copy used to be a hand-maintained duplicate of the markup.
+    // The first pass stays in the HTML (rather than both being generated)
+    // so the band paints at its final height immediately, with no layout
+    // shift; the clone only ever extends it off-screen to the right.
+    function initMarqueeLoop() {
+      const content = document.querySelector('.marquee-content');
+      if (!content || content.dataset.looped) return;
+      content.dataset.looped = 'true';
+      Array.from(content.children).forEach(item => {
+        content.appendChild(item.cloneNode(true));
+      });
+    }
+
     // Fade the nav dock out while a panel is being actively scrolled (it
     // overlaps content otherwise), and bring it back once scrolling settles.
     function initDockScrollHide() {
@@ -2075,7 +1887,15 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
     // Default initialization
     window.addEventListener('DOMContentLoaded', () => {
       renderDisciplineFolders();
-      renderManifestFilmstrip('archive-filmstrip', 'archive', 'PORTFOLIO ASSESTS/archive/');
+      renderManifestFilmstrip('archive-filmstrip', 'archive', 'PORTFOLIO ASSESTS/archive/', {
+        image: 'Archive piece'
+      });
+      renderManifestFilmstrip('3d-ai-filmstrip', '3d-ai', 'PORTFOLIO ASSESTS/3d-ai/', {
+        image: 'AI-generated fashion visual',
+        video: 'AI-generated fashion video'
+      });
+      renderRelatedProjectCards();
+      initMarqueeLoop();
       setLanguage('en');
       showHub();
       initDraggableCards();
@@ -2095,6 +1915,11 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
        renderManifestFilmstrip() above. -->
   <script src="PORTFOLIO ASSESTS/archive/manifest.js"></script>
 
+  <!-- 3D & AI: same manifest mechanism, generated with --with-video since
+       this folder mixes renders and clips — renderManifestFilmstrip()
+       emits an <img> or a <video> per entry accordingly. -->
+  <script src="PORTFOLIO ASSESTS/3d-ai/manifest.js"></script>
+
   <!-- ProjectDetail: React "project window" template for Crochet/Sewing
        (self-contained, see react-components/project-detail/). Scans for
        [data-project-detail] elements below and mounts into them.
@@ -2113,16 +1938,25 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
            /sewing appear on save/reload, no build step. See vite.config.js
            and package.json at the project root. -->
   <script>
-    (function () {
+    // Both React components load the same two ways, for the same reason, so
+    // the branch lives here once. `fileSrc` is the prebuilt classic script
+    // used over file://; `moduleSrc` is the component's own source, loaded
+    // as a real ES module when served through Vite.
+    function loadEmbeddedComponent(fileSrc, moduleSrc) {
       var s = document.createElement('script');
       if (location.protocol === 'file:') {
-        s.src = 'react-components/project-detail/dist-embed/project-detail.js';
+        s.src = fileSrc;
       } else {
         s.type = 'module';
-        s.src = '/react-components/project-detail/src/mount.jsx';
+        s.src = moduleSrc;
       }
       document.body.appendChild(s);
-    })();
+    }
+
+    loadEmbeddedComponent(
+      'react-components/project-detail/dist-embed/project-detail.js',
+      '/react-components/project-detail/src/mount.jsx'
+    );
   </script>
 
   <!-- Social Media: React TikTok feed (self-contained, see
@@ -2131,16 +1965,10 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
        the same CORS reason. Bundle filename is "creator-feed", not
        "social-media" — see the <link> comment in <head> for why. -->
   <script>
-    (function () {
-      var s = document.createElement('script');
-      if (location.protocol === 'file:') {
-        s.src = 'react-components/social-media/dist-embed/creator-feed.js';
-      } else {
-        s.type = 'module';
-        s.src = '/react-components/social-media/src/mount.jsx';
-      }
-      document.body.appendChild(s);
-    })();
+    loadEmbeddedComponent(
+      'react-components/social-media/dist-embed/creator-feed.js',
+      '/react-components/social-media/src/mount.jsx'
+    );
   </script>
 
   <!-- Theme + dyslexia accessibility toolbar (dark/light toggle, font/

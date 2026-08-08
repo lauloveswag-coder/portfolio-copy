@@ -7,6 +7,7 @@ manifest.js, drop your new images in the folder and run this script.
 
 Usage:
     python3 generate-manifest.py "PORTFOLIO ASSESTS/SKETCHES" sketches
+    python3 generate-manifest.py "PORTFOLIO ASSESTS/3d-ai" 3d-ai --with-video
 
 Args:
     folder        Path to the folder of images (relative to the project root,
@@ -14,8 +15,14 @@ Args:
                    tag points to via data-folder.
     manifest-key  The data-manifest-key used by the matching <sketch-stack>
                    tag in index.html (e.g. "sketches").
+    --with-video  Also list video files. Opt-in, because <sketch-stack>
+                   renders every manifest entry as an <img> and would break
+                   on a video — only pass this for manifests consumed by
+                   renderManifestFilmstrip() in index.html, which handles
+                   both (e.g. the 3d-ai gallery).
 
 Supported formats: .jpg, .jpeg, .png, .webp, .gif
+                   (+ .mp4, .webm, .mov with --with-video)
 Writes <folder>/manifest.js, overwriting any existing one.
 """
 import json
@@ -23,24 +30,30 @@ import os
 import sys
 
 SUPPORTED_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.webp', '.gif'}
+VIDEO_EXTENSIONS = {'.mp4', '.webm', '.mov'}
 
 
 def main():
-    if len(sys.argv) != 3:
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    with_video = '--with-video' in sys.argv[1:]
+
+    if len(args) != 2:
         print(__doc__)
         sys.exit(1)
 
-    folder, manifest_key = sys.argv[1], sys.argv[2]
+    folder, manifest_key = args
 
     if not os.path.isdir(folder):
         print(f"Not a folder: {folder}")
         sys.exit(1)
 
+    allowed = SUPPORTED_EXTENSIONS | VIDEO_EXTENSIONS if with_video else SUPPORTED_EXTENSIONS
+
     files = sorted(
         f for f in os.listdir(folder)
         if not f.startswith('.')
         and f != 'manifest.js'
-        and os.path.splitext(f)[1].lower() in SUPPORTED_EXTENSIONS
+        and os.path.splitext(f)[1].lower() in allowed
     )
 
     lines = ['window.STACK_MANIFESTS = window.STACK_MANIFESTS || {};']
