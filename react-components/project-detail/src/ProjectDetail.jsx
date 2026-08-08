@@ -64,6 +64,14 @@ const DEFAULT_SWATCHES = ['#000000', '#E84545', '#3E5C76', '#FFFFFF'];
  * omitted/empty, the item grid falls back to the original plain
  * `accessories` gallery (non-interactive photos) — existing usage is
  * unaffected.
+ *
+ * `onClose` (optional) is the one piece of window chrome that isn't
+ * decorative: pass it and the red traffic light becomes a real close
+ * button (the yellow/green ones stay purely cosmetic — there's nothing
+ * to minimize or zoom here). The component doesn't decide what closing
+ * means; the host does (see mountShared.jsx, which turns it into a
+ * `project-detail:close` event the page listens for). Omit it and the
+ * red light stays a plain decorative dot, as before.
  */
 export default function ProjectDetail({
   title,
@@ -73,6 +81,7 @@ export default function ProjectDetail({
   accentColor,
   swatches = DEFAULT_SWATCHES,
   fullBleed = false,
+  onClose,
 }) {
   const [activeLayerId, setActiveLayerId] = useState(null);
 
@@ -93,7 +102,17 @@ export default function ProjectDetail({
     <div className={'pd-container' + (fullBleed ? ' pd-container--fullbleed' : '')} style={{ '--pd-accent': accentColor }}>
       <div className="pd-header">
         <div className="pd-traffic-lights">
-          <span className="pd-light pd-light--red" />
+          {onClose ? (
+            <button
+              type="button"
+              className="pd-light pd-light--red pd-light--action"
+              onClick={onClose}
+              aria-label={title ? `Close ${title}` : 'Close'}
+              title="Close"
+            />
+          ) : (
+            <span className="pd-light pd-light--red" />
+          )}
           <span className="pd-light pd-light--yellow" />
           <span className="pd-light pd-light--green" />
         </div>

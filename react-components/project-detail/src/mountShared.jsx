@@ -45,6 +45,13 @@ import ProjectDetail from './ProjectDetail.jsx';
 // data-layers, if present, always wins over the auto-derived layers
 // above — use it once you want an explicit, hand-picked set instead of
 // "every photo in the folder."
+//
+// Closing: every window mounted here gets its red traffic light wired as
+// a close button, which dispatches a bubbling `project-detail:close`
+// CustomEvent from the mount element (detail: { mount }). What "closed"
+// actually means is the page's call, not this component's — index.html
+// listens for it and returns to the discipline hub. A page that doesn't
+// listen simply has a red light that does nothing visible.
 
 function parseJSON(raw, fallback) {
   if (!raw) return fallback;
@@ -88,6 +95,14 @@ export function mountAll(resolveAutoFolder) {
       accessories,
       fullBleed: el.dataset.fullBleed === 'true',
       layers: autoLayers,
+      onClose: () => {
+        el.dispatchEvent(
+          new CustomEvent('project-detail:close', {
+            bubbles: true,
+            detail: { mount: el },
+          })
+        );
+      },
     };
     const swatches = parseJSON(el.dataset.swatches, null);
     if (swatches) props.swatches = swatches;

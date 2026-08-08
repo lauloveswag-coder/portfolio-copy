@@ -1804,6 +1804,17 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       if (hub) hub.classList.remove('hidden');
     }
 
+    // The ProjectDetail windows (Crochet, Sewing — any [data-project-detail])
+    // fire this when their red traffic light is clicked. Closing a project
+    // window means the same thing as the "← All Disciplines" button above it:
+    // back out to the hub. One document-level listener covers every window of
+    // that type, including any added later.
+    document.addEventListener('project-detail:close', function (e) {
+      const section = e.target.closest('.project-showroom-section');
+      if (section) section.classList.add('hidden');
+      showHub();
+    });
+
     // Bilingual Dictionary Engine
     function setLanguage(lang) {
       currentLang = lang;

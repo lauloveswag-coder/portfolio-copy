@@ -1588,6 +1588,7 @@ body {
 }
 .pd-mount--fullbleed > .pd-container--fullbleed {
   flex: 1;
+  min-height: 0;
 }
 
 @media (max-width: 767px) {
@@ -1595,6 +1596,65 @@ body {
     min-height: 70vh;
     padding: 0 12px 32px;
   }
+}
+
+/* ---- Fill-the-panel mode ----
+   The calc() above is only a fallback for browsers without :has(). Where
+   :has() works, the window is sized by a real flex chain instead, so it
+   fills the .panel-content box exactly however tall that box happens to
+   be — no viewport arithmetic to keep in sync with the panel header,
+   the back-link, or the accessibility toolbar's text scaling (all of
+   which the old fixed 180px offset silently got wrong).
+
+   The chain is .panel-content > #academic-portfolio >
+   .project-showroom-section > .pd-mount--fullbleed (each one a real
+   direct-child step in index.html), and every rule is gated on a
+   full-bleed window being the CURRENTLY VISIBLE section — the hidden
+   Crochet/Sewing mounts are always in the DOM, so an ungated :has()
+   would flatten the panel for Sketches/Archive/etc. too. */
+.panel-content:has(> #academic-portfolio:not(.hidden) > .project-showroom-section:not(.hidden) > .pd-mount--fullbleed) {
+  display: flex;
+  flex-direction: column;
+  /* The window scrolls internally (its own item grid does); the panel
+     itself must not, or the flex chain has no ceiling to resolve against. */
+  overflow: hidden;
+  padding: 0;
+}
+.panel-content > #academic-portfolio:has(> .project-showroom-section:not(.hidden) > .pd-mount--fullbleed) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  /* Drop the 1200px cap and the heavy 40px/20px page padding — in this
+     mode the window IS the page, so it uses the panel's full box. */
+  max-width: none;
+  padding: 12px 16px 16px;
+}
+#academic-portfolio > .project-showroom-section:not(.hidden):has(> .pd-mount--fullbleed) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+/* Inside that chain the mount takes the leftover height instead of the
+   calc(), and no longer needs the 100vw breakout — its container is
+   already full width here. */
+.panel-content > #academic-portfolio:not(.hidden) > .project-showroom-section:not(.hidden) > .pd-mount--fullbleed {
+  width: auto;
+  left: auto;
+  right: auto;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  height: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+/* Keeps the "← All Disciplines" link (the red traffic light now does the
+   same thing) from eating into the window any more than it has to. */
+#academic-portfolio:has(> .project-showroom-section:not(.hidden) > .pd-mount--fullbleed) > .back-to-hub-btn {
+  flex: 0 0 auto;
+  margin-bottom: 8px;
 }
 
 /* ============================================================
