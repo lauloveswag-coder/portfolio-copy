@@ -123,6 +123,9 @@
           root.classList.remove('dyslexia-font-active');
           root.style.removeProperty('--dyslexia-font');
         } else {
+          // OpenDyslexic's webfont is fetched on first selection rather
+          // than upfront (see index.html's head), so pull it in now.
+          if (key === 'opendyslexic' && window.loadOpenDyslexic) window.loadOpenDyslexic();
           root.style.setProperty('--dyslexia-font', FONT_STACKS[key]);
           root.classList.add('dyslexia-font-active');
         }

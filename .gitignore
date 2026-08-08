@@ -7,3 +7,8 @@ node_modules
 # vite.config.js); the real site loads dist-embed/, which stays versioned
 # because index.html serves it directly over file://.
 react-components/*/dist/
+
+# Full-resolution camera originals, parked here when assets/ was converted
+# to resized WebP. Kept off the repo (they're ~307MB) but on disk, so a
+# photo can be re-exported at a different size without a reshoot.
+_originals/

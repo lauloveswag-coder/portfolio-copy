@@ -10,6 +10,20 @@
        to the OS-level color-scheme preference on a first visit. Full logic
        (toggle functions, dyslexia toolbar) lives in theme.js. -->
   <script>
+    // Injects the OpenDyslexic webfont, once, only when it's actually
+    // selected — see the font <link>s further down for why it isn't
+    // simply loaded upfront. Shared with site-accessibility.js.
+    window.loadOpenDyslexic = function () {
+      if (window.__odLoaded) return;
+      window.__odLoaded = true;
+      ['400', '700'].forEach(function (weight) {
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://cdn.jsdelivr.net/npm/@fontsource/opendyslexic@5.3.0/' + weight + '.css';
+        document.head.appendChild(link);
+      });
+    };
+
     (function () {
       var FONT_STACKS = {
         lexend: "'Lexend', sans-serif",
@@ -27,6 +41,7 @@
           if (a11y.fontKey && a11y.fontKey !== 'system' && FONT_STACKS[a11y.fontKey]) {
             style.setProperty('--dyslexia-font', FONT_STACKS[a11y.fontKey]);
             root.classList.add('dyslexia-font-active');
+            if (a11y.fontKey === 'opendyslexic') window.loadOpenDyslexic();
           }
           if (typeof a11y.letterSpacing === 'number') {
             style.setProperty('--dyslexia-letter-spacing', a11y.letterSpacing + 'em');
@@ -89,13 +104,16 @@
   
   <!-- Google Fonts - Caveat for handwriting overlays, plus the dyslexia
        accessibility toolbar's font options (Lexend, Atkinson Hyperlegible).
-       OpenDyslexic isn't on Google Fonts, so it's loaded from its official
-       CDN-hosted webfont build below. -->
+       OpenDyslexic isn't on Google Fonts, so it comes from its official
+       CDN-hosted webfont build — but it's an opt-in accessibility choice,
+       so it is NOT linked here. loadOpenDyslexic() (in the bootstrap above)
+       injects it on demand: either because saved settings already select
+       it, or the moment the user picks it in the toolbar. That keeps two
+       stylesheets and a third origin off the critical path for everyone
+       who never turns it on. -->
   <link rel='preconnect' href='https://fonts.googleapis.com'>
   <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
   <link href='https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Lexend:wght@400;500;600&family=Atkinson+Hyperlegible:wght@400;700&display=swap' rel='stylesheet'>
-  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fontsource/opendyslexic@5.3.0/400.css'>
-  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fontsource/opendyslexic@5.3.0/700.css'>
 
   <!-- External Stylesheet -->
   <link rel='stylesheet' href='styles.css'>
@@ -273,7 +291,7 @@
       
       <!-- Cover Portrait Frame -->
       <div class='relative w-full max-w-[400px] aspect-[3/4] bg-creamdark border border-charcoal/5 rounded-3xl overflow-hidden shadow-organic group'>
-        <img src='assets/identity/laura-bio.jpg' alt='Laura Garçon Portrait' class='w-full h-full object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100 scale-105 group-hover:scale-100'>
+        <img src='assets/identity/laura-bio.webp' alt='Laura Garçon Portrait' width='562' height='1307' decoding='async' class='w-full h-full object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100 scale-105 group-hover:scale-100'>
         
         <!-- Subtle dark gradient overlay to ensure text legibility -->
         <div class='absolute inset-0 bg-gradient-to-t from-charcoal/40 via-charcoal/5 to-transparent opacity-80 pointer-events-none'></div>
@@ -355,23 +373,23 @@
   <!-- FLOATING NAVIGATION DOCK ("SOMMAIRE") -->
   <nav class='fixed bottom-0 md:bottom-8 inset-x-0 md:left-1/2 md:right-auto md:-translate-x-1/2 z-50 organic-dock'>
     <button id='dock-btn-panel-about' class='organic-dock-item' style='left:2%; top:26px; --tilt:-2deg;'>
-      <img class='dock-pin' src='assets/ui/scrapbook_element_14.png' style='width:30px; top:-16px; left:50%; transform:translateX(-50%);' alt=''>
+      <img class='dock-pin' src='assets/ui/scrapbook_element_14.webp' width='134' height='186' loading='lazy' decoding='async' style='width:30px; top:-16px; left:50%; transform:translateX(-50%);' alt=''>
       <span class='dock-label translatable' data-en='About' data-fr='À Propos'>About</span>
       <span class='dock-caption translatable' data-en='the designer' data-fr='la créatrice'>the designer</span>
     </button>
     <button id='dock-btn-panel-portfolio' class='organic-dock-item' style='left:27%; top:4px; --tilt:2deg;'>
-      <img class='dock-pin' src='assets/ui/scrapbook_element_17.png' style='width:20px; top:-32px; right:10px; transform:rotate(8deg);' alt=''>
+      <img class='dock-pin' src='assets/ui/scrapbook_element_17.webp' width='118' height='254' loading='lazy' decoding='async' style='width:20px; top:-32px; right:10px; transform:rotate(8deg);' alt=''>
       <span class='dock-label translatable' data-en='Portfolio' data-fr='Portfolio'>Portfolio</span>
       <span class='dock-caption translatable' data-en='the archive' data-fr="l'archive">the archive</span>
     </button>
     <button id='dock-btn-panel-universe' class='organic-dock-item' style='left:52%; top:30px; --tilt:-1deg;'>
-      <img class='dock-pin' src='assets/ui/scrapbook_element_12.png' style='width:28px; top:-15px; left:50%; transform:translateX(-50%);' alt=''>
+      <img class='dock-pin' src='assets/ui/scrapbook_element_12.webp' width='142' height='218' loading='lazy' decoding='async' style='width:28px; top:-15px; left:50%; transform:translateX(-50%);' alt=''>
       <span class='dock-label translatable' data-en='Services' data-fr='Services'>Services</span>
       <span class='dock-caption translatable' data-en='the atelier' data-fr="l'atelier">the atelier</span>
     </button>
     <button id='dock-btn-panel-journal' class='organic-dock-item' style='left:76%; top:8px; --tilt:1.5deg;'>
       <span class='dock-pin' style='position:absolute; overflow:hidden; width:30px; height:56px; top:-30px; left:50%; transform:translateX(-50%);'>
-        <img src='assets/ui/scrapbook_element_10.png' style='position:absolute; width:48px; height:auto; left:-9px; top:-14px;' alt=''>
+        <img src='assets/ui/scrapbook_element_10.webp' width='142' height='266' loading='lazy' decoding='async' style='position:absolute; width:48px; height:auto; left:-9px; top:-14px;' alt=''>
       </span>
       <span class='dock-label translatable' data-en='Inquiries' data-fr='Demandes'>Inquiries</span>
       <span class='dock-caption translatable' data-en='get in touch' data-fr='contactez-moi'>get in touch</span>
@@ -413,13 +431,13 @@
           <!-- Photobooth Strip Frame -->
           <div class='photobooth-strip shadow-organic z-10'>
             <div class='photobooth-frame'>
-              <img src='assets/identity/photobooth.gif' alt='Portrait Crop 1' class='photobooth-img grayscale contrast-125'>
+              <img src='assets/identity/photobooth.webp' alt='Portrait Crop 1' width='730' height='972' loading='lazy' decoding='async' class='photobooth-img grayscale contrast-125'>
             </div>
             <div class='photobooth-frame'>
-              <img src='assets/identity/photobooth.gif' alt='Portrait Crop 2' class='photobooth-img sepia contrast-110'>
+              <img src='assets/identity/photobooth.webp' alt='Portrait Crop 2' width='730' height='972' loading='lazy' decoding='async' class='photobooth-img sepia contrast-110'>
             </div>
             <div class='photobooth-frame'>
-              <img src='assets/identity/photobooth.gif' alt='Portrait Crop 3' class='photobooth-img'>
+              <img src='assets/identity/photobooth.webp' alt='Portrait Crop 3' width='730' height='972' loading='lazy' decoding='async' class='photobooth-img'>
             </div>
           </div>
 
@@ -649,7 +667,8 @@
           <div class='filmstrip-row'>
             
             <div class='polaroid-frame w-56 flex-shrink-0 rotate-[-1.5deg]'>
-              <img src='assets/projects/academic/b1-look.jpg' 
+              <img src='assets/projects/academic/b1-look.webp' width='1200' height='1600'
+                   loading='lazy' decoding='async'
                    alt='Knitting loop' class='w-full h-32 object-cover rounded-lg'>
               <h5 class='font-syne-bold font-bold text-[10px] uppercase text-charcoal mt-3 translatable' data-en='Stitch Pattern #12' data-fr='Point Crochet N° 12'>Stitch Pattern #12</h5>
             </div>
@@ -919,31 +938,31 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         num: 1, catId: 'cat-sketches', tilt: '-3deg', variant: 'folder--sketches',
         keywords: 'sketches illustration concept technical drawing research ideation croquis',
         nameEn: 'Sketches', nameFr: 'Croquis',
-        previews: ['assets/projects/sketches/fit-one-final.png', 'assets/projects/sketches/2.png']
+        previews: ['assets/projects/sketches/fit-one-final.webp', 'assets/projects/sketches/2.webp']
       },
       {
         num: 2, catId: 'cat-3d-ai', tilt: '2deg', variant: 'folder--3d-ai',
         keywords: '3d ai clo3d style3d moda ai digital garment simulation render fashion visualization video',
         nameEn: '3D Rendering &amp; AI', nameFr: 'Rendu 3D &amp; IA',
-        previews: ['assets/projects/3d-ai/20260605_112144_1.png', 'assets/projects/3d-ai/20260605_112141_1.png']
+        previews: ['assets/projects/3d-ai/20260605_112144_1.webp', 'assets/projects/3d-ai/20260605_112141_1.webp']
       },
       {
         num: 3, catId: 'personal-crochet', tilt: '-2deg', variant: 'folder--crochet',
         keywords: 'crochet knits craft yarn textile handmade',
         nameEn: 'Crochet', nameFr: 'Crochet',
-        previews: ['assets/projects/crochet/IMG_20260214_163702821_HDR.jpg']
+        previews: ['assets/projects/crochet/IMG_20260214_163702821_HDR.webp']
       },
       {
         num: 4, catId: 'cat-sewing', tilt: '3deg', variant: 'folder--sewing',
         keywords: 'sewing construction garment prototype pattern tailoring finished look',
         nameEn: 'Sewing', nameFr: 'Couture',
-        previews: ['assets/projects/sewing/2.jpeg', 'assets/projects/sewing/1.jpeg']
+        previews: ['assets/projects/sewing/2.webp', 'assets/projects/sewing/1.webp']
       },
       {
         num: 5, catId: 'cat-archive', tilt: '-2.5deg', variant: 'folder--archive',
         keywords: 'archive experimental research textile graphic design photography visual exploration branding',
         nameEn: 'Archive', nameFr: 'Archives',
-        previews: ['assets/projects/archive/Illustration-1-layout.png', 'assets/projects/archive/Screenshot-2024-04-29-at-11.00.54-AM.png']
+        previews: ['assets/projects/archive/Illustration-1-layout.webp', 'assets/projects/archive/Screenshot-2024-04-29-at-11.00.54-AM.webp']
       },
       {
         // No dedicated real asset folder exists yet for Social Media, so no
@@ -965,7 +984,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         if (item.previews.length) {
           var imgs = item.previews.map(function (src, i) {
             var posClass = item.previews.length === 1 ? 'folder-preview-img--solo' : 'folder-preview-img--' + (i + 1);
-            return '<img class="folder-preview-img ' + posClass + '" src="' + src + '" alt="" loading="lazy">';
+            return '<img class="folder-preview-img ' + posClass + '" src="' + src + '" alt="" loading="lazy" decoding="async">';
           }).join('');
           previewBlock = '<span class="folder-preview">' + imgs + '</span>';
         }
@@ -1112,7 +1131,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         careLabel: "Product Care &amp; Technical Details",
         careText: "Pattern specifications, tailoring metrics, and textile composition analytics compiled during the fabrication phase.",
         deliveryText: "Completed at École de Condé Nancy. Focus on core design fundamentals, form exploration, and structural material manipulation.",
-        mainImage: { src: "assets/projects/academic/b1-look.jpg", alt: "Bachelor 1 Final Look Showcase" },
+        mainImage: { src: "assets/projects/academic/b1-look.webp", alt: "Bachelor 1 Final Look Showcase" },
         features: [
           ["Methodology:", "Visual research, concept mapping, and ideation drafting."],
           ["Mediums:", "Technical drawing, color theory, and volumetric study."],
@@ -1123,7 +1142,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
           title: "Visual Research &amp; Conception",
           text: "A look into the initial charcoal studies and raw drapery layouts that formed the basis of the final silhouette execution.",
           button: "View Ideation Log",
-          image: { src: "assets/projects/academic/b1-sketches.jpg", alt: "Initial Fashion Sketches" }
+          image: { src: "assets/projects/academic/b1-sketches.webp", alt: "Initial Fashion Sketches" }
         },
         related: "dior,met,structure"
       },
@@ -1202,7 +1221,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         const showcase =
           (p.mainImage
             ? '<div class="main-image-frame">' +
-                '<img src="' + p.mainImage.src + '" alt="' + p.mainImage.alt + '" class="modular-img">' +
+                '<img src="' + p.mainImage.src + '" alt="' + p.mainImage.alt + '" class="modular-img" loading="lazy" decoding="async">' +
               '</div>'
             : '') +
           '<div class="accordion-group-clean">' +
@@ -1238,7 +1257,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
             '</div>' +
             (p.banner.image
               ? '<div class="banner-image-side">' +
-                  '<img src="' + p.banner.image.src + '" alt="' + p.banner.image.alt + '" class="banner-embedded-img">' +
+                  '<img src="' + p.banner.image.src + '" alt="' + p.banner.image.alt + '" class="banner-embedded-img" loading="lazy" decoding="async">' +
                 '</div>'
               : '') +
           '</div>';
@@ -1325,7 +1344,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         var frameWidth = isVideo ? 'w-44 md:w-56' : 'w-44 md:w-48';
         var media = isVideo
           ? '<video src="' + folder + filename + '" class="w-full h-56 object-cover rounded" controls preload="metadata" aria-label="' + videoLabel + '"></video>'
-          : '<img src="' + folder + filename + '" class="w-full h-56 object-cover rounded" loading="lazy" alt="' + imageLabel + '">';
+          : '<img src="' + folder + filename + '" class="w-full h-56 object-cover rounded" loading="lazy" decoding="async" alt="' + imageLabel + '">';
         return (
           '<div class="polaroid-frame flex-shrink-0 ' + frameWidth + '" style="transform: rotate(' + rotation + ');">' +
             media +

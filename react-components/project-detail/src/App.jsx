@@ -29,20 +29,20 @@ export default function App() {
       <ProjectDetail
         title="Crochet — Project_01"
         accentColor="#A4B35E"
-        hero={{ src: 'assets/crochet/hero.jpg', alt: 'Crochet piece, full look' }}
+        hero={{ src: 'assets/crochet/hero.webp', alt: 'Crochet piece, full look' }}
         accessories={[
-          { src: 'assets/crochet/hero.jpg', alt: 'Detail, stitch close-up' },
-          { src: 'assets/crochet/hero.jpg', alt: 'Detail, yarn texture' },
-          { src: 'assets/crochet/hero.jpg', alt: 'Detail, silhouette' },
+          { src: 'assets/crochet/hero.webp', alt: 'Detail, stitch close-up' },
+          { src: 'assets/crochet/hero.webp', alt: 'Detail, yarn texture' },
+          { src: 'assets/crochet/hero.webp', alt: 'Detail, silhouette' },
         ]}
       />
       <ProjectDetail
         title="Sewing — Project_01"
         accentColor="#3E5C76"
-        hero={{ src: 'assets/sewing/hero.jpeg', alt: 'Sewn garment, full look' }}
+        hero={{ src: 'assets/sewing/hero.webp', alt: 'Sewn garment, full look' }}
         accessories={[
-          { src: 'assets/sewing/detail-1.jpeg', alt: 'Construction detail' },
-          { src: 'assets/sewing/hero.jpeg', alt: 'Fabric detail' },
+          { src: 'assets/sewing/detail-1.webp', alt: 'Construction detail' },
+          { src: 'assets/sewing/hero.webp', alt: 'Fabric detail' },
         ]}
       />
       <div>
@@ -52,7 +52,7 @@ export default function App() {
         <ProjectDetail
           title="Style_Editor_v1.app"
           accentColor="#3E5C76"
-          hero={{ src: 'assets/sewing/hero.jpeg', alt: 'Base model' }}
+          hero={{ src: 'assets/sewing/hero.webp', alt: 'Base model' }}
           layers={DEMO_LAYERS}
         />
       </div>

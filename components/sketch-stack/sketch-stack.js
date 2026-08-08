@@ -33,7 +33,7 @@
   var CAPTION_WORDS = ['sketch', 'study', 'draft', 'idea', 'keep', 'revisit'];
   // Real photographed clip (existing site asset) pinning the whole pile —
   // resolved relative to the hosting page, same convention as data-folder.
-  var CLIP_IMAGE_PATH = 'assets/ui/scrapbook_element_11.png';
+  var CLIP_IMAGE_PATH = 'assets/ui/scrapbook_element_11.webp';
 
   var TEMPLATE = document.createElement('template');
   TEMPLATE.innerHTML =
