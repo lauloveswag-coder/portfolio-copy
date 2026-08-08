@@ -828,7 +828,7 @@ body {
   padding-top: 34px; /* headroom for preview items poking up above the back panel */
 }
 
-/* The folder's shape and proportions come from icons8-folder-240.png, used
+/* The folder's shape and proportions come from assets/ui/icons8-folder-240.png, used
    as a mask — only its alpha channel. Everything visible is still CSS: the
    per-discipline --folder-back-color / --folder-bg-color / --folder-pattern
    below are untouched, so the color system is exactly what it was.
@@ -841,7 +841,7 @@ body {
    the layers to the canvas instead would shrink the folder and leave dead
    space on all four sides. */
 .folder-shape {
-  --folder-art: url('icons8-folder-240.png');
+  --folder-art: url('assets/ui/icons8-folder-240.png');
   --folder-art-w: 104.3478%;  /* 240/230 */
   --folder-art-h: 133.3333%;  /* 240/180 */
   --folder-art-x: -2.1739%;   /*  -5/230 */
