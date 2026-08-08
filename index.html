@@ -68,40 +68,17 @@
   <meta name='keywords' content='Fashion Design, Graphic Design, AI Creative, Creative Direction, Luxury Portfolio, Zine Exhibition'>
   <meta name='author' content='Laura Garcon'>
   
-  <!-- Tailwind CSS CDN -->
-  <script src='https://cdn.tailwindcss.com'></script>
-  <script>
-    // Colors resolve through the CSS custom properties defined in styles.css
-    // (:root for light / html.dark for dark) so every existing bg-*/text-*/
-    // border-* utility class re-themes automatically — see the "Legacy
-    // aliases" comment in styles.css for the cream/charcoal/etc -> token
-    // mapping. The rgb(var(...) / <alpha-value>) form is Tailwind's
-    // documented pattern for CSS-variable colors that still support
-    // opacity modifiers (e.g. bg-cream/30, border-charcoal/10).
-    tailwind.config = {
-      theme: {
-        extend: {
-          borderRadius: {
-            '4xl': '2rem',
-            '5xl': '2.5rem'
-          },
-          colors: {
-            cream: 'rgb(var(--color-bg-primary) / <alpha-value>)',
-            creamdark: 'rgb(var(--color-card-bg) / <alpha-value>)',
-            charcoal: 'rgb(var(--color-text-primary) / <alpha-value>)',
-            sage: 'rgb(var(--color-accent-3) / <alpha-value>)',
-            sagelight: 'color-mix(in srgb, rgb(var(--color-accent-3)) 22%, rgb(var(--color-bg-primary)) 78%)',
-            purple: 'rgb(var(--color-accent-1) / <alpha-value>)',
-            purplelight: 'color-mix(in srgb, rgb(var(--color-accent-1)) 22%, rgb(var(--color-bg-primary)) 78%)',
-            pink: 'rgb(var(--color-accent-2) / <alpha-value>)',
-            pinklight: 'color-mix(in srgb, rgb(var(--color-accent-2)) 22%, rgb(var(--color-bg-primary)) 78%)',
-            hotpink: 'rgb(var(--color-accent-2) / <alpha-value>)'
-          }
-        }
-      }
-    }
-  </script>
-  
+  <!-- Tailwind, compiled ahead of time (tailwind.config.cjs -> tailwind.css,
+       via `npm run build:css`). This replaced cdn.tailwindcss.com, which
+       shipped ~400KB of JavaScript and rebuilt the stylesheet in the
+       visitor's browser on every single page load; the compiled sheet is
+       19KB (4KB gzipped) and blocks nothing. Re-run the build after adding
+       class names to index.html, site-accessibility.js or components/.
+
+       Loaded before styles.css on purpose: styles.css is the hand-written
+       layer and has to win ties against the utilities. -->
+  <link rel='stylesheet' href='tailwind.css'>
+
   <!-- Google Fonts - Caveat for handwriting overlays, plus the dyslexia
        accessibility toolbar's font options (Lexend, Atkinson Hyperlegible).
        OpenDyslexic isn't on Google Fonts, so it comes from its official

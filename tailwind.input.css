@@ -1,0 +1,8 @@
+/* Source for tailwind.css — compile with `npm run build:css`.
+ *
+ * `base` (Preflight) is included because the CDN build applied it too, and
+ * styles.css is written on top of that reset. Dropping it would change
+ * margins, heading sizes and list styles across the whole page. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

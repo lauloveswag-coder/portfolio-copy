@@ -8,6 +8,10 @@ node_modules
 # because index.html serves it directly over file://.
 react-components/*/dist/
 
+# Throwaway copy of the pre-compile index.html (still on the Tailwind CDN),
+# kept only to eyeball the compiled stylesheet against the CDN's output.
+index-cdn-ref.html
+
 # Full-resolution camera originals, parked here when assets/ was converted
 # to resized WebP. Kept off the repo (they're ~307MB) but on disk, so a
 # photo can be re-exported at a different size without a reshoot.
