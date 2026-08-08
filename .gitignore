@@ -2,3 +2,8 @@
 .claude/
 node_modules
 .idea/
+
+# Build output. dist/ is the components' own isolated demo build (their
+# vite.config.js); the real site loads dist-embed/, which stays versioned
+# because index.html serves it directly over file://.
+react-components/*/dist/
