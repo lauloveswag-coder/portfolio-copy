@@ -1330,9 +1330,12 @@ body {
   --folder-art-y: -13.8889%;  /* -25/180 */
   position: relative;
   display: block;
-  width: 100%;
+  /* Slightly inset from the node's full width, centered — the single knob
+     for the folder icon's size. Height follows via aspect-ratio, so the
+     proportions hold whatever this is set to. */
+  width: 90%;
   aspect-ratio: 230 / 180;
-  margin-top: 14px;
+  margin: 14px auto 0;
 }
 
 /* Shared geometry + masking for the two color layers. */
@@ -1427,11 +1430,18 @@ body {
    a physical folder — not layered on top of its pattern. */
 .folder-caption {
   margin-top: 14px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
   text-align: center;
 }
 .folder-caption .project-badge-clean {
   font-size: 0.65rem;
-  margin-bottom: 2px;
+  /* Both the badge's 12px bottom margin and the h3's top margin would show
+     up as horizontal misalignment now that these sit side by side. */
+  margin-bottom: 0;
 }
 .folder-caption h3 {
   margin-top: 0;
@@ -1547,9 +1557,7 @@ body {
      its width (fixed proportions), so an uncapped folder would be ~270px
      tall per row. Pin it to the desktop size and center it instead. */
   .folder-shape {
-    width: 168px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 152px; /* the desktop 168px node at the same 90% */
   }
 }
 
