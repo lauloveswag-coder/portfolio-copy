@@ -1342,8 +1342,15 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         // Videos get the wider md breakpoint — a portrait clip in a 12rem
         // frame is unusably small next to its own playback controls.
         var frameWidth = isVideo ? 'w-44 md:w-56' : 'w-44 md:w-48';
+        // preload="none" + a poster still: the frame shows its artwork
+        // immediately at ~10KB, and not a single byte of the (multi-MB)
+        // clip is fetched until someone actually presses play. Posters
+        // live in a posters/ subfolder so the manifest generator, which
+        // only scans the folder's own files, never lists them as gallery
+        // images in their own right.
+        var poster = folder + 'posters/' + filename.replace(VIDEO_FILE_RE, '.webp');
         var media = isVideo
-          ? '<video src="' + folder + filename + '" class="w-full h-56 object-cover rounded" controls preload="metadata" aria-label="' + videoLabel + '"></video>'
+          ? '<video src="' + folder + filename + '" poster="' + poster + '" class="w-full h-56 object-cover rounded" controls preload="none" aria-label="' + videoLabel + '"></video>'
           : '<img src="' + folder + filename + '" class="w-full h-56 object-cover rounded" loading="lazy" decoding="async" alt="' + imageLabel + '">';
         return (
           '<div class="polaroid-frame flex-shrink-0 ' + frameWidth + '" style="transform: rotate(' + rotation + ');">' +
