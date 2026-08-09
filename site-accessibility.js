@@ -3,8 +3,18 @@
 // paint) lives inline in index.html's <head>; this file wires up the
 // header controls and keeps localStorage in sync as the user changes them.
 (function () {
-  var THEME_KEY = 'lg-theme';
+  var PALETTE_KEY = 'lg-palette';
+  var MODE_KEY = 'lg-mode';
   var A11Y_KEY = 'lg-dyslexia-settings';
+
+  var PALETTES = {
+    winter_sabina: { icon: '\u{2744}\u{FE0F}', defaultMode: 'dark' },
+    winter: { icon: '\u{2744}\u{FE0F}', defaultMode: 'dark' },
+    clustr_lavender: { icon: '\u{1FABB}', defaultMode: 'dark' },
+    clustr_meadow: { icon: '\u{1F338}', defaultMode: 'light' },
+    summer: { icon: '\u{2600}\u{FE0F}', defaultMode: 'dark' },
+    spring: { icon: '\u{1F331}', defaultMode: 'dark' }
+  };
 
   var FONT_STACKS = {
     lexend: "'Lexend', sans-serif",
@@ -28,11 +38,36 @@
     } catch (e) {}
   }
 
-  // ---------- Theme (dark / light) ----------
+  // ---------- Palette + light/dark mode ----------
 
-  function applyThemeIcon(isDark) {
-    var icon = document.getElementById('theme-toggle-icon');
-    var btn = document.getElementById('theme-toggle-btn');
+  function currentPalette() {
+    var p = root.getAttribute('data-palette');
+    return PALETTES[p] ? p : 'winter_sabina';
+  }
+
+  function currentMode() {
+    try {
+      var saved = localStorage.getItem(MODE_KEY);
+      if (saved === 'light' || saved === 'dark') return saved;
+    } catch (e) {}
+    return PALETTES[currentPalette()].defaultMode;
+  }
+
+  function applyPaletteUI(palette) {
+    var icon = document.getElementById('palette-toggle-icon');
+    if (icon) icon.textContent = PALETTES[palette].icon;
+    var panel = document.getElementById('palette-panel');
+    if (panel) {
+      panel.querySelectorAll('.season-option').forEach(function (opt) {
+        opt.setAttribute('aria-checked', String(opt.getAttribute('data-palette') === palette));
+      });
+    }
+  }
+
+  function applyModeUI(mode) {
+    var icon = document.getElementById('mode-toggle-icon');
+    var btn = document.getElementById('mode-toggle-btn');
+    var isDark = mode === 'dark';
     if (icon) icon.textContent = isDark ? '\u{1F319}' : '\u{2600}\u{FE0F}';
     if (btn) {
       btn.setAttribute('aria-pressed', String(isDark));
@@ -40,26 +75,63 @@
     }
   }
 
-  function setTheme(theme) {
-    root.classList.toggle('dark', theme === 'dark');
-    try { localStorage.setItem(THEME_KEY, theme); } catch (e) {}
-    applyThemeIcon(theme === 'dark');
+  function setPalette(palette) {
+    if (!PALETTES[palette]) palette = 'winter_sabina';
+    root.setAttribute('data-palette', palette);
+    try { localStorage.setItem(PALETTE_KEY, palette); } catch (e) {}
+    // Switching palettes clears any explicit light/dark override so the
+    // newly-picked palette shows in its own intended default mode.
+    try { localStorage.removeItem(MODE_KEY); } catch (e) {}
+    var mode = currentMode();
+    root.classList.toggle('dark', mode === 'dark');
+    applyPaletteUI(palette);
+    applyModeUI(mode);
   }
 
-  function initTheme() {
-    applyThemeIcon(root.classList.contains('dark'));
-    var btn = document.getElementById('theme-toggle-btn');
-    if (btn) {
-      btn.addEventListener('click', function () {
-        setTheme(root.classList.contains('dark') ? 'light' : 'dark');
+  function setMode(mode) {
+    root.classList.toggle('dark', mode === 'dark');
+    try { localStorage.setItem(MODE_KEY, mode); } catch (e) {}
+    applyModeUI(mode);
+  }
+
+  function initPalette() {
+    applyPaletteUI(currentPalette());
+    applyModeUI(currentMode());
+
+    var toggleBtn = document.getElementById('palette-toggle-btn');
+    var panel = document.getElementById('palette-panel');
+    if (toggleBtn && panel) {
+      function openPanel() {
+        panel.classList.remove('hidden');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+      }
+      function closePanel() {
+        panel.classList.add('hidden');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+      toggleBtn.addEventListener('click', function () {
+        panel.classList.contains('hidden') ? openPanel() : closePanel();
+      });
+      panel.querySelectorAll('.season-option').forEach(function (opt) {
+        opt.addEventListener('click', function () {
+          setPalette(opt.getAttribute('data-palette'));
+          closePanel();
+        });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closePanel();
+      });
+      document.addEventListener('click', function (e) {
+        if (!panel.classList.contains('hidden') && !panel.contains(e.target) && e.target !== toggleBtn && !toggleBtn.contains(e.target)) {
+          closePanel();
+        }
       });
     }
-    // Only follow OS-level changes live if the user never made an explicit choice.
-    if (window.matchMedia) {
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
-        var saved;
-        try { saved = localStorage.getItem(THEME_KEY); } catch (err) {}
-        if (!saved) setTheme(e.matches ? 'dark' : 'light');
+
+    var modeBtn = document.getElementById('mode-toggle-btn');
+    if (modeBtn) {
+      modeBtn.addEventListener('click', function () {
+        setMode(currentMode() === 'dark' ? 'light' : 'dark');
       });
     }
   }
@@ -242,7 +314,7 @@
   }
 
   function init() {
-    initTheme();
+    initPalette();
     initA11yPanel();
     initReadingRuler();
   }

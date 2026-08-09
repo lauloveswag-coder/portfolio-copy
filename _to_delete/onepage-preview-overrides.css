@@ -1,0 +1,147 @@
+/* ==========================================================================
+   ONE-PAGE SCROLL — PREVIEW-ONLY OVERRIDES
+   ==========================================================================
+   This file is 100% additive. It does NOT touch styles.css — it just loads
+   after it (see the <link> added in index-onepage-preview.html) and
+   overrides the handful of rules that made the four "exhibit" sections
+   (#panel-about / #panel-portfolio / #panel-universe / #panel-journal)
+   behave as full-viewport overlays instead of normal, stacked sections you
+   scroll through.
+
+   To fully revert: delete this file and the <link> to it, and delete
+   index-onepage-preview.html. styles.css and index.html are both
+   untouched by this preview.
+   ========================================================================== */
+
+/* Was: position:fixed; 100vw/100vh; opacity:0; pointer-events:none;
+   transform:translateY(100%) — a full-viewport overlay slid in via
+   .active. Now: a normal block in document flow. scroll-margin-top keeps
+   a section's heading clear of the fixed header/lang-switcher/theme
+   controls when openPanel() scrolls to it (see the JS change in
+   index-onepage-preview.html). */
+.editorial-panel {
+  position: relative;
+  width: 100%;
+  height: auto;
+  background: var(--cream);
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  scroll-margin-top: 132px;
+}
+
+/* The muted per-section color washes used to only apply once a panel was
+   opened (".active"). Every section is always in the document now, so
+   these apply unconditionally — same colors, same tint. */
+#panel-about { background: color-mix(in srgb, var(--cream) 90%, var(--sage) 10%); }
+#panel-portfolio { background: color-mix(in srgb, var(--cream) 90%, var(--purple) 10%); }
+#panel-universe { background: color-mix(in srgb, var(--cream) 88%, var(--pink) 12%); }
+#panel-journal { background: color-mix(in srgb, var(--cream) 94%, var(--charcoal) 6%); }
+
+/* Was overflow-y:auto + flex-grow:1, so this filled and internally
+   scrolled within a 100vh overlay. Now it's just a normal block — the
+   whole page scrolls, this section takes whatever height its content
+   needs. */
+.panel-content {
+  overflow-y: visible;
+  flex-grow: 0;
+}
+
+/* ==========================================================================
+   NAV OPTION A — top bar (replaces the floating bottom "sommaire" dock)
+   ==========================================================================
+   The four destinations (About/Portfolio/Services/Inquiries) now live as
+   flat text links inside the header, which becomes sticky so they're
+   reachable at any scroll position — same job the bottom dock used to do.
+   The EN/FR switcher (.lang-switcher-float) and theme/accessibility icons
+   (.site-controls-float) are untouched, still their own fixed elements in
+   their existing top-right spot — header-nav-spacer below just reserves
+   room so this bar's own content never runs underneath them. */
+.site-header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 45; /* above normal content, below the always-on-top floating
+                  lang/theme controls at z-index 9995 */
+  background: var(--cream);
+  border-bottom: 1px solid rgb(var(--color-text-primary) / 0.08);
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  flex-wrap: wrap;
+}
+
+.header-nav-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--charcoal);
+  opacity: 0.55;
+  border-bottom: 2px solid transparent;
+  transition: opacity 0.25s ease, border-color 0.25s ease;
+}
+.header-nav-link:hover {
+  opacity: 0.85;
+}
+.header-nav-link.active {
+  opacity: 1;
+  border-bottom-color: var(--pink);
+}
+
+/* Reserves visual space on the header's right edge roughly matching the
+   fixed lang-switcher + theme/a11y icon cluster's footprint, so the nav
+   links never crowd underneath them. Empty/decorative only. */
+.header-nav-spacer {
+  width: 190px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  /* Below this width the reserved spacer would just force an awkward
+     wrap — the fixed icons sit in their own row up there anyway (see
+     .lang-switcher-float / .site-controls-float's own mobile
+     breakpoints), so it's not needed once the header is already wrapping. */
+  .header-nav-spacer {
+    display: none;
+  }
+  .header-nav {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Was forcing 100vw/100vh + border-radius:0 to match the overlay.
+     Not an overlay anymore, so let it size to its content. */
+  .editorial-panel {
+    width: auto;
+    height: auto;
+  }
+}
+
+/* The Sewing/Crochet ProjectDetail window used calc(100vh - 180px) to fill
+   the remaining height of a full-viewport overlay (65px panel-header +
+   36px content padding + 40px container padding + back-link, etc. — see
+   the long comment in styles.css). That math no longer applies once the
+   section sits in normal document flow rather than filling the viewport,
+   so it gets a simple, bounded height instead — still enough room for the
+   window's own internal gallery/scroll, just not viewport-locked. */
+.pd-mount--fullbleed {
+  height: 75vh;
+  min-height: 480px;
+}
+@media (max-width: 767px) {
+  .pd-mount--fullbleed {
+    height: 70vh;
+    min-height: 420px;
+  }
+}

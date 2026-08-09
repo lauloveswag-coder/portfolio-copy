@@ -105,6 +105,11 @@
 
   <!-- External Stylesheet -->
   <link rel='stylesheet' href='styles.css'>
+  <!-- PREVIEW ONLY: additive overrides that turn the four full-viewport
+       overlay panels into normal in-flow sections (one scrollable page),
+       instead of editing styles.css directly. Delete this line (and this
+       file) to fully revert — styles.css itself is untouched. -->
+  <link rel='stylesheet' href='onepage-preview-overrides.css'>
   <!-- ProjectDetail component (Crochet / Sewing interior pages) — built
        bundle from react-components/project-detail/ (npm run build:embed).
        Classes are scoped under .pd-*, safe to load globally. -->
@@ -125,17 +130,18 @@
   <div class='bg-blob-purple bottom-20 -right-20'></div>
 
   <!-- Editorial Top Header -->
-  <!-- Sticky site header + one-page nav. The four destinations (About /
-       Portfolio / Services / Inquiries) used to live in a floating bottom
-       "sommaire" dock of pinned sticky-note buttons; they're now flat text
-       links here instead, with the same button IDs (dock-btn-panel-*) so
-       the click handlers and scroll-spy below don't need to know anything
-       changed. The header is sticky so these stay reachable at any scroll
-       position — the EN/FR switcher and theme/accessibility icons are
-       untouched, unmoved fixed elements (see .lang-switcher-float /
-       .site-controls-float below); header-nav-spacer just reserves clear
-       space on the right so this bar's own content never runs underneath
-       them. -->
+  <!-- PREVIEW CHANGE (nav option A): was a plain, non-sticky header (scrolled
+       away like any other content) with just the title/tagline — the four
+       destination links lived entirely in the floating bottom dock below.
+       Now the header itself is the persistent nav: sticky at top, title on
+       the left, the four links (same IDs/onclick targets as the old dock
+       buttons, so nothing else has to change) in the middle. The EN/FR
+       switcher and theme/accessibility icons are untouched, unmoved fixed
+       elements (.lang-switcher-float / .site-controls-float below) — this
+       header just reserves clear space on its right (see
+       onepage-preview-overrides.css) so its own content never sits under
+       them. header-nav-spacer is that reserved space, sized to roughly
+       match that fixed icon cluster's footprint. -->
   <header id='site-header' class='w-full px-8 py-6 flex items-center justify-between z-30 relative site-header-sticky'>
     <div class='flex items-center space-x-6'>
       <h1 class='font-syne font-extrabold text-xl tracking-wider text-charcoal uppercase flex items-center gap-2'>
@@ -168,11 +174,13 @@
     <div class='header-nav-spacer' aria-hidden='true'></div>
   </header>
 
-  <!-- EN/FR language switcher: kept as its own fixed-position element
-       (not merged into the header nav, not merged into #site-controls
-       below) so it sits in its own corner spot at all times, above
-       everything (z-index 9995) — unaffected by the header's own sticky
-       behavior or the section content scrolling underneath it. -->
+  <!-- EN/FR language switcher: fixed-position, NOT inside <header>, for the
+       same reason as #site-controls below — the site's "pages" are
+       full-viewport .editorial-panel overlays (z-index 40) that sit above
+       the header (z-index 30), so a control living inside <header> is only
+       reachable on the hero. Kept as its own element (not merged into
+       #site-controls) so it can sit in the header's former corner spot
+       while #site-controls keeps its own row underneath. -->
   <div class='lang-switcher-float'>
     <div class='flex border border-charcoal/10 rounded-full bg-creamdark font-mono text-[11px] p-0.5'>
       <button id='lang-btn-en' class='px-4 py-1.5 rounded-full bg-pink text-charcoal font-bold transition-all focus:outline-none'>
@@ -184,10 +192,15 @@
     </div>
   </div>
 
-  <!-- Dark/light + accessibility controls: kept as their own fixed-position
-       corner cluster, NOT inside <header> — same reasoning as the EN/FR
-       switcher above. Its own row just below the switcher, always
-       reachable regardless of scroll position. -->
+  <!-- Dark/light + accessibility controls: a fixed-position corner cluster,
+       NOT inside <header>. The site's "pages" are full-viewport fixed
+       .editorial-panel overlays (z-index 40) that sit above the header
+       (z-index 30) — only the bottom dock nav (z-index 50) was designed to
+       stay reachable above them. A control living inside <header> would
+       therefore be invisible on About/Portfolio/Universe/Journal, i.e. on
+       every page except the hero. Fixed-positioning it as its own
+       high-z-index element keeps it reachable everywhere regardless of
+       which panel (if any) is open. -->
   <div id='site-controls' class='site-controls-float'>
     <!-- Palette picker (six named themes, each with its own light + dark colors) -->
     <div class='relative'>
@@ -417,6 +430,13 @@
     </section>
 
   </main>
+
+  <!-- PREVIEW CHANGE (nav option A): the floating bottom "sommaire" dock
+       (four pinned sticky-note buttons) is gone — those same four
+       destinations (same IDs: dock-btn-panel-*) now live as flat text
+       links inside the sticky header above. See onepage-preview-overrides.css
+       for header-nav-link styling, and index.html's inline script for the
+       (unchanged) click handlers and scroll-spy that target these IDs. -->
 
   <!-- PANEL 1: ABOUT (À PROPOS) -->
   <div id='panel-about' class='editorial-panel'>
@@ -1051,14 +1071,15 @@ translations.fr["cat-archive-desc"] = "Travail expérimental, recherche et desig
 translations.en["cat-sewing-desc"] = "Construction, prototypes, and finished garments — the technical craft of pattern-making and tailoring that turns an idea into something wearable.";
 translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements finis — l'artisanat technique du patronage et de la couture qui transforme une idée en pièce portable.";
 
-    // Sections are stacked in normal document flow now (one scrollable
-    // page) instead of full-viewport overlay panels, so "opening" a
-    // section just means smooth-scrolling to it; the IntersectionObserver
-    // scroll-spy further down keeps the header nav's active-link
-    // highlight in sync as you scroll freely, not just on click. Every
-    // existing caller (header nav links, hero buttons, archival overlay
-    // labels, marquee items) still calls openPanel(id) exactly as before —
-    // only what it does has changed.
+    // PREVIEW CHANGE: this used to slide a full-viewport overlay panel in
+    // over the page (toggling .active, which drove the transform/opacity
+    // in .editorial-panel). Sections are now stacked in normal document
+    // flow (one scrollable page), so "opening" a section just means
+    // smooth-scrolling to it; the IntersectionObserver scroll-spy further
+    // down keeps the dock's active highlight in sync as you scroll freely,
+    // not just on click. Every existing caller (dock buttons, hero
+    // buttons, archival overlay labels, marquee items) still calls
+    // openPanel(id) exactly as before — only what it does has changed.
     function openPanel(id) {
       const section = document.getElementById(id);
       if (!section) return;
@@ -1899,12 +1920,16 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       });
     }
 
-    // Keeps the header nav's active-link highlight in sync with whichever
-    // section is actually in view while scrolling — not just right after
-    // a click. (Replaces the old floating dock's click-only .active
-    // toggling; the nav is a normal sticky header now, so there's no more
-    // "fades out while scrolling" behavior to wire up — it's supposed to
-    // stay put and visible like the rest of the site's chrome.)
+    // PREVIEW CHANGE (nav option A): the old floating bottom dock faded
+    // out while scrolling because it physically overlapped page content.
+    // The nav is now a normal sticky header bar (like the rest of the
+    // site's chrome) — it's supposed to stay put and visible, so there's
+    // no more scroll-hide behavior to wire up here. initDockScrollHide()
+    // has been removed entirely (see the DOMContentLoaded block below).
+
+    // PREVIEW ADDITION: keeps the header nav's active-link highlight in
+    // sync with whichever section is actually in view while scrolling —
+    // not just right after a click.
     function initScrollSpy() {
       const sections = document.querySelectorAll('.editorial-panel');
       if (!sections.length || !('IntersectionObserver' in window)) return;

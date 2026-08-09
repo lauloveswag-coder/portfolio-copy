@@ -125,54 +125,28 @@
   <div class='bg-blob-purple bottom-20 -right-20'></div>
 
   <!-- Editorial Top Header -->
-  <!-- Sticky site header + one-page nav. The four destinations (About /
-       Portfolio / Services / Inquiries) used to live in a floating bottom
-       "sommaire" dock of pinned sticky-note buttons; they're now flat text
-       links here instead, with the same button IDs (dock-btn-panel-*) so
-       the click handlers and scroll-spy below don't need to know anything
-       changed. The header is sticky so these stay reachable at any scroll
-       position — the EN/FR switcher and theme/accessibility icons are
-       untouched, unmoved fixed elements (see .lang-switcher-float /
-       .site-controls-float below); header-nav-spacer just reserves clear
-       space on the right so this bar's own content never runs underneath
-       them. -->
-  <header id='site-header' class='w-full px-8 py-6 flex items-center justify-between z-30 relative site-header-sticky'>
+  <header class='w-full px-8 py-6 flex items-center justify-between z-30 relative'>
     <div class='flex items-center space-x-6'>
       <h1 class='font-syne font-extrabold text-xl tracking-wider text-charcoal uppercase flex items-center gap-2'>
         LAURA GARCON
         <span class='w-2 h-2 bg-hotpink rounded-full animate-pulse'></span>
       </h1>
       <span class='hidden lg:inline-block border-l border-charcoal/10 h-5'></span>
-      <span class='hidden lg:inline-block font-mono text-[10px] tracking-widest text-charcoal/50 uppercase translatable'
-            data-en='Fashion Design • Creative Direction • Digital Portfolio'
+      <span class='hidden lg:inline-block font-mono text-[10px] tracking-widest text-charcoal/50 uppercase translatable' 
+            data-en='Fashion Design • Creative Direction • Digital Portfolio' 
             data-fr='Design de Mode • Direction Artistique • Portfolio Numérique'>
         Fashion Design • Creative Direction • Digital Portfolio
       </span>
     </div>
-
-    <nav class='header-nav' id='header-nav'>
-      <button id='dock-btn-panel-about' class='header-nav-link'>
-        <span class='translatable' data-en='About' data-fr='À Propos'>About</span>
-      </button>
-      <button id='dock-btn-panel-portfolio' class='header-nav-link'>
-        <span class='translatable' data-en='Portfolio' data-fr='Portfolio'>Portfolio</span>
-      </button>
-      <button id='dock-btn-panel-universe' class='header-nav-link'>
-        <span class='translatable' data-en='Services' data-fr='Services'>Services</span>
-      </button>
-      <button id='dock-btn-panel-journal' class='header-nav-link'>
-        <span class='translatable' data-en='Inquiries' data-fr='Demandes'>Inquiries</span>
-      </button>
-    </nav>
-
-    <div class='header-nav-spacer' aria-hidden='true'></div>
   </header>
 
-  <!-- EN/FR language switcher: kept as its own fixed-position element
-       (not merged into the header nav, not merged into #site-controls
-       below) so it sits in its own corner spot at all times, above
-       everything (z-index 9995) — unaffected by the header's own sticky
-       behavior or the section content scrolling underneath it. -->
+  <!-- EN/FR language switcher: fixed-position, NOT inside <header>, for the
+       same reason as #site-controls below — the site's "pages" are
+       full-viewport .editorial-panel overlays (z-index 40) that sit above
+       the header (z-index 30), so a control living inside <header> is only
+       reachable on the hero. Kept as its own element (not merged into
+       #site-controls) so it can sit in the header's former corner spot
+       while #site-controls keeps its own row underneath. -->
   <div class='lang-switcher-float'>
     <div class='flex border border-charcoal/10 rounded-full bg-creamdark font-mono text-[11px] p-0.5'>
       <button id='lang-btn-en' class='px-4 py-1.5 rounded-full bg-pink text-charcoal font-bold transition-all focus:outline-none'>
@@ -184,10 +158,15 @@
     </div>
   </div>
 
-  <!-- Dark/light + accessibility controls: kept as their own fixed-position
-       corner cluster, NOT inside <header> — same reasoning as the EN/FR
-       switcher above. Its own row just below the switcher, always
-       reachable regardless of scroll position. -->
+  <!-- Dark/light + accessibility controls: a fixed-position corner cluster,
+       NOT inside <header>. The site's "pages" are full-viewport fixed
+       .editorial-panel overlays (z-index 40) that sit above the header
+       (z-index 30) — only the bottom dock nav (z-index 50) was designed to
+       stay reachable above them. A control living inside <header> would
+       therefore be invisible on About/Portfolio/Universe/Journal, i.e. on
+       every page except the hero. Fixed-positioning it as its own
+       high-z-index element keeps it reachable everywhere regardless of
+       which panel (if any) is open. -->
   <div id='site-controls' class='site-controls-float'>
     <!-- Palette picker (six named themes, each with its own light + dark colors) -->
     <div class='relative'>
@@ -417,6 +396,32 @@
     </section>
 
   </main>
+
+  <!-- FLOATING NAVIGATION DOCK ("SOMMAIRE") -->
+  <nav class='fixed bottom-0 md:bottom-8 inset-x-0 md:left-1/2 md:right-auto md:-translate-x-1/2 z-50 organic-dock'>
+    <button id='dock-btn-panel-about' class='organic-dock-item' style='left:2%; top:26px; --tilt:-2deg;'>
+      <img class='dock-pin' src='assets/ui/scrapbook_element_14.webp' width='134' height='186' loading='lazy' decoding='async' style='width:30px; top:-16px; left:50%; transform:translateX(-50%);' alt=''>
+      <span class='dock-label translatable' data-en='About' data-fr='À Propos'>About</span>
+      <span class='dock-caption translatable' data-en='the designer' data-fr='la créatrice'>the designer</span>
+    </button>
+    <button id='dock-btn-panel-portfolio' class='organic-dock-item' style='left:27%; top:4px; --tilt:2deg;'>
+      <img class='dock-pin' src='assets/ui/scrapbook_element_17.webp' width='118' height='254' loading='lazy' decoding='async' style='width:20px; top:-32px; right:10px; transform:rotate(8deg);' alt=''>
+      <span class='dock-label translatable' data-en='Portfolio' data-fr='Portfolio'>Portfolio</span>
+      <span class='dock-caption translatable' data-en='the archive' data-fr="l'archive">the archive</span>
+    </button>
+    <button id='dock-btn-panel-universe' class='organic-dock-item' style='left:52%; top:30px; --tilt:-1deg;'>
+      <img class='dock-pin' src='assets/ui/scrapbook_element_12.webp' width='142' height='218' loading='lazy' decoding='async' style='width:28px; top:-15px; left:50%; transform:translateX(-50%);' alt=''>
+      <span class='dock-label translatable' data-en='Services' data-fr='Services'>Services</span>
+      <span class='dock-caption translatable' data-en='the atelier' data-fr="l'atelier">the atelier</span>
+    </button>
+    <button id='dock-btn-panel-journal' class='organic-dock-item' style='left:76%; top:8px; --tilt:1.5deg;'>
+      <span class='dock-pin' style='position:absolute; overflow:hidden; width:30px; height:56px; top:-30px; left:50%; transform:translateX(-50%);'>
+        <img src='assets/ui/scrapbook_element_10.webp' width='142' height='266' loading='lazy' decoding='async' style='position:absolute; width:48px; height:auto; left:-9px; top:-14px;' alt=''>
+      </span>
+      <span class='dock-label translatable' data-en='Inquiries' data-fr='Demandes'>Inquiries</span>
+      <span class='dock-caption translatable' data-en='get in touch' data-fr='contactez-moi'>get in touch</span>
+    </button>
+  </nav>
 
   <!-- PANEL 1: ABOUT (À PROPOS) -->
   <div id='panel-about' class='editorial-panel'>
@@ -1051,23 +1056,37 @@ translations.fr["cat-archive-desc"] = "Travail expérimental, recherche et desig
 translations.en["cat-sewing-desc"] = "Construction, prototypes, and finished garments — the technical craft of pattern-making and tailoring that turns an idea into something wearable.";
 translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements finis — l'artisanat technique du patronage et de la couture qui transforme une idée en pièce portable.";
 
-    // Sections are stacked in normal document flow now (one scrollable
-    // page) instead of full-viewport overlay panels, so "opening" a
-    // section just means smooth-scrolling to it; the IntersectionObserver
-    // scroll-spy further down keeps the header nav's active-link
-    // highlight in sync as you scroll freely, not just on click. Every
-    // existing caller (header nav links, hero buttons, archival overlay
-    // labels, marquee items) still calls openPanel(id) exactly as before —
-    // only what it does has changed.
+    // Slide up active exhibition panel
     function openPanel(id) {
-      const section = document.getElementById(id);
-      if (!section) return;
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const win = document.getElementById(id);
+      const wasActive = win ? win.classList.contains('active') : false;
+
+      document.querySelectorAll('.editorial-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      document.querySelectorAll('.organic-dock-item').forEach(item => {
+        item.classList.remove('active');
+      });
+
+      if (win && !wasActive) {
+        win.classList.add('active');
+        const dockBtn = document.getElementById('dock-btn-' + id);
+        if (dockBtn) {
+          dockBtn.classList.add('active');
+        }
+      }
     }
 
-    // No-op kept only so existing calls (e.g. after a successful contact
-    // form submission) don't error — there's no overlay to close anymore.
-    function closePanel(id) {}
+    function closePanel(id) {
+      const win = document.getElementById(id);
+      if (win) {
+        win.classList.remove('active');
+      }
+      const dockBtn = document.getElementById('dock-btn-' + id);
+      if (dockBtn) {
+        dockBtn.classList.remove('active');
+      }
+    }
 
     function toggleDetails(id) {
       const content = document.getElementById(id);
@@ -1899,28 +1918,21 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       });
     }
 
-    // Keeps the header nav's active-link highlight in sync with whichever
-    // section is actually in view while scrolling — not just right after
-    // a click. (Replaces the old floating dock's click-only .active
-    // toggling; the nav is a normal sticky header now, so there's no more
-    // "fades out while scrolling" behavior to wire up — it's supposed to
-    // stay put and visible like the rest of the site's chrome.)
-    function initScrollSpy() {
-      const sections = document.querySelectorAll('.editorial-panel');
-      if (!sections.length || !('IntersectionObserver' in window)) return;
+    // Fade the nav dock out while a panel is being actively scrolled (it
+    // overlaps content otherwise), and bring it back once scrolling settles.
+    function initDockScrollHide() {
+      const dock = document.querySelector('.organic-dock');
+      if (!dock) return;
+      let hideTimeout;
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          const dockBtn = document.getElementById('dock-btn-' + entry.target.id);
-          if (!dockBtn) return;
-          if (entry.isIntersecting) {
-            document.querySelectorAll('.header-nav-link').forEach((item) => item.classList.remove('active'));
-            dockBtn.classList.add('active');
-          }
-        });
-      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
-
-      sections.forEach((section) => observer.observe(section));
+      document.addEventListener('scroll', (e) => {
+        if (!e.target.classList || !e.target.classList.contains('panel-content')) return;
+        dock.classList.add('is-scroll-hidden');
+        clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+          dock.classList.remove('is-scroll-hidden');
+        }, 500);
+      }, true); // capture: 'scroll' doesn't bubble, so listen on the way down
     }
 
     // Default initialization
@@ -1943,7 +1955,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       showHub();
       initDraggableCards();
       initArchiveSearch();
-      initScrollSpy();
+      initDockScrollHide();
     });
   </script>
 

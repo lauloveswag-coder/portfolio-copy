@@ -290,37 +290,108 @@ body {
   box-shadow: 0 30px 60px rgb(var(--color-text-primary) / 0.05), 0 8px 20px rgb(var(--color-text-primary) / 0.02);
 }
 
-/* The floating bottom "sommaire" dock (pinned scrapbook-style sticky-note
-   buttons) has been replaced by the sticky header nav further down this
-   file (.site-header-sticky / .header-nav / .header-nav-link) — removed
-   its CSS from here rather than leaving it as dead weight. */
+/* Pinned Scrapbook Tag Dock — tags scattered like a moodboard cluster,
+   each held down by a real photographed pin, clip or piece of tape. */
+.organic-dock {
+  width: 380px;
+  height: 100px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  border-radius: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
 
-/* One-Page Exhibition Sections — each of these was a position:fixed,
-   100vw/100vh overlay stacked on top of the page (z-index 40), slid in via
-   transform/opacity when .active was toggled by openPanel()/closePanel()
-   in index.html. Now they're normal sections in document flow instead —
-   same content, same IDs (so every existing onclick="openPanel('panel-x')"
-   call still resolves to the right place), just stacked top-to-bottom and
-   reached by scrolling (openPanel() now calls scrollIntoView() rather than
-   toggling visibility — see index.html). scroll-margin-top keeps a
-   section's own heading clear of the sticky header when scrolled to via
-   anchor/JS. */
+/* Fades out while a panel is actively being scrolled, so it stops
+   overlapping content underneath — reappears once scrolling settles. */
+.organic-dock.is-scroll-hidden {
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+}
+
+.organic-dock-item {
+  position: absolute;
+  cursor: pointer;
+  background: var(--cream-dark);
+  border: 1px solid rgb(var(--color-text-primary) / 0.08);
+  font-family: 'Space Mono', monospace;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--charcoal);
+  text-align: center;
+  padding: 16px 18px 12px;
+  min-width: 96px;
+  box-shadow: 2px 3px 0 rgb(var(--color-text-primary) / 0.06);
+  opacity: 0.6;
+  filter: saturate(0.65);
+  transform: rotate(var(--tilt, 0deg)) scale(0.94);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.organic-dock-item:hover {
+  z-index: 15;
+  opacity: 0.85;
+}
+.organic-dock-item.active {
+  opacity: 1;
+  filter: saturate(1);
+  transform: rotate(var(--tilt, 0deg)) scale(1.12) translateY(-14px);
+  z-index: 20;
+  box-shadow: 5px 9px 0 rgb(var(--color-text-primary) / 0.1), 0 16px 26px rgb(var(--color-text-primary) / 0.14);
+}
+.organic-dock-item .dock-pin {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(0 3px 4px rgb(var(--color-text-primary) / 0.28));
+  z-index: 2;
+}
+.organic-dock-item .dock-caption {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 11px;
+  opacity: 0.55;
+  margin-top: 3px;
+}
+
+/* Fluid Exhibition Panels - Full Viewport Overhaul */
 .editorial-panel {
-  position: relative;
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: var(--cream);
   display: flex;
   flex-direction: column;
-  scroll-margin-top: 132px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 40;
+  transform: translateY(100%);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease,
+              background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Muted per-section wash — under 15% tint of the section's accent, never a
-   flat fill. No longer gated on .active — every section is always on the
-   page now, not just the currently-open one. */
-#panel-about { background: color-mix(in srgb, var(--cream) 90%, var(--sage) 10%); }
-#panel-portfolio { background: color-mix(in srgb, var(--cream) 90%, var(--purple) 10%); }
-#panel-universe { background: color-mix(in srgb, var(--cream) 88%, var(--pink) 12%); }
-#panel-journal { background: color-mix(in srgb, var(--cream) 94%, var(--charcoal) 6%); }
+/* Muted per-section wash — under 15% tint of the section's accent, never a flat fill */
+#panel-about.active { background: color-mix(in srgb, var(--cream) 90%, var(--sage) 10%); }
+#panel-portfolio.active { background: color-mix(in srgb, var(--cream) 90%, var(--purple) 10%); }
+#panel-universe.active { background: color-mix(in srgb, var(--cream) 88%, var(--pink) 12%); }
+#panel-journal.active { background: color-mix(in srgb, var(--cream) 94%, var(--charcoal) 6%); }
+
+.editorial-panel.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
 
 .panel-header {
   border-bottom: 1px solid rgb(var(--color-text-primary) / 0.06);
@@ -330,10 +401,9 @@ body {
   justify-content: space-between;
 }
 
-/* Was overflow-y:auto + flex-grow:1 so this filled and internally scrolled
-   within a 100vh overlay. Now it's a normal block — the whole document
-   scrolls, this section just takes whatever height its content needs. */
 .panel-content {
+  overflow-y: auto;
+  flex-grow: 1;
   padding: 36px;
 }
 
@@ -345,78 +415,6 @@ body {
 @media (max-width: 640px) {
   .panel-content {
     padding-top: 64px;
-  }
-}
-
-/* ==========================================================================
-   Site header / one-page nav (replaces the old floating bottom "sommaire"
-   dock of pinned sticky-note buttons). The four destinations now live as
-   flat text links in the header, which is sticky so they stay reachable at
-   any scroll position. The EN/FR switcher (.lang-switcher-float) and
-   theme/accessibility icons (.site-controls-float, further down this file)
-   are untouched, still their own fixed elements in their existing
-   top-right spot — header-nav-spacer just reserves room so this bar's own
-   content never runs underneath them.
-   ========================================================================== */
-.site-header-sticky {
-  position: sticky;
-  top: 0;
-  z-index: 45; /* above normal content, below the always-on-top floating
-                  lang/theme controls at z-index 9995 */
-  background: var(--cream);
-  border-bottom: 1px solid rgb(var(--color-text-primary) / 0.08);
-  flex-wrap: wrap;
-  row-gap: 10px;
-}
-
-.header-nav {
-  display: flex;
-  align-items: center;
-  gap: 34px;
-  flex-wrap: wrap;
-}
-
-.header-nav-link {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px 0;
-  font-family: 'Space Mono', monospace;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--charcoal);
-  opacity: 0.55;
-  border-bottom: 2px solid transparent;
-  transition: opacity 0.25s ease, border-color 0.25s ease;
-}
-.header-nav-link:hover {
-  opacity: 0.85;
-}
-.header-nav-link.active {
-  opacity: 1;
-  border-bottom-color: var(--pink);
-}
-
-/* Reserves visual space on the header's right edge roughly matching the
-   fixed lang-switcher + theme/a11y icon cluster's footprint, so the nav
-   links never crowd underneath them. Empty/decorative only. */
-.header-nav-spacer {
-  width: 190px;
-  flex-shrink: 0;
-}
-
-@media (max-width: 900px) {
-  /* Below this width the reserved spacer would just force an awkward
-     wrap — the fixed icons sit in their own row up there anyway (see
-     .lang-switcher-float / .site-controls-float's own mobile
-     breakpoints), so it's not needed once the header is already wrapping. */
-  .header-nav-spacer {
-    display: none;
-  }
-  .header-nav {
-    gap: 20px;
   }
 }
 
@@ -472,11 +470,45 @@ body {
   border-radius: 9999px;
 }
 
-/* .editorial-panel no longer needs to be forced to 100vw/100vh on mobile —
-   it's an in-flow section now, not a full-viewport overlay, so it just
-   takes its natural height there too. (The old floating bottom dock's own
-   mobile stacked-list styling lived in this same media query — removed
-   along with the dock itself; see .header-nav-link for its replacement.) */
+@media (max-width: 768px) {
+  .editorial-panel {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+  
+  .organic-dock {
+    width: 100%;
+    height: auto;
+    background: var(--cream);
+    border-top: 1px solid rgb(var(--color-text-primary) / 0.08);
+  }
+
+  .organic-dock-item {
+    position: static;
+    display: block;
+    width: 100%;
+    min-width: 0;
+    text-align: left;
+    border-left: 3px solid transparent;
+    border-bottom: 1px solid rgb(var(--color-text-primary) / 0.06);
+    border-radius: 0;
+    box-shadow: none;
+    opacity: 1;
+    filter: none;
+    transform: none !important;
+    padding: 14px 20px;
+  }
+  .organic-dock-item .dock-pin { display: none; }
+  .organic-dock-item .dock-caption { display: none; }
+  .organic-dock-item.active {
+    box-shadow: none;
+  }
+  #dock-btn-panel-about.active { border-left-color: var(--sage); }
+  #dock-btn-panel-portfolio.active { border-left-color: var(--purple); }
+  #dock-btn-panel-universe.active { border-left-color: var(--pink); }
+  #dock-btn-panel-journal.active { border-left-color: var(--charcoal); }
+}
 
 /* Photobooth Strip Styling */
 .photobooth-strip {
@@ -1242,15 +1274,11 @@ body {
 
 /* ---- ProjectDetail full-bleed wrapper (Sewing / Crochet interior pages) ----
    Breaks the window out of .portfolio-container-clean's 1200px max-width
-   to span the true viewport width. Used to size itself against the
-   surrounding .editorial-panel's fixed 100vh overlay chrome
-   (calc(100vh - 180px), plus a whole ":has() fill-the-panel mode" block
-   that made the window fill that overlay exactly). Now that Portfolio is
-   an in-flow section instead of a full-viewport overlay, "fill the rest of
-   the viewport" isn't a coherent goal any more — there's no fixed viewport
-   box to fill. Using a simple viewport-relative height instead, so the
-   embedded Sewing/Crochet project window still gets a sensible bounded box
-   to scroll its own contents in without hijacking the whole page's height. */
+   to span the true viewport width, and sizes it to fill the remaining
+   height below the panel's top bar + back-link — so the window IS the
+   page, not a fixed-size card sitting on one. Scoped to this wrapper
+   class only; doesn't touch .portfolio-container-clean or .panel-content
+   for any other (non-fullbleed) section. */
 .pd-mount--fullbleed {
   width: 100vw;
   position: relative;
@@ -1261,9 +1289,21 @@ body {
   padding: 0 20px 40px;
   box-sizing: border-box;
   display: flex;
+  /* Without this, flex-direction defaults to row, so the child's flex:1
+     grows its WIDTH not height — the whole vertical fill chain inside
+     the window (.pd-body/.pd-workspace/.pd-canvas-main flex-grow) then
+     has no constrained height to resolve against and every image
+     renders at its native pixel size instead. */
   flex-direction: column;
-  height: 75vh;
-  min-height: 480px;
+  /* A genuine height, not min-height: min-height is only a floor, so
+     without an actual ceiling here the hero image (via object-fit) has
+     nothing forcing it to shrink to fit and balloons to its native
+     pixel size instead, ballooning this whole flex-grow chain with it.
+     Fixed chrome above this point: 65px panel-header + 36px
+     panel-content top padding + 40px portfolio-container-clean top
+     padding + the back-link's own 15px height + 24px margin-bottom =
+     180px. Fill exactly the rest of the viewport. */
+  height: calc(100vh - 180px);
 }
 .pd-mount--fullbleed > .pd-container--fullbleed {
   flex: 1;
@@ -1272,10 +1312,68 @@ body {
 
 @media (max-width: 767px) {
   .pd-mount--fullbleed {
-    height: 70vh;
-    min-height: 420px;
+    min-height: 70vh;
     padding: 0 12px 32px;
   }
+}
+
+/* ---- Fill-the-panel mode ----
+   The calc() above is only a fallback for browsers without :has(). Where
+   :has() works, the window is sized by a real flex chain instead, so it
+   fills the .panel-content box exactly however tall that box happens to
+   be — no viewport arithmetic to keep in sync with the panel header,
+   the back-link, or the accessibility toolbar's text scaling (all of
+   which the old fixed 180px offset silently got wrong).
+
+   The chain is .panel-content > #academic-portfolio >
+   .project-showroom-section > .pd-mount--fullbleed (each one a real
+   direct-child step in index.html), and every rule is gated on a
+   full-bleed window being the CURRENTLY VISIBLE section — the hidden
+   Crochet/Sewing mounts are always in the DOM, so an ungated :has()
+   would flatten the panel for Sketches/Archive/etc. too. */
+.panel-content:has(> #academic-portfolio:not(.hidden) > .project-showroom-section:not(.hidden) > .pd-mount--fullbleed) {
+  display: flex;
+  flex-direction: column;
+  /* The window scrolls internally (its own item grid does); the panel
+     itself must not, or the flex chain has no ceiling to resolve against. */
+  overflow: hidden;
+  padding: 0;
+}
+.panel-content > #academic-portfolio:has(> .project-showroom-section:not(.hidden) > .pd-mount--fullbleed) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  /* Drop the 1200px cap and the heavy 40px/20px page padding — in this
+     mode the window IS the page, so it uses the panel's full box. */
+  max-width: none;
+  padding: 12px 16px 16px;
+}
+#academic-portfolio > .project-showroom-section:not(.hidden):has(> .pd-mount--fullbleed) {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+/* Inside that chain the mount takes the leftover height instead of the
+   calc(), and no longer needs the 100vw breakout — its container is
+   already full width here. */
+.panel-content > #academic-portfolio:not(.hidden) > .project-showroom-section:not(.hidden) > .pd-mount--fullbleed {
+  width: auto;
+  left: auto;
+  right: auto;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  height: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+/* Keeps the "← All Disciplines" link (the red traffic light now does the
+   same thing) from eating into the window any more than it has to. */
+#academic-portfolio:has(> .project-showroom-section:not(.hidden) > .pd-mount--fullbleed) > .back-to-hub-btn {
+  flex: 0 0 auto;
+  margin-bottom: 8px;
 }
 
 /* ============================================================
@@ -1339,12 +1437,12 @@ html[data-dyslexia-tint="mint"]   #dyslexia-tint-overlay { opacity: 0.16; backgr
 #dyslexia-ruler-dim-bottom { bottom: 0; }
 html.dyslexia-ruler-active .dyslexia-ruler-dim { opacity: 1; }
 
-/* Fixed EN/FR language switcher — a corner overlay independent of the
-   sticky header's own flow (its z-index 9995 keeps it above the header's
-   45 and every section), so it stays reachable at any scroll position.
-   Kept separate from .site-controls-float (below) so the two clusters sit
-   in their own rows and never overlap. header-nav-spacer in the header
-   reserves the room this needs. */
+/* Fixed EN/FR language switcher — sits in the header's former top-right
+   corner spot, above both .editorial-panel (z-index 40) and .organic-dock
+   (z-index 50), so it stays reachable no matter which page/panel is open.
+   See the HTML comment above this element for why it can't just live in
+   <header>. Kept separate from .site-controls-float (below) so the two
+   clusters sit in their own rows and never overlap. */
 .lang-switcher-float {
   position: fixed;
   top: 20px;
@@ -1358,11 +1456,10 @@ html.dyslexia-ruler-active .dyslexia-ruler-dim { opacity: 1; }
   }
 }
 
-/* Fixed corner cluster (theme + accessibility toggles) — a corner overlay
-   independent of the sticky header's own flow (z-index 9995, above the
-   header's 45 and every section), so it stays reachable at any scroll
-   position. header-nav-spacer in the header reserves the room this
-   needs. */
+/* Fixed corner cluster (theme + accessibility toggles) — sits above both
+   .editorial-panel (z-index 40) and .organic-dock (z-index 50) so it stays
+   reachable no matter which page/panel is open. See the HTML comment
+   above #site-controls for why this can't just live in <header>. */
 .site-controls-float {
   position: fixed;
   /* Sits in its own row just below the header rather than squeezed
