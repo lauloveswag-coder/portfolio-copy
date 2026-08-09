@@ -19,8 +19,24 @@ import { Film, RefreshCw } from 'lucide-react';
 // were dropped — both depended on the mock backend/mock data this pass
 // explicitly excludes. See README notes in tiktokVideos.js for where to
 // plug in real video URLs and profile info.
+// Profile edits made via "Edit Profile" used to live only in React state,
+// so they vanished on every reload — nothing was ever wrong with the data
+// entry, it just never had anywhere permanent to land. Persisting to
+// localStorage means whatever you type in Edit Profile survives reloads,
+// on this browser/device, from now on.
+const PROFILE_STORAGE_KEY = 'retro-zine-social-profile';
+
+function loadStoredProfile() {
+  try {
+    const raw = window.localStorage.getItem(PROFILE_STORAGE_KEY);
+    return raw ? { ...PROFILE, ...JSON.parse(raw) } : PROFILE;
+  } catch {
+    return PROFILE;
+  }
+}
+
 export default function App() {
-  const [profile, setProfile] = useState(PROFILE);
+  const [profile, setProfile] = useState(loadStoredProfile);
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [loadErrors, setLoadErrors] = useState([]);
@@ -162,6 +178,17 @@ export default function App() {
     setProfile((prev) => ({ ...prev, ...updated }));
     setIsEditProfileOpen(false);
   };
+
+  // Persist on every profile change (Edit Profile saves, video-count bumps
+  // from importing a video, etc.) so nothing needs a separate save step.
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profile));
+    } catch {
+      // localStorage unavailable (private browsing, etc.) — edits still
+      // apply for this session, they just won't survive a reload.
+    }
+  }, [profile]);
 
   const availableHashtags = useMemo(() => {
     const tagsSet = new Set();

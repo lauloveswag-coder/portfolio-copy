@@ -5,19 +5,21 @@
 // returns per-video metadata for a given video URL, so profile-level
 // stats have to be entered by hand here and kept in sync manually.
 //
-// TODO(laura): replace every placeholder value below with your real
-// TikTok handle, bio, avatar, and stats.
 export const PROFILE = {
   handle: '@_suchashame_0',
-  displayName: 'Your Display Name',
-  avatarUrl: '', // TODO: paste a URL to your real profile photo
-  bio: 'TODO: write your real bio here.',
-  bioLink: '',
+  displayName: 'Laura',
+  avatarUrl: 'assets/profile/avatar.jpg',
+  // NOTE(laura): totalLikes is approximated from the "2.9K" rounded
+  // display value you gave me (2900) — tell me the exact number if you
+  // want it precise; the UI re-formats whatever's here back into "K"
+  // notation anyway.
+  bio: 'vlogs • skincare • btsarmy • food • ugc • 🇫🇷\nYesstyle code: SUCHASHAME29\nsuchashamelessartiste@gmail.com',
+  bioLink: 'https://linktr.ee/shamelessash',
   isVerified: false,
-  followers: 0,
+  followers: 550,
   following: 0,
-  totalLikes: 0,
-  videoCount: 0,
+  totalLikes: 2900,
+  videoCount: 14,
 };
 
 // TODO(laura): replace these with real TikTok video URLs, e.g.
