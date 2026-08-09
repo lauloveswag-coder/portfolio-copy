@@ -27,6 +27,15 @@ module.exports = {
     './index.html',
     './site-accessibility.js',
     './components/**/*.js',
+    // The embedded React islands (Social Media, Crochet/Sewing project
+    // windows) ship their own bundled JS, but this precompiled tailwind.css
+    // is what actually supplies their utility classes at runtime — the
+    // island's own build has no Tailwind step of its own. Missing this
+    // entry is why Social Media rendered completely unstyled after Tailwind
+    // moved from the CDN (JIT, scanned the live DOM) to this ahead-of-time
+    // build (only scans these listed files): every bg-[...]/rounded-.../
+    // backdrop-blur-... class it uses was silently absent from the output.
+    './react-components/**/*.jsx',
   ],
   theme: {
     extend: {
