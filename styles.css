@@ -478,16 +478,48 @@ body {
    .filmstrip-row/.polaroid-frame above, so the unrelated "Personal
    Universe: Crochet Archive" filmstrip (which keeps using those classes)
    is provably unaffected. */
+
+/* Breaks the gallery out of .portfolio-container-clean's 1200px max-width
+   to span the true viewport edge-to-edge — same technique as
+   .pd-mount--fullbleed below, scoped to this wrapper only (the shared
+   .portfolio-container-clean rule itself is untouched, so every other
+   section using it is unaffected). overflow-x here (not on body/html)
+   absorbs the ~1 scrollbar-width of slop 100vw can introduce; body already
+   also carries its own overflow-x: hidden as a second, pre-existing
+   safeguard against any full-bleed element on the page. */
+.dock-scroll-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  overflow-x: hidden;
+}
+
 .dock-scroll {
+  /* Bug A, corrected: the earlier "overflow-x:hidden + overflow-y:visible"
+     trick does NOT reliably stop Chromium from clipping transform-scaled
+     content — in practice both axes still clip once one axis is non-visible,
+     regardless of the CSS spec's auto-computation nuance. The robust fix is
+     the same one the reference used: make the row's own padding tall enough
+     that a hovered card's scaled box never needs to exceed it in the first
+     place, then a plain `overflow: hidden` is safe on both axes (also what
+     actually clips the doubled/looped track so it doesn't widen the page).
+     transform-origin is bottom-center, so ALL growth goes upward — worst
+     case is the largest video card: 24rem wide, 4:5 aspect = 30rem (480px)
+     tall at rest, 648px at the 1.35x hover scale = ~168px of upward growth.
+     padding-top below has headroom above that; padding-bottom just clears
+     the hover box-shadow's blur. */
   overflow: hidden;
   width: 100%;
-  padding: 28px 0 44px;
+  padding: 200px 0 80px;
 }
 
 .dock-scroll__track {
   display: flex;
   align-items: flex-end;
-  gap: 20px;
+  gap: 2.5rem;
   width: max-content;
   animation: dock-scroll-loop var(--dock-scroll-duration, 36s) linear infinite;
 }
@@ -501,26 +533,38 @@ body {
   to { transform: translateX(-50%); }
 }
 
+/* Card size scales with the viewport (clamp/vw), not a fixed px value, so
+   the "big, sweeping" full-bleed feel holds up across window sizes. No
+   matting: the image fills the card edge-to-edge, only a small radius +
+   shadow read as a photographic card rather than a framed print. */
 .dock-scroll__card {
   flex-shrink: 0;
-  background: white;
-  border: 1px solid rgb(var(--color-text-primary) / 0.06);
-  padding: 10px;
-  border-radius: 12px;
-  box-shadow: 0 15px 35px rgb(var(--color-text-primary) / 0.05);
+  width: clamp(13rem, 20vw, 20rem);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 18px 40px rgb(var(--color-text-primary) / 0.2);
   transform-origin: bottom center;
   transform: scale(1);
   transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
 }
 
-.dock-scroll__card img,
-.dock-scroll__card video {
+/* Video clips get a taller card next to their own playback controls. */
+.dock-scroll__card--video {
+  width: clamp(15rem, 24vw, 24rem);
+  aspect-ratio: 4 / 5;
+}
+
+.dock-scroll__media {
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .dock-scroll__card:hover {
   transform: scale(1.35);
-  box-shadow: 0 25px 50px rgb(var(--color-text-primary) / 0.12);
+  box-shadow: 0 28px 55px rgb(var(--color-text-primary) / 0.3);
   z-index: 3;
 }
 
@@ -536,6 +580,25 @@ body {
 .dock-scroll__card:has(+ .dock-scroll__card + .dock-scroll__card:hover) {
   transform: scale(1.08);
   z-index: 1;
+}
+
+@media (max-width: 640px) {
+  .dock-scroll {
+    /* Same headroom logic as the desktop rule above, scaled to this
+       breakpoint's smaller cards: largest is the 13rem video card, 4:5
+       aspect = 16.25rem (260px) tall at rest, ~351px at 1.35x hover =
+       ~91px of upward growth. */
+    padding: 120px 0 50px;
+  }
+  .dock-scroll__track {
+    gap: 1.25rem;
+  }
+  .dock-scroll__card {
+    width: 11rem;
+  }
+  .dock-scroll__card--video {
+    width: 13rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

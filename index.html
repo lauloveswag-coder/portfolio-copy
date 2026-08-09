@@ -104,7 +104,12 @@
   <link href='https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Lexend:wght@400;500;600&family=Atkinson+Hyperlegible:wght@400;700&display=swap' rel='stylesheet'>
 
   <!-- External Stylesheet -->
-  <link rel='stylesheet' href='styles.css'>
+  <!-- ?v= cache-bust: styles.css has no other versioning, so a browser
+       that already cached a pre-dock-scroll-fix copy (e.g. the padding:10px
+       matting removed in the CHANGE-1 pass) can keep serving it indefinitely
+       without this bump. Increment when editing styles.css in a way that
+       needs to be visible on next load without a manual hard refresh. -->
+  <link rel='stylesheet' href='styles.css?v=dockscroll3'>
   <!-- ProjectDetail component (Crochet / Sewing interior pages) — built
        bundle from react-components/project-detail/ (npm run build:embed).
        Classes are scoped under .pd-*, safe to load globally. -->
@@ -482,7 +487,7 @@
     <div class='panel-header bg-sagelight'>
       <span class='font-mono text-xs font-bold uppercase tracking-widest translatable' data-en='EXHIBIT / PORTFOLIO.DXF' data-fr='EXPOSITION / PORTFOLIO.DXF'>EXHIBIT / PORTFOLIO.DXF</span>
     </div>
-    <div class='panel-content overflow-y-auto'>
+    <div class='panel-content'>
 
       <!-- Hidden core buttons to preserve existing JS click mapping and language updates -->
       <div class='hidden'>
@@ -559,7 +564,15 @@
                 <span class='organic-ribbon translatable' data-en='02 // 3D &amp; AI' data-fr='02 // 3D &amp; IA'>02 // 3D &amp; AI</span>
               </div>
               <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-3d-ai-desc'></p>
-              <div class='dock-scroll' id='3d-ai-filmstrip'></div>
+              <!-- .dock-scroll-bleed breaks the gallery out of
+                   .portfolio-container-clean's 1200px max-width to span the
+                   true viewport width -- same technique as .pd-mount--fullbleed
+                   above, scoped to this gallery only (the shared
+                   .portfolio-container-clean definition itself is untouched,
+                   so every other section still respects it). -->
+              <div class='dock-scroll-bleed'>
+                <div class='dock-scroll' id='3d-ai-filmstrip'></div>
+              </div>
             </div>
 
             <div id="project-showroom-cat-sewing" class="project-showroom-section hidden">
@@ -593,7 +606,15 @@
                    function's comment), don't hand-edit entries here. Renders
                    as an infinite dock-scroll gallery (.dock-scroll) -- see
                    that function and the .dock-scroll* rules in styles.css. -->
-              <div class='dock-scroll' id='archive-filmstrip'></div>
+              <!-- .dock-scroll-bleed breaks the gallery out of
+                   .portfolio-container-clean's 1200px max-width to span the
+                   true viewport width -- same technique as .pd-mount--fullbleed
+                   above, scoped to this gallery only (the shared
+                   .portfolio-container-clean definition itself is untouched,
+                   so every other section still respects it). -->
+              <div class='dock-scroll-bleed'>
+                <div class='dock-scroll' id='archive-filmstrip'></div>
+              </div>
             </div>
 
 
@@ -1527,8 +1548,11 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
     //
     // `labels` sets the accessible text: { image: ..., video: ... }.
     var VIDEO_FILE_RE = /\.(mp4|webm|mov)$/i;
-    var DOCK_SCROLL_SECONDS_PER_CARD = 4.5;
-    var DOCK_SCROLL_MIN_SECONDS = 20;
+    // Slower per-card pace than the first pass, tuned for the bigger
+    // full-bleed card size below so the loop still reads as a comfortable
+    // sweep rather than a rushed blur.
+    var DOCK_SCROLL_SECONDS_PER_CARD = 6;
+    var DOCK_SCROLL_MIN_SECONDS = 26;
 
     function renderManifestFilmstrip(containerId, manifestKey, folder, labels) {
       var container = document.getElementById(containerId);
@@ -1542,9 +1566,12 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
 
       function renderCard(filename, isDuplicate) {
         var isVideo = VIDEO_FILE_RE.test(filename);
-        // Videos get the wider md breakpoint — a portrait clip in a 12rem
-        // frame is unusably small next to its own playback controls.
-        var frameWidth = isVideo ? 'w-44 md:w-56' : 'w-44 md:w-48';
+        // Videos get their own (wider) card size modifier — a portrait
+        // clip is unusably small next to its own playback controls. Sizing
+        // itself lives in .dock-scroll__card/.dock-scroll__card--video in
+        // styles.css, not here, so it can be viewport-relative (clamp/vw)
+        // instead of fixed Tailwind breakpoints.
+        var cardModifier = isVideo ? ' dock-scroll__card--video' : '';
         // preload="none" + a poster still: the frame shows its artwork
         // immediately at ~10KB, and not a single byte of the (multi-MB)
         // clip is fetched until someone actually presses play. Posters
@@ -1557,11 +1584,14 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         // -50% and wrap seamlessly — hidden from assistive tech so it
         // isn't announced as repeated content.
         var hiddenAttrs = isDuplicate ? ' aria-hidden="true" tabindex="-1"' : '';
+        // dock-scroll__media fills the card edge-to-edge (object-fit: cover
+        // in CSS) — no Tailwind w-full/h-56/object-cover/rounded here, the
+        // card itself owns sizing, clipping and corner radius now.
         var media = isVideo
-          ? '<video src="' + folder + filename + '" poster="' + poster + '" class="w-full h-56 object-cover rounded" controls preload="none" aria-label="' + videoLabel + '"' + (isDuplicate ? ' tabindex="-1"' : '') + '></video>'
-          : '<img src="' + folder + filename + '" class="w-full h-56 object-cover rounded" loading="lazy" decoding="async" alt="' + imageLabel + '">';
+          ? '<video src="' + folder + filename + '" poster="' + poster + '" class="dock-scroll__media" controls preload="none" aria-label="' + videoLabel + '"' + (isDuplicate ? ' tabindex="-1"' : '') + '></video>'
+          : '<img src="' + folder + filename + '" class="dock-scroll__media" loading="lazy" decoding="async" alt="' + imageLabel + '">';
         return (
-          '<div class="dock-scroll__card flex-shrink-0 ' + frameWidth + '"' + hiddenAttrs + '>' +
+          '<div class="dock-scroll__card' + cardModifier + '"' + hiddenAttrs + '>' +
             media +
           '</div>'
         );
