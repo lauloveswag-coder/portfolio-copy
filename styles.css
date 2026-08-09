@@ -237,6 +237,17 @@ body {
   padding: 36px;
 }
 
+/* Extra top clearance so a panel's first heading never sits under the
+   fixed theme/accessibility controls (.site-controls-float, bottom edge
+   at 112px on mobile — see its own media query below). Panels whose first
+   heading happens to have its own top spacing (e.g. panel-journal's grid
+   py-8) clear it by accident; this guarantees it for all of them. */
+@media (max-width: 640px) {
+  .panel-content {
+    padding-top: 64px;
+  }
+}
+
 /* Custom Scrollbar for Panel Content */
 .panel-content::-webkit-scrollbar {
   width: 5px;

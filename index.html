@@ -607,33 +607,173 @@
       <div class='space-y-8'>
         
         <!-- Services Section -->
-        <div class='grid grid-cols-1 md:grid-cols-2 gap-8'>
-          <div class='space-y-4'>
-            <h3 class='font-serif-fashion italic text-4xl text-charcoal translatable' data-en='Freelance Services' data-fr='Services Freelance'>Freelance Services</h3>
-            <p class='font-sans text-sm text-charcoal/70 leading-relaxed translatable'
-               data-en='Bespoke solutions at the intersection of modern apparel patterns and digital storytelling methodologies.'
-               data-fr='Prestations sur mesure à l’intersection des techniques de patronnage de mode et du storytelling numérique.'>
-              Bespoke solutions at the intersection of modern apparel patterns and digital storytelling methodologies.
-            </p>
-            <ul class='font-mono text-xs space-y-2 text-charcoal/60 list-disc list-inside'>
-              <li class='translatable' data-en='Creative Direction &amp; Styling' data-fr='Direction Artistique &amp; Stylisme'>Creative Direction &amp; Styling</li>
-              <li class='translatable' data-en='Generative AI Visual Pipelines' data-fr='Flux Visuels d’IA Générative'>Generative AI Visual Pipelines</li>
-              <li class='translatable' data-en='Editorial Layout &amp; Zine Publishing' data-fr='Mise en Page Éditoriale &amp; Auto-Édition'>Editorial Layout &amp; Zine Publishing</li>
-            </ul>
-          </div>
+        <div class='space-y-6'>
+          <h3 class='font-serif-fashion italic text-4xl text-charcoal translatable' data-en='Freelance Services' data-fr='Services Freelance'>Freelance Services</h3>
 
-          <!-- Content Creation Metric cards -->
-          <div class='bg-creamdark p-6 rounded-3xl border border-charcoal/10 flex flex-col justify-center space-y-4 shadow-organic'>
-            <h4 class='font-mono text-xs font-bold uppercase tracking-wider translatable' data-en='DIGITAL IMPACT' data-fr='IMPACT NUMÉRIQUE'>DIGITAL IMPACT</h4>
-            <div class='grid grid-cols-2 gap-4'>
-              <div class='p-4 bg-cream rounded-2xl text-center shadow-organic'>
-                <span class='block font-serif-fashion italic text-2xl text-purple'>25k+</span>
-                <span class='font-mono text-[9px] text-charcoal/40 uppercase translatable' data-en='Followers' data-fr='Abonnés'>Followers</span>
+          <div class='accordion-group-clean space-y-5'>
+
+            <!-- Service 01: Editorial & Campaign Styling -->
+            <div class='bg-creamdark rounded-3xl border border-charcoal/10 shadow-organic overflow-hidden'>
+              <button type='button' onclick="toggleDetails('service-panel-styling')"
+                      class='w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left p-6 sm:p-8 hover:bg-pink/10 transition-colors focus:outline-none'>
+                <div class='flex items-start gap-4 sm:gap-6'>
+                  <span class='font-mono text-2xl sm:text-3xl font-bold text-purple/50'>01</span>
+                  <h4 class='font-serif-fashion italic text-2xl sm:text-3xl text-charcoal translatable' data-en='Editorial &amp; Campaign Styling' data-fr='Stylisme Éditorial &amp; Campagne'>Editorial &amp; Campaign Styling</h4>
+                </div>
+                <div class='flex items-center gap-4 shrink-0'>
+                  <span class='font-mono text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-purple/15 text-purple border border-purple/20 translatable' data-en='Projects from €700' data-fr='Projets à partir de 700 €'>Projects from €700</span>
+                  <span class='icon-plus w-7 h-7 flex items-center justify-center rounded-full border border-charcoal/10 text-charcoal font-mono text-sm'>+</span>
+                </div>
+              </button>
+              <div id='service-panel-styling' class='accordion-content-clean hidden !p-0'>
+                <div class='grid grid-cols-1 md:grid-cols-2 gap-6 p-6 sm:p-8 pt-0'>
+                  <img src='assets/projects/academic/b1-look.webp' width='1200' height='1600' loading='lazy' decoding='async'
+                       alt='Editorial styling look' class='w-full h-64 md:h-full object-cover rounded-2xl shadow-organic'>
+                  <div class='space-y-4 flex flex-col justify-center'>
+                    <p class='font-sans text-sm text-charcoal/70 leading-relaxed translatable'
+                       data-en='For editorials, campaigns, fashion shoots and image-led projects. I offer styling direction, look development, sourcing, fittings, accessories coordination and on-set styling, adapted to the needs of each production.'
+                       data-fr="Pour les éditos, campagnes, shootings mode et projets portés par l'image. Je propose la direction de stylisme, le développement de looks, le sourcing, les essayages, la coordination des accessoires et le stylisme sur set, adaptés aux besoins de chaque production.">
+                      For editorials, campaigns, fashion shoots and image-led projects. I offer styling direction, look development, sourcing, fittings, accessories coordination and on-set styling, adapted to the needs of each production.
+                    </p>
+                    <p class='font-mono text-[11px] text-charcoal/40 leading-relaxed translatable'
+                       data-en='Every project is quoted individually based on scope, number of looks, production requirements, location and timeline.'
+                       data-fr="Chaque projet est chiffré individuellement selon l'ampleur, le nombre de looks, les besoins de production, le lieu et le calendrier.">
+                      Every project is quoted individually based on scope, number of looks, production requirements, location and timeline.
+                    </p>
+                    <div class='flex flex-wrap gap-3 pt-2'>
+                      <button type='button' onclick="openPanel('panel-portfolio')"
+                              class='px-6 py-3 rounded-full bg-cream text-charcoal font-mono text-xs font-bold uppercase tracking-wider border border-charcoal/10 hover:bg-pink/30 transition-all shadow-organic shadow-organic-hover translatable'
+                              data-en='View portfolio' data-fr='Voir le portfolio'>View portfolio</button>
+                      <button type='button' onclick="openInquiryModal('Editorial &amp; Campaign Styling')"
+                              class='px-6 py-3 rounded-full bg-charcoal text-cream font-mono text-xs font-bold uppercase tracking-wider hover:bg-purple hover:text-charcoal transition-all shadow-organic shadow-organic-hover translatable'
+                              data-en='Start a project' data-fr='Démarrer un projet'>Start a project</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class='p-4 bg-cream rounded-2xl text-center shadow-organic'>
-                <span class='block font-serif-fashion italic text-2xl text-sage'>1.2M</span>
-                <span class='font-mono text-[9px] text-charcoal/40 uppercase translatable' data-en='Impressions' data-fr='Vues / Mois'>Impressions</span>
+            </div>
+
+            <!-- Service 02: AI-Assisted Visual Development -->
+            <div class='bg-creamdark rounded-3xl border border-charcoal/10 shadow-organic overflow-hidden'>
+              <button type='button' onclick="toggleDetails('service-panel-ai')"
+                      class='w-full flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-left p-6 sm:p-8 hover:bg-pink/10 transition-colors focus:outline-none'>
+                <div class='flex items-start gap-4 sm:gap-6'>
+                  <span class='font-mono text-2xl sm:text-3xl font-bold text-purple/50'>02</span>
+                  <h4 class='font-serif-fashion italic text-2xl sm:text-3xl text-charcoal translatable' data-en='AI-Assisted Visual Development' data-fr='Développement Visuel Assisté par IA'>AI-Assisted Visual Development</h4>
+                </div>
+                <div class='flex items-center gap-4 shrink-0'>
+                  <span class='font-mono text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full bg-sage/15 text-sage border border-sage/20 translatable' data-en='Projects from €450' data-fr='Projets à partir de 450 €'>Projects from €450</span>
+                  <span class='icon-plus w-7 h-7 flex items-center justify-center rounded-full border border-charcoal/10 text-charcoal font-mono text-sm'>+</span>
+                </div>
+              </button>
+              <div id='service-panel-ai' class='accordion-content-clean hidden !p-0'>
+                <div class='grid grid-cols-1 md:grid-cols-2 gap-6 p-6 sm:p-8 pt-0'>
+                  <img src='assets/projects/3d-ai/Gemini_Generated_Image_4jrr174jrr174jrr.webp' width='1600' height='1600' loading='lazy' decoding='async'
+                       alt='AI-assisted fashion visual' class='w-full h-64 md:h-full object-cover rounded-2xl shadow-organic'>
+                  <div class='space-y-4 flex flex-col justify-center'>
+                    <p class='font-sans text-sm text-charcoal/70 leading-relaxed translatable'
+                       data-en='For fashion brands, creatives and image-makers developing campaigns, concepts and visual worlds. I create fashion-focused visual concepts and AI-assisted imagery combining fashion design knowledge with digital image-making.'
+                       data-fr="Pour les marques de mode, créatifs et créateurs d'images développant des campagnes, concepts et univers visuels. Je crée des concepts visuels mode et des images assistées par IA, alliant connaissance du design de mode et création d'image numérique.">
+                      For fashion brands, creatives and image-makers developing campaigns, concepts and visual worlds. I create fashion-focused visual concepts and AI-assisted imagery combining fashion design knowledge with digital image-making.
+                    </p>
+                    <p class='font-mono text-[11px] text-charcoal/40 leading-relaxed translatable'
+                       data-en='Projects are quoted according to the number of visuals, creative development, revisions and final deliverables.'
+                       data-fr="Les projets sont chiffrés selon le nombre de visuels, le développement créatif, les révisions et les livrables finaux.">
+                      Projects are quoted according to the number of visuals, creative development, revisions and final deliverables.
+                    </p>
+                    <div class='flex flex-wrap gap-3 pt-2'>
+                      <button type='button' onclick="openPanel('panel-portfolio')"
+                              class='px-6 py-3 rounded-full bg-cream text-charcoal font-mono text-xs font-bold uppercase tracking-wider border border-charcoal/10 hover:bg-pink/30 transition-all shadow-organic shadow-organic-hover translatable'
+                              data-en='View work' data-fr='Voir les réalisations'>View work</button>
+                      <button type='button' onclick="openInquiryModal('AI-Assisted Visual Development')"
+                              class='px-6 py-3 rounded-full bg-charcoal text-cream font-mono text-xs font-bold uppercase tracking-wider hover:bg-purple hover:text-charcoal transition-all shadow-organic shadow-organic-hover translatable'
+                              data-en='Start a project' data-fr='Démarrer un projet'>Start a project</button>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+
+            <!-- Service 03: Custom projects (compact, non-expanding) -->
+            <div class='bg-creamdark rounded-3xl border border-charcoal/10 shadow-organic p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4'>
+              <div class='flex items-start gap-4 sm:gap-6'>
+                <span class='font-mono text-2xl sm:text-3xl font-bold text-purple/50'>03</span>
+                <div>
+                  <h4 class='font-serif-fashion italic text-2xl sm:text-3xl text-charcoal translatable' data-en='Custom projects' data-fr='Projets sur mesure'>Custom projects</h4>
+                  <p class='font-mono text-[11px] text-charcoal/40 mt-1 translatable' data-en='Quoted according to scope' data-fr="Chiffré selon l'ampleur du projet">Quoted according to scope</p>
+                </div>
+              </div>
+              <button type='button' onclick="openInquiryModal('Custom project')"
+                      class='px-6 py-3 rounded-full bg-charcoal text-cream font-mono text-xs font-bold uppercase tracking-wider hover:bg-purple hover:text-charcoal transition-all shadow-organic shadow-organic-hover shrink-0 translatable'
+                      data-en='Start a project' data-fr='Démarrer un projet'>Start a project</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class='space-y-6 border-t border-charcoal/5 pt-8'>
+          <h4 class='font-serif-fashion italic text-2xl text-charcoal translatable' data-en='Frequently Asked Questions' data-fr='Questions Fréquentes'>Frequently Asked Questions</h4>
+
+          <div class='accordion-group-clean'>
+            <button class='accordion-bar-clean' onclick="toggleDetails('faq-panel-1')">
+              <span class='translatable' data-en='How are projects priced?' data-fr='Comment les projets sont-ils chiffrés ?'>How are projects priced?</span>
+              <span class='icon-plus'>+</span>
+            </button>
+            <div id='faq-panel-1' class='accordion-content-clean hidden'>
+              <p class='translatable'
+                 data-en='Each project is quoted individually based on scope, number of looks, preparation required, location, production requirements and timeline. Styling projects start from €700.'
+                 data-fr="Chaque projet est chiffré individuellement selon l'ampleur, le nombre de looks, la préparation nécessaire, le lieu, les besoins de production et le calendrier. Les projets de stylisme démarrent à partir de 700 €.">
+                Each project is quoted individually based on scope, number of looks, preparation required, location, production requirements and timeline. Styling projects start from €700.
+              </p>
+            </div>
+
+            <button class='accordion-bar-clean' onclick="toggleDetails('faq-panel-2')">
+              <span class='translatable' data-en='Do you travel?' data-fr='Vous déplacez-vous ?'>Do you travel?</span>
+              <span class='icon-plus'>+</span>
+            </button>
+            <div id='faq-panel-2' class='accordion-content-clean hidden'>
+              <p class='translatable'
+                 data-en='Yes. I am based in Nancy and regularly work in Paris and internationally. Travel and accommodation are quoted separately when required.'
+                 data-fr="Oui. Je suis basée à Nancy et travaille régulièrement à Paris et à l'international. Les frais de déplacement et d'hébergement sont chiffrés séparément lorsque nécessaire.">
+                Yes. I am based in Nancy and regularly work in Paris and internationally. Travel and accommodation are quoted separately when required.
+              </p>
+            </div>
+
+            <button class='accordion-bar-clean' onclick="toggleDetails('faq-panel-3')">
+              <span class='translatable' data-en='Do you work with emerging brands?' data-fr='Travaillez-vous avec des marques émergentes ?'>Do you work with emerging brands?</span>
+              <span class='icon-plus'>+</span>
+            </button>
+            <div id='faq-panel-3' class='accordion-content-clean hidden'>
+              <p class='translatable'
+                 data-en='Yes. I work with emerging and established fashion brands, photographers, creatives and production teams.'
+                 data-fr='Oui. Je travaille avec des marques de mode émergentes et établies, des photographes, des créatifs et des équipes de production.'>
+                Yes. I work with emerging and established fashion brands, photographers, creatives and production teams.
+              </p>
+            </div>
+
+            <button class='accordion-bar-clean' onclick="toggleDetails('faq-panel-4')">
+              <span class='translatable' data-en='Do you accept short-notice projects?' data-fr='Acceptez-vous les projets urgents ?'>Do you accept short-notice projects?</span>
+              <span class='icon-plus'>+</span>
+            </button>
+            <div id='faq-panel-4' class='accordion-content-clean hidden'>
+              <p class='translatable'
+                 data-en='Subject to availability. Rush projects may be subject to an additional fee.'
+                 data-fr='Sous réserve de disponibilité. Les projets urgents peuvent faire l&#39;objet d&#39;un supplément.'>
+                Subject to availability. Rush projects may be subject to an additional fee.
+              </p>
+            </div>
+
+            <button class='accordion-bar-clean' onclick="toggleDetails('faq-panel-5')">
+              <span class='translatable' data-en='Do you work internationally?' data-fr="Travaillez-vous à l'international ?">Do you work internationally?</span>
+              <span class='icon-plus'>+</span>
+            </button>
+            <div id='faq-panel-5' class='accordion-content-clean hidden'>
+              <p class='translatable'
+                 data-en='Yes. Projects can be conducted in French or English, with remote and on-location collaborations available.'
+                 data-fr='Oui. Les projets peuvent être menés en français ou en anglais, avec des collaborations à distance ou sur place.'>
+                Yes. Projects can be conducted in French or English, with remote and on-location collaborations available.
+              </p>
             </div>
           </div>
         </div>
@@ -747,6 +887,54 @@
         </div>
 
       </div>
+    </div>
+  </div>
+
+  <!-- Start a Project — Inquiry Modal (opened from Services cards) -->
+  <div id='inquiry-modal' class='hidden fixed inset-0 z-[80] flex items-center justify-center p-4' role='dialog' aria-modal='true' aria-label='Start a project inquiry form'>
+    <div id='inquiry-modal-backdrop' onclick='closeInquiryModal()' class='absolute inset-0 bg-charcoal/50 backdrop-blur-sm'></div>
+    <div class='relative bg-cream rounded-3xl shadow-organic border border-charcoal/10 w-full max-w-lg p-8 sm:p-10 max-h-[90vh] overflow-y-auto'>
+      <button type='button' onclick='closeInquiryModal()' aria-label='Close'
+              class='absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full hover:bg-charcoal/5 text-charcoal text-lg transition-colors'>&times;</button>
+
+      <h3 class='font-serif-fashion italic text-3xl text-charcoal mb-1 translatable' data-en='Start a Project' data-fr='Démarrer un Projet'>Start a Project</h3>
+      <p class='font-sans text-xs text-charcoal/50 mb-8 translatable' data-en="Tell me a bit about your project and I'll get back to you shortly." data-fr='Parlez-moi de votre projet, je vous répondrai rapidement.'>Tell me a bit about your project and I'll get back to you shortly.</p>
+
+      <form id='inquiry-modal-form' class='space-y-6'>
+
+        <div class='relative z-0 w-full border-b border-charcoal/10 focus-within:border-purple transition-colors duration-300 py-2'>
+          <label for='inquiry-name' class='block font-mono text-[9px] uppercase text-charcoal/40 tracking-wider translatable' data-en='Your Name' data-fr='Votre Nom'>Your Name</label>
+          <input type='text' id='inquiry-name' required class='block w-full bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 text-sm text-charcoal py-1' placeholder=' '>
+        </div>
+
+        <div class='relative z-0 w-full border-b border-charcoal/10 focus-within:border-purple transition-colors duration-300 py-2'>
+          <label for='inquiry-email' class='block font-mono text-[9px] uppercase text-charcoal/40 tracking-wider translatable' data-en='Your Email' data-fr='Votre E-mail'>Your Email</label>
+          <input type='email' id='inquiry-email' required class='block w-full bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 text-sm text-charcoal py-1' placeholder=' '>
+        </div>
+
+        <div class='relative z-0 w-full border-b border-charcoal/10 focus-within:border-purple transition-colors duration-300 py-2'>
+          <label for='inquiry-project-type' class='block font-mono text-[9px] uppercase text-charcoal/40 tracking-wider translatable' data-en='Project Type' data-fr='Type de Projet'>Project Type</label>
+          <select id='inquiry-project-type' class='block w-full bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 text-sm text-charcoal py-1'>
+            <option class='translatable' data-en='Editorial &amp; Campaign Styling' data-fr='Stylisme Éditorial &amp; Campagne'>Editorial &amp; Campaign Styling</option>
+            <option class='translatable' data-en='AI-Assisted Visual Development' data-fr='Développement Visuel Assisté par IA'>AI-Assisted Visual Development</option>
+            <option class='translatable' data-en='Custom project' data-fr='Projet sur mesure'>Custom project</option>
+            <option class='translatable' data-en='Not sure yet' data-fr='Pas encore sûr(e)'>Not sure yet</option>
+          </select>
+        </div>
+
+        <div class='relative z-0 w-full border-b border-charcoal/10 focus-within:border-purple transition-colors duration-300 py-2'>
+          <label for='inquiry-message' class='block font-mono text-[9px] uppercase text-charcoal/40 tracking-wider translatable' data-en='Project Details' data-fr='Détails du Projet'>Project Details</label>
+          <textarea id='inquiry-message' rows='3' required class='block w-full bg-transparent border-0 appearance-none focus:outline-none focus:ring-0 text-sm text-charcoal py-1 resize-none' placeholder=' '></textarea>
+        </div>
+
+        <div class='pt-2 flex justify-between items-center'>
+          <button type='submit' class='group flex items-center space-x-3 text-charcoal hover:text-purple transition-colors focus:outline-none'>
+            <span class='font-mono text-xs font-bold uppercase tracking-wider translatable' data-en='Send Inquiry' data-fr='Envoyer la Demande'>Send Inquiry</span>
+            <span class='text-lg transform group-hover:translate-x-1.5 transition-transform duration-200'>→</span>
+          </button>
+        </div>
+
+      </form>
     </div>
   </div>
 
@@ -1454,6 +1642,66 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       });
     }
 
+    // Services "Start a project" inquiry modal
+    function openInquiryModal(serviceType) {
+      const modal = document.getElementById('inquiry-modal');
+      if (!modal) return;
+      const select = document.getElementById('inquiry-project-type');
+      if (select && serviceType) {
+        const match = Array.from(select.options).find(o => o.text === serviceType);
+        if (match) select.value = match.value;
+      }
+      modal.classList.remove('hidden');
+    }
+
+    function closeInquiryModal() {
+      const modal = document.getElementById('inquiry-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handleServiceInquirySubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('inquiry-name').value;
+      const email = document.getElementById('inquiry-email').value;
+      const projectType = document.getElementById('inquiry-project-type').value;
+      const message = document.getElementById('inquiry-message').value;
+
+      const dest = atob('bGF1cmEuZ2FyY29uOUBnbWFpbC5jb20=');
+
+      fetch('https://formsubmit.co/ajax/' + dest, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          projectType: projectType,
+          message: message,
+          _subject: 'New project inquiry: ' + projectType
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (currentLang === 'fr') {
+          alert('Merci, ' + name + ' ! Votre demande a été transmise.');
+        } else {
+          alert('Thank you, ' + name + '! Your inquiry has been sent to the atelier.');
+        }
+        e.target.reset();
+        closeInquiryModal();
+      })
+      .catch(error => {
+        console.error('Error submitting inquiry:', error);
+        if (currentLang === 'fr') {
+          alert('Une erreur est survenue lors de l’envoi. Veuillez réessayer.');
+        } else {
+          alert('An error occurred. Please try again.');
+        }
+      });
+    }
+
     // Bind Event Listeners
     document.getElementById('lang-btn-en').addEventListener('click', () => setLanguage('en'));
     document.getElementById('lang-btn-fr').addEventListener('click', () => setLanguage('fr'));
@@ -1482,6 +1730,12 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
 
     // Contact Form submit listener
     document.getElementById('exhibit-contact-form').addEventListener('submit', handleFormSubmit);
+
+    // Services inquiry modal listeners
+    document.getElementById('inquiry-modal-form').addEventListener('submit', handleServiceInquirySubmit);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeInquiryModal();
+    });
 
     // Setup drag and drop for archival cards
     function initDraggableCards() {
