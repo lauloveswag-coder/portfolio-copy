@@ -551,13 +551,15 @@
                    assets/projects/3d-ai/manifest.js -- drop a render or clip in
                    that folder and regenerate the manifest (see the function's
                    comment; this folder needs --with-video), don't hand-edit
-                   entries here. -->
+                   entries here. Renders as an infinite dock-scroll gallery
+                   (.dock-scroll) -- see that function and the .dock-scroll*
+                   rules in styles.css. -->
               <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
                 <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='3D Rendering &amp; AI' data-fr='Rendu 3D &amp; IA'>3D Rendering &amp; AI</h4>
                 <span class='organic-ribbon translatable' data-en='02 // 3D &amp; AI' data-fr='02 // 3D &amp; IA'>02 // 3D &amp; AI</span>
               </div>
               <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-3d-ai-desc'></p>
-              <div class='filmstrip-row' id='3d-ai-filmstrip'></div>
+              <div class='dock-scroll' id='3d-ai-filmstrip'></div>
             </div>
 
             <div id="project-showroom-cat-sewing" class="project-showroom-section hidden">
@@ -588,8 +590,10 @@
               <!-- Populated by renderManifestFilmstrip() from
                    assets/projects/archive/manifest.js -- add a photo to
                    that folder and regenerate the manifest (see the
-                   function's comment), don't hand-edit entries here. -->
-              <div class='filmstrip-row' id='archive-filmstrip'></div>
+                   function's comment), don't hand-edit entries here. Renders
+                   as an infinite dock-scroll gallery (.dock-scroll) -- see
+                   that function and the .dock-scroll* rules in styles.css. -->
+              <div class='dock-scroll' id='archive-filmstrip'></div>
             </div>
 
 
@@ -1508,18 +1512,23 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       });
     }
 
-    // Renders a plain scrolling filmstrip of polaroid photos from a
+    // Renders an infinite-loop, dock-magnify filmstrip of photos from a
     // components/sketch-stack/generate-manifest.py-generated manifest —
-    // same auto-discovery data source <sketch-stack> uses, just as a
-    // static row instead of the interactive stack, for categories that
-    // don't want that interaction (e.g. Archive, 3D & AI). Handles both
-    // photos and videos, so a folder holding either works. After adding
-    // files to the folder, regenerate with:
+    // same auto-discovery data source <sketch-stack> uses, just rendered as
+    // a continuously scrolling row instead of the interactive stack, for
+    // categories that don't want that interaction (Archive, 3D & AI only —
+    // see the .dock-scroll* rules in styles.css, which are new/dedicated
+    // classes so this doesn't touch the unrelated .filmstrip-row/
+    // .polaroid-frame styling used elsewhere, e.g. the Personal Universe
+    // filmstrip). Handles both photos and videos, so a folder holding
+    // either works. After adding files to the folder, regenerate with:
     //   python3 components/sketch-stack/generate-manifest.py "<folder>" <manifestKey>
     // (add --with-video for a folder that contains videos, e.g. 3d-ai).
     //
     // `labels` sets the accessible text: { image: ..., video: ... }.
     var VIDEO_FILE_RE = /\.(mp4|webm|mov)$/i;
+    var DOCK_SCROLL_SECONDS_PER_CARD = 4.5;
+    var DOCK_SCROLL_MIN_SECONDS = 20;
 
     function renderManifestFilmstrip(containerId, manifestKey, folder, labels) {
       var container = document.getElementById(containerId);
@@ -1531,9 +1540,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       var imageLabel = labels.image || 'Archive piece';
       var videoLabel = labels.video || '';
 
-      var rotations = ['-2deg', '1.5deg', '-1deg', '2deg', '-1.5deg', '1deg'];
-      var html = files.map(function (filename, i) {
-        var rotation = rotations[i % rotations.length];
+      function renderCard(filename, isDuplicate) {
         var isVideo = VIDEO_FILE_RE.test(filename);
         // Videos get the wider md breakpoint — a portrait clip in a 12rem
         // frame is unusably small next to its own playback controls.
@@ -1545,17 +1552,29 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         // only scans the folder's own files, never lists them as gallery
         // images in their own right.
         var poster = folder + 'posters/' + filename.replace(VIDEO_FILE_RE, '.webp');
+        // The loop's second half is a plain visual duplicate of the first
+        // (same data, rendered twice) so the track can translate exactly
+        // -50% and wrap seamlessly — hidden from assistive tech so it
+        // isn't announced as repeated content.
+        var hiddenAttrs = isDuplicate ? ' aria-hidden="true" tabindex="-1"' : '';
         var media = isVideo
-          ? '<video src="' + folder + filename + '" poster="' + poster + '" class="w-full h-56 object-cover rounded" controls preload="none" aria-label="' + videoLabel + '"></video>'
+          ? '<video src="' + folder + filename + '" poster="' + poster + '" class="w-full h-56 object-cover rounded" controls preload="none" aria-label="' + videoLabel + '"' + (isDuplicate ? ' tabindex="-1"' : '') + '></video>'
           : '<img src="' + folder + filename + '" class="w-full h-56 object-cover rounded" loading="lazy" decoding="async" alt="' + imageLabel + '">';
         return (
-          '<div class="polaroid-frame flex-shrink-0 ' + frameWidth + '" style="transform: rotate(' + rotation + ');">' +
+          '<div class="dock-scroll__card flex-shrink-0 ' + frameWidth + '"' + hiddenAttrs + '>' +
             media +
           '</div>'
         );
-      }).join('');
+      }
 
-      container.innerHTML = html;
+      var firstPass = files.map(function (filename) { return renderCard(filename, false); }).join('');
+      var secondPass = files.map(function (filename) { return renderCard(filename, true); }).join('');
+
+      // Duration scales with item count so the perceived scroll speed stays
+      // roughly consistent across sections with different-sized folders.
+      var duration = Math.max(files.length * DOCK_SCROLL_SECONDS_PER_CARD, DOCK_SCROLL_MIN_SECONDS) + 's';
+      container.style.setProperty('--dock-scroll-duration', duration);
+      container.innerHTML = '<div class="dock-scroll__track">' + firstPass + secondPass + '</div>';
     }
 
     // Discipline index tiles (Works section) — each tile is a direct entry

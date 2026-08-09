@@ -472,6 +472,78 @@ body {
   border-radius: 9999px;
 }
 
+/* Dock-scroll gallery: infinite horizontal loop + macOS dock magnification.
+   Used only by Archive and 3D Rendering & AI (renderManifestFilmstrip() in
+   index.html). Deliberately its own class names rather than reusing
+   .filmstrip-row/.polaroid-frame above, so the unrelated "Personal
+   Universe: Crochet Archive" filmstrip (which keeps using those classes)
+   is provably unaffected. */
+.dock-scroll {
+  overflow: hidden;
+  width: 100%;
+  padding: 28px 0 44px;
+}
+
+.dock-scroll__track {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  width: max-content;
+  animation: dock-scroll-loop var(--dock-scroll-duration, 36s) linear infinite;
+}
+
+.dock-scroll:hover .dock-scroll__track {
+  animation-play-state: paused;
+}
+
+@keyframes dock-scroll-loop {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.dock-scroll__card {
+  flex-shrink: 0;
+  background: white;
+  border: 1px solid rgb(var(--color-text-primary) / 0.06);
+  padding: 10px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgb(var(--color-text-primary) / 0.05);
+  transform-origin: bottom center;
+  transform: scale(1);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.dock-scroll__card img,
+.dock-scroll__card video {
+  display: block;
+}
+
+.dock-scroll__card:hover {
+  transform: scale(1.35);
+  box-shadow: 0 25px 50px rgb(var(--color-text-primary) / 0.12);
+  z-index: 3;
+}
+
+/* Immediate neighbors ease down progressively on both sides of the hovered
+   card. :has() covers the "before" side since CSS has no previous-sibling
+   combinator; the adjacent-sibling chain covers the "after" side. */
+.dock-scroll__card:hover + .dock-scroll__card,
+.dock-scroll__card:has(+ .dock-scroll__card:hover) {
+  transform: scale(1.18);
+  z-index: 2;
+}
+.dock-scroll__card:hover + .dock-scroll__card + .dock-scroll__card,
+.dock-scroll__card:has(+ .dock-scroll__card + .dock-scroll__card:hover) {
+  transform: scale(1.08);
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-scroll__track {
+    animation: none;
+  }
+}
+
 /* .editorial-panel no longer needs to be forced to 100vw/100vh on mobile —
    it's an in-flow section now, not a full-viewport overlay, so it just
    takes its natural height there too. (The old floating bottom dock's own
