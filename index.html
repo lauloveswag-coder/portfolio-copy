@@ -109,11 +109,7 @@
        matting removed in the CHANGE-1 pass) can keep serving it indefinitely
        without this bump. Increment when editing styles.css in a way that
        needs to be visible on next load without a manual hard refresh. -->
-  <link rel='stylesheet' href='styles.css?v=dockscroll3'>
-  <!-- ProjectDetail component (Crochet / Sewing interior pages) — built
-       bundle from react-components/project-detail/ (npm run build:embed).
-       Classes are scoped under .pd-*, safe to load globally. -->
-  <link rel='stylesheet' href='react-components/project-detail/dist-embed/project-detail.css'>
+  <link rel='stylesheet' href='styles.css?v=dockscroll4'>
   <!-- Social Media component (TikTok feed) — built bundle from
        react-components/social-media/ (npm run build:embed). Output
        filename is "creator-feed", NOT "social-media" — that literal
@@ -158,6 +154,9 @@
     <nav class='header-nav' id='header-nav'>
       <button id='dock-btn-panel-about' class='header-nav-link'>
         <span class='translatable' data-en='About' data-fr='À Propos'>About</span>
+      </button>
+      <button id='dock-btn-panel-resume' class='header-nav-link'>
+        <span class='translatable' data-en='CV' data-fr='CV'>CV</span>
       </button>
       <button id='dock-btn-panel-portfolio' class='header-nav-link'>
         <span class='translatable' data-en='Portfolio' data-fr='Portfolio'>Portfolio</span>
@@ -450,6 +449,8 @@
               <span class='px-3 py-1 bg-creamdark border border-charcoal/10 rounded-full text-[10px] font-mono text-charcoal/80'>Knitwear &amp; Crochet</span>
             </div>
           </div>
+
+          <button onclick="openPanel('panel-resume')" class='inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-widest text-charcoal/60 hover:text-purple transition-colors focus:outline-none translatable' data-en='View full CV &amp; download →' data-fr='Voir le CV complet &amp; téléchargement →'>View full CV &amp; download →</button>
         </div>
 
         <!-- Visual / Photobooth Column -->
@@ -476,6 +477,156 @@
             about<br>myself
           </span>
           
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 1.5: CV / RESUME -->
+  <div id='panel-resume' class='editorial-panel'>
+    <div class='panel-header bg-purplelight'>
+      <span class='font-mono text-xs font-bold uppercase tracking-widest translatable' data-en='EXHIBIT / CV.PDF' data-fr='EXPOSITION / CV.PDF'>EXHIBIT / CV.PDF</span>
+    </div>
+    <div class='panel-content'>
+      <div class='space-y-10 max-w-4xl mx-auto'>
+
+        <!-- Title + download actions -->
+        <div class='flex flex-wrap items-start justify-between gap-6'>
+          <div class='space-y-3 max-w-2xl'>
+            <span class='organic-ribbon inline-block translatable' data-en='CV // RESUME' data-fr='CV // RÉSUMÉ'>CV // RESUME</span>
+            <h3 class='font-serif-fashion italic text-4xl md:text-5xl text-charcoal leading-tight translatable' data-en='Junior Fashion Stylist / Assistant Stylist' data-fr='Styliste Junior / Assistante Styliste'>Junior Fashion Stylist / Assistant Stylist</h3>
+          </div>
+          <div class='flex flex-wrap gap-3 shrink-0'>
+            <a href='assets/cv/laura-garcon-cv-en.pdf' download
+               class='px-6 py-3 rounded-full bg-charcoal text-cream font-mono text-xs font-bold uppercase tracking-wider hover:bg-purple hover:text-charcoal transition-all shadow-organic shadow-organic-hover translatable'
+               data-en='Download CV (EN)' data-fr='Download CV (EN)'>Download CV (EN)</a>
+            <a href='assets/cv/laura-garcon-cv-fr.pdf' download
+               class='px-6 py-3 rounded-full bg-cream text-charcoal font-mono text-xs font-bold uppercase tracking-wider border border-charcoal/10 hover:bg-pink/30 transition-all shadow-organic shadow-organic-hover translatable'
+               data-en='Télécharger le CV (FR)' data-fr='Télécharger le CV (FR)'>Télécharger le CV (FR)</a>
+          </div>
+        </div>
+
+        <!-- Bio -->
+        <p class='font-sans text-sm leading-relaxed text-charcoal/70 max-w-3xl translatable'
+           data-en='Junior fashion stylist and assistant with hands-on backstage experience across Paris Fashion Week productions, paired with a technical grounding in garment construction and textile design. My approach bridges precise craft — patternmaking, fabric behavior, tech pack accuracy — with the fast pace of live styling: look conformities, accessory management, and dressing under pressure. Comfortable across both 2D and 3D workflows (CLO3D, Style3D, Adobe Illustrator, Photoshop, InDesign), I bring a stylist&rsquo;s eye for silhouette and storytelling together with a merchandiser&rsquo;s instinct for luxury presentation and commercial coherence. Trained at École de Condé (Nancy) with an academic exchange at Accademia Italiana in Florence, and shaped by a prior background in international business, I care about discretion, rigor, and getting the details right — on set, backstage, and on the rail.'
+           data-fr='Styliste junior et assistante avec une expérience de terrain acquise en coulisses lors de productions de la Fashion Week de Paris, associée à une solide base technique en construction et design textile. Mon approche relie un savoir-faire précis — modélisme, comportement des matières, exactitude des tech packs — aux exigences du stylisme en direct&nbsp;: conformité des looks, gestion des accessoires, habillage sous pression. À l&rsquo;aise en 2D comme en 3D (CLO3D, Style3D, Adobe Illustrator, Photoshop, InDesign), j&rsquo;allie un &oelig;il de styliste pour la silhouette et la narration à un réflexe de merchandiser pour la présentation luxe et la cohérence commerciale. Formée à l&rsquo;École de Condé (Nancy) avec un échange académique à l&rsquo;Accademia Italiana de Florence, et façonnée par un parcours antérieur en affaires internationales, j&rsquo;accorde une grande importance à la discrétion, à la rigueur et au soin du détail — sur set, en coulisses, et sur le portant.'>
+        </p>
+
+        <!-- Skill matrix -->
+        <div class='pt-2'>
+          <h4 class='font-mono text-[9px] font-bold uppercase tracking-widest text-charcoal/40 mb-3 translatable' data-en='SKILL MATRIX' data-fr='MATRICE DE COMPÉTENCES'>SKILL MATRIX</h4>
+          <div class='flex flex-wrap gap-2'>
+            <span class='px-3 py-1 bg-purplelight rounded-full text-[10px] font-mono text-charcoal/80'>CLO3D</span>
+            <span class='px-3 py-1 bg-purplelight rounded-full text-[10px] font-mono text-charcoal/80'>Style3D</span>
+            <span class='px-3 py-1 bg-sagelight rounded-full text-[10px] font-mono text-charcoal/80'>Adobe Illustrator</span>
+            <span class='px-3 py-1 bg-sagelight rounded-full text-[10px] font-mono text-charcoal/80'>Photoshop</span>
+            <span class='px-3 py-1 bg-sagelight rounded-full text-[10px] font-mono text-charcoal/80'>InDesign</span>
+            <span class='px-3 py-1 bg-pinklight rounded-full text-[10px] font-mono text-charcoal/80 translatable' data-en='Patternmaking' data-fr='Modélisme'>Patternmaking</span>
+            <span class='px-3 py-1 bg-pinklight rounded-full text-[10px] font-mono text-charcoal/80 translatable' data-en='Tech Packs' data-fr='Fiches Techniques'>Tech Packs</span>
+            <span class='px-3 py-1 bg-creamdark border border-charcoal/10 rounded-full text-[10px] font-mono text-charcoal/80 translatable' data-en='Textile Expertise' data-fr='Expertise Textile'>Textile Expertise</span>
+            <span class='px-3 py-1 bg-creamdark border border-charcoal/10 rounded-full text-[10px] font-mono text-charcoal/80 translatable' data-en='Trend Forecasting' data-fr='Prévision des Tendances'>Trend Forecasting</span>
+            <span class='px-3 py-1 bg-creamdark border border-charcoal/10 rounded-full text-[10px] font-mono text-charcoal/80 translatable' data-en='Visual Merchandising' data-fr='Merchandising Visuel'>Visual Merchandising</span>
+            <span class='px-3 py-1 bg-creamdark border border-charcoal/10 rounded-full text-[10px] font-mono text-charcoal/80'>MODA IA</span>
+          </div>
+        </div>
+
+        <!-- Professional Experience -->
+        <div class='space-y-7 border-t border-charcoal/5 pt-8'>
+          <h4 class='font-serif-fashion italic text-2xl text-charcoal translatable' data-en='Professional Experience' data-fr='Expérience Professionnelle'>Professional Experience</h4>
+
+          <!-- Entry 1: TAAKK / Sino-French Fashion Week -->
+          <div>
+            <div class='flex flex-wrap items-baseline justify-between gap-2'>
+              <h5 class='font-syne-bold font-bold text-sm uppercase text-charcoal translatable' data-en='Backstage Coordinator &amp; Dresser' data-fr='Coordinatrice Backstage &amp; Habilleuse'>Backstage Coordinator &amp; Dresser</h5>
+              <span class='font-mono text-[10px] text-charcoal/40 uppercase tracking-wide translatable' data-en='Oct 2025 – Jan 2026 / June 2026' data-fr='Oct. 2025 – Janv. 2026 / Juin 2026'>Oct 2025 – Jan 2026 / June 2026</span>
+            </div>
+            <p class='font-mono text-[11px] text-purple font-bold uppercase tracking-wide mt-1'>TAAKK &amp; Sino-French Fashion Week, Paris</p>
+            <ul class='mt-3 space-y-1.5 text-sm text-charcoal/70 leading-relaxed list-disc list-inside marker:text-purple/50'>
+              <li class='translatable' data-en='Provided direct support to styling teams backstage — dressing models and managing accessories and look conformity under live-show conditions (TAAKK AW26).' data-fr='Soutien direct à l&rsquo;équipe de stylisme en coulisses — habillage des mannequins et gestion des accessoires et de la conformité des looks en conditions de défilé live (TAAKK AW26).'>Provided direct support to styling teams backstage — dressing models and managing accessories and look conformity under live-show conditions (TAAKK AW26).</li>
+              <li class='translatable' data-en='Prepped rails and verified rigorous model/garment conformity ahead of each show, coordinating with creative and production staff to keep looks brand-accurate under time pressure.' data-fr='Préparation des portants et vérification rigoureuse de la conformité des modèles avant chaque défilé, en coordination avec les équipes créatives et de production pour garantir la fidélité des looks sous contrainte de temps.'>Prepped rails and verified rigorous model/garment conformity ahead of each show, coordinating with creative and production staff to keep looks brand-accurate under time pressure.</li>
+              <li class='translatable' data-en='Controlled finishing quality on models pre-runway and streamlined accessory handoffs across complex, fast-paced international show environments.' data-fr='Contrôle qualité des finitions sur les mannequins avant passage et fluidification de la gestion des accessoires dans des environnements de défilé internationaux, complexes et exigeants.'>Controlled finishing quality on models pre-runway and streamlined accessory handoffs across complex, fast-paced international show environments.</li>
+            </ul>
+          </div>
+
+          <!-- Entry 2: Visual Merchandising -->
+          <div>
+            <div class='flex flex-wrap items-baseline justify-between gap-2'>
+              <h5 class='font-syne-bold font-bold text-sm uppercase text-charcoal translatable' data-en='Visual Merchandising &amp; Sales Advisor' data-fr='Conseillère de Vente &amp; Merchandising Visuel'>Visual Merchandising &amp; Sales Advisor</h5>
+              <span class='font-mono text-[10px] text-charcoal/40 uppercase tracking-wide translatable' data-en='June 2020 – Jan 2021' data-fr='Juin 2020 – Janv. 2021'>June 2020 – Jan 2021</span>
+            </div>
+            <p class='font-mono text-[11px] text-purple font-bold uppercase tracking-wide mt-1'>Pierre Hermé / Sephora, Suresnes</p>
+            <ul class='mt-3 space-y-1.5 text-sm text-charcoal/70 leading-relaxed list-disc list-inside marker:text-purple/50'>
+              <li class='translatable' data-en='Executed visual merchandising strategies — window and in-store displays, product storytelling — to luxury presentation standards.' data-fr='Mise en &oelig;uvre de stratégies de visual merchandising — vitrines et présentation en boutique, mise en récit du produit — selon les standards de présentation du luxe.'>Executed visual merchandising strategies — window and in-store displays, product storytelling — to luxury presentation standards.</li>
+              <li class='translatable' data-en='Applied a stylist&rsquo;s eye to spatial layout and product placement, driving sell-through through visual storytelling.' data-fr='Application d&rsquo;un &oelig;il de styliste à l&rsquo;agencement spatial et au placement produit, au service du sell-through par la narration visuelle.'>Applied a stylist&rsquo;s eye to spatial layout and product placement, driving sell-through through visual storytelling.</li>
+              <li class='translatable' data-en='Delivered high-end client advisory and premium customer experience consistent with luxury retail codes.' data-fr='Conseil client haut de gamme et expérience premium conformes aux codes du retail de luxe.'>Delivered high-end client advisory and premium customer experience consistent with luxury retail codes.</li>
+            </ul>
+          </div>
+
+          <!-- Entry 3: Atelier -->
+          <div>
+            <div class='flex flex-wrap items-baseline justify-between gap-2'>
+              <h5 class='font-syne-bold font-bold text-sm uppercase text-charcoal translatable' data-en='Creation Studio Placement' data-fr='Stage Atelier de Création'>Creation Studio Placement</h5>
+              <span class='font-mono text-[10px] text-charcoal/40 uppercase tracking-wide translatable' data-en='July 2024' data-fr='Juillet 2024'>July 2024</span>
+            </div>
+            <p class='font-mono text-[11px] text-purple font-bold uppercase tracking-wide mt-1'>Paprams &amp; Co, Nancy</p>
+            <ul class='mt-3 space-y-1.5 text-sm text-charcoal/70 leading-relaxed list-disc list-inside marker:text-purple/50'>
+              <li class='translatable' data-en='Gained hands-on mastery of garment manufacturing processes, prototyping, and material-waste management in a creation studio setting.' data-fr='Acquisition d&rsquo;une maîtrise concrète des procédés de fabrication, du prototypage et de la gestion des chutes de matières en atelier de création.'>Gained hands-on mastery of garment manufacturing processes, prototyping, and material-waste management in a creation studio setting.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class='space-y-5 border-t border-charcoal/5 pt-8'>
+          <h4 class='font-serif-fashion italic text-2xl text-charcoal translatable' data-en='Education' data-fr='Formation'>Education</h4>
+
+          <div>
+            <div class='flex flex-wrap items-baseline justify-between gap-2'>
+              <h5 class='font-syne-bold font-bold text-sm uppercase text-charcoal translatable' data-en='Bachelor of Fashion Design' data-fr='Bachelor Design de Mode'>Bachelor of Fashion Design</h5>
+              <span class='font-mono text-[10px] text-charcoal/40 uppercase tracking-wide'>2022 – 2025</span>
+            </div>
+            <p class='font-mono text-[11px] text-purple font-bold uppercase tracking-wide mt-1'>École De Condé, Nancy</p>
+            <p class='mt-2 text-sm text-charcoal/70 translatable' data-en='Includes an academic exchange at Accademia Italiana, Florence, Italy.' data-fr='Comprend un échange académique à l&rsquo;Accademia Italiana, Florence, Italie.'>Includes an academic exchange at Accademia Italiana, Florence, Italy.</p>
+          </div>
+
+          <div class='opacity-80'>
+            <div class='flex flex-wrap items-baseline justify-between gap-2'>
+              <h5 class='font-syne-bold font-bold text-xs uppercase text-charcoal translatable' data-en='Bachelor in International Business' data-fr='Bachelor en Affaires Internationales'>Bachelor in International Business</h5>
+              <span class='font-mono text-[10px] text-charcoal/40 uppercase tracking-wide'>2018 – 2022</span>
+            </div>
+            <p class='font-mono text-[11px] text-charcoal/50 font-bold uppercase tracking-wide mt-1'>École De Management De Strasbourg (EM)</p>
+            <p class='mt-2 text-xs text-charcoal/60 translatable' data-en='Includes an academic exchange at Kyungpook National University, South Korea.' data-fr='Comprend un échange académique à Kyungpook National University, Corée du Sud.'>Includes an academic exchange at Kyungpook National University, South Korea.</p>
+          </div>
+        </div>
+
+        <!-- Additional Professional Experience (downplayed) -->
+        <div class='space-y-4 border-t border-charcoal/5 pt-8'>
+          <h5 class='font-mono text-[9px] font-bold uppercase tracking-widest text-charcoal/40 translatable' data-en='Additional Professional Experience' data-fr='Expériences Professionnelles Complémentaires'>Additional Professional Experience</h5>
+
+          <div class='space-y-3 text-xs text-charcoal/60'>
+            <div class='flex flex-wrap items-baseline justify-between gap-2'>
+              <span><strong class='text-charcoal/80 translatable' data-en='Talent Acquisition Consultant' data-fr='Consultante en Recrutement'>Talent Acquisition Consultant</strong> — Signify, Suresnes</span>
+              <span class='font-mono text-[10px] uppercase tracking-wide'>Mar – Sep 2022</span>
+            </div>
+            <p class='translatable' data-en='Managed full recruitment cycles and stakeholder communication — transferable project management, organizational, and high-stakes communication skills.' data-fr='Gestion de cycles de recrutement complets et de la communication avec les parties prenantes — compétences transférables en gestion de projet, organisation et communication à enjeux élevés.'>Managed full recruitment cycles and stakeholder communication — transferable project management, organizational, and high-stakes communication skills.</p>
+
+            <div class='flex flex-wrap items-baseline justify-between gap-2 pt-2'>
+              <span><strong class='text-charcoal/80 translatable' data-en='Client Relations Advisor' data-fr='Chargée Relation Clients'>Client Relations Advisor</strong> — Toys Motors (Toyota Lexus), Maxéville</span>
+              <span class='font-mono text-[10px] uppercase tracking-wide'>Sep 2025</span>
+            </div>
+            <p class='translatable' data-en='Front-of-house client communication and reception in a high-touch service environment.' data-fr='Communication client et accueil en face à face dans un environnement de service à haute exigence.'>Front-of-house client communication and reception in a high-touch service environment.</p>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class='border-t border-charcoal/5 pt-8'>
+          <h4 class='font-mono text-[9px] font-bold uppercase tracking-widest text-charcoal/40 mb-3 translatable' data-en='LANGUAGES' data-fr='LANGUES'>LANGUAGES</h4>
+          <div class='flex flex-wrap gap-x-8 gap-y-2 text-xs text-charcoal/70'>
+            <span><strong class='text-charcoal/90 translatable' data-en='French' data-fr='Français'>French</strong> — <span class='translatable' data-en='Native' data-fr='Langue maternelle'>Native</span></span>
+            <span><strong class='text-charcoal/90 translatable' data-en='English' data-fr='Anglais'>English</strong> — <span class='translatable' data-en='Bilingual (TOEIC 980, IELTS 8.0)' data-fr='Bilingue (TOEIC 980, IELTS 8.0)'>Bilingual (TOEIC 980, IELTS 8.0)</span></span>
+            <span><strong class='text-charcoal/90 translatable' data-en='Spanish' data-fr='Espagnol'>Spanish</strong> — <span class='translatable' data-en='Intermediate (B2)' data-fr='Intermédiaire (B2)'>Intermediate (B2)</span></span>
+            <span><strong class='text-charcoal/90 translatable' data-en='Korean' data-fr='Coréen'>Korean</strong> — <span class='translatable' data-en='Beginner' data-fr='Débutant'>Beginner</span></span>
+          </div>
         </div>
 
       </div>
@@ -536,62 +687,53 @@
       <div id="academic-portfolio" class="portfolio-container-clean hidden">
         <button onclick="showHub()" class='back-to-hub-btn font-mono text-[10px] uppercase tracking-widest text-charcoal/50 hover:text-purple transition-colors mb-6 inline-flex items-center gap-2 translatable' data-en='← All Disciplines' data-fr='← Toutes les Disciplines'>← All Disciplines</button>
 
-            <!-- ==== DISCIPLINE GALLERIES (Sketches / 3D Rendering & AI / Archive / Sewing) ====
-                 Each is a single curated horizontal gallery (.filmstrip-row of .polaroid-frame
-                 items), reused from the existing Social Media page's pattern. To add new work,
-                 drop the file in the matching assets/projects/ subfolder and copy one item
-                 block within that gallery's .filmstrip-row. -->
+            <!-- ==== DISCIPLINE GALLERIES (Sketches / 3D Rendering & AI / Sewing / Archive) ====
+                 All four are the same infinite dock-scroll gallery (see
+                 renderManifestFilmstrip() and the .dock-scroll* rules in
+                 styles.css): wheel/trackpad and click-drag scroll it, and it
+                 wraps seamlessly in both directions (initDockScrollInteraction(),
+                 also in styles.css/index.html). Populated from each
+                 assets/projects/<x>/manifest.js -- drop a file in the matching
+                 folder and regenerate its manifest with
+                 components/sketch-stack/generate-manifest.py, don't hand-edit
+                 entries here. -->
 
             <div id="project-showroom-cat-sketches" class="project-showroom-section hidden space-y-6">
               <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
                 <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Sketches' data-fr='Croquis'>Sketches</h4>
                 <span class='organic-ribbon translatable' data-en='01 // Sketches' data-fr='01 // Croquis'>01 // Sketches</span>
               </div>
-              <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-sketches-desc'></p>
-              <sketch-stack data-folder="assets/projects/sketches/" data-manifest-key="sketches"></sketch-stack>
+              <!-- .dock-scroll-bleed breaks the gallery out of
+                   .portfolio-container-clean's 1200px max-width to span the
+                   true viewport width, scoped to this gallery only (the
+                   shared .portfolio-container-clean definition itself is
+                   untouched, so every other section still respects it). -->
+              <div class='dock-scroll-bleed'>
+                <div class='dock-scroll' id='sketches-filmstrip'></div>
+              </div>
             </div>
 
             <div id="project-showroom-cat-3d-ai" class="project-showroom-section hidden space-y-6">
-              <!-- Populated by renderManifestFilmstrip() from
-                   assets/projects/3d-ai/manifest.js -- drop a render or clip in
-                   that folder and regenerate the manifest (see the function's
-                   comment; this folder needs --with-video), don't hand-edit
-                   entries here. Renders as an infinite dock-scroll gallery
-                   (.dock-scroll) -- see that function and the .dock-scroll*
-                   rules in styles.css. -->
+              <!-- assets/projects/3d-ai/manifest.js needs --with-video (this
+                   folder mixes renders and clips) -- renderManifestFilmstrip()
+                   emits an <img> or a <video> per entry accordingly. -->
               <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
                 <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='3D Rendering &amp; AI' data-fr='Rendu 3D &amp; IA'>3D Rendering &amp; AI</h4>
                 <span class='organic-ribbon translatable' data-en='02 // 3D &amp; AI' data-fr='02 // 3D &amp; IA'>02 // 3D &amp; AI</span>
               </div>
-              <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-3d-ai-desc'></p>
-              <!-- .dock-scroll-bleed breaks the gallery out of
-                   .portfolio-container-clean's 1200px max-width to span the
-                   true viewport width -- same technique as .pd-mount--fullbleed
-                   above, scoped to this gallery only (the shared
-                   .portfolio-container-clean definition itself is untouched,
-                   so every other section still respects it). -->
               <div class='dock-scroll-bleed'>
                 <div class='dock-scroll' id='3d-ai-filmstrip'></div>
               </div>
             </div>
 
-            <div id="project-showroom-cat-sewing" class="project-showroom-section hidden">
-              <!-- ProjectDetail window (see react-components/project-detail/) —
-                   fills the page: title/description live in the window's own
-                   chrome now. Images are auto-discovered from
-                   assets/projects/sewing/ (data-auto-folder) — drop a new
-                   .jpg/.jpeg/.png/.webp in that folder, no HTML edit needed.
-                   Live (no rebuild) only while served via `npm run dev` at
-                   the project root; opened via file:// it uses whatever was
-                   in the folder at the last `npm run build:embed`. -->
-              <div
-                data-project-detail
-                data-full-bleed="true"
-                data-title="Sewing — Project_01"
-                data-accent="#3E5C76"
-                data-auto-folder="assets/projects/sewing/"
-                class="pd-mount--fullbleed"
-              ></div>
+            <div id="project-showroom-cat-sewing" class="project-showroom-section hidden space-y-6">
+              <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
+                <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Sewing' data-fr='Couture'>Sewing</h4>
+                <span class='organic-ribbon translatable' data-en='04 // Sewing' data-fr='04 // Couture'>04 // Sewing</span>
+              </div>
+              <div class='dock-scroll-bleed'>
+                <div class='dock-scroll' id='sewing-filmstrip'></div>
+              </div>
             </div>
 
             <div id="project-showroom-cat-archive" class="project-showroom-section hidden space-y-6">
@@ -599,19 +741,6 @@
                 <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Archive' data-fr='Archives'>Archive</h4>
                 <span class='organic-ribbon translatable' data-en='05 // Archive' data-fr='05 // Archives'>05 // Archive</span>
               </div>
-              <p class='font-sans text-sm text-charcoal/70 leading-relaxed max-w-2xl' data-key='cat-archive-desc'></p>
-              <!-- Populated by renderManifestFilmstrip() from
-                   assets/projects/archive/manifest.js -- add a photo to
-                   that folder and regenerate the manifest (see the
-                   function's comment), don't hand-edit entries here. Renders
-                   as an infinite dock-scroll gallery (.dock-scroll) -- see
-                   that function and the .dock-scroll* rules in styles.css. -->
-              <!-- .dock-scroll-bleed breaks the gallery out of
-                   .portfolio-container-clean's 1200px max-width to span the
-                   true viewport width -- same technique as .pd-mount--fullbleed
-                   above, scoped to this gallery only (the shared
-                   .portfolio-container-clean definition itself is untouched,
-                   so every other section still respects it). -->
               <div class='dock-scroll-bleed'>
                 <div class='dock-scroll' id='archive-filmstrip'></div>
               </div>
@@ -640,28 +769,22 @@
             <div id='social-media-root'></div>
           </div>
 
-          <!-- 11 // Personal Work: Crochet & Knits -->
-          <div id='project-showroom-personal-crochet' class='project-showroom-section hidden'>
-            <!-- ProjectDetail window (see react-components/project-detail/) —
-                 fills the page: title lives in the window's own chrome now.
-                 Images are auto-discovered from assets/projects/crochet/
-                 (data-auto-folder) — drop a new .jpg/.jpeg/.png/.webp in
-                 that folder, no HTML edit needed. Live (no rebuild) only
-                 while served via `npm run dev` at the project root; opened
-                 via file:// it uses whatever was in the folder at the last
-                 `npm run build:embed`.
-                 NOTE: this replaced the old two-column layout, which had a
-                 "CRAFT" watermark + pull-quote that don't have an equivalent
-                 slot in the window chrome — dropped along with the plain
-                 description, not carried over anywhere. -->
-            <div
-              data-project-detail
-              data-full-bleed="true"
-              data-title="Crochet — Project_01"
-              data-accent="#A4B35E"
-              data-auto-folder="assets/projects/crochet/"
-              class="pd-mount--fullbleed"
-            ></div>
+          <!-- 03 // Personal Work: Crochet & Knits -->
+          <div id='project-showroom-personal-crochet' class='project-showroom-section hidden space-y-6'>
+            <div class='flex flex-wrap items-center justify-between gap-4 border-b border-charcoal/10 pb-4'>
+              <h4 class='font-serif-fashion italic text-3xl text-charcoal translatable' data-en='Crochet' data-fr='Crochet'>Crochet</h4>
+              <span class='organic-ribbon translatable' data-en='03 // Crochet' data-fr='03 // Crochet'>03 // Crochet</span>
+            </div>
+            <!-- Same infinite dock-scroll gallery as Sketches/3D & AI/Sewing/
+                 Archive above — see renderManifestFilmstrip() and the
+                 .dock-scroll* rules in styles.css. Populated from
+                 assets/projects/crochet/manifest.js -- drop a photo in that
+                 folder and regenerate with
+                 components/sketch-stack/generate-manifest.py, don't
+                 hand-edit entries here. -->
+            <div class='dock-scroll-bleed'>
+              <div class='dock-scroll' id='crochet-filmstrip'></div>
+            </div>
           </div>
         </div>
 
@@ -1533,26 +1656,21 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       });
     }
 
-    // Renders an infinite-loop, dock-magnify filmstrip of photos from a
-    // components/sketch-stack/generate-manifest.py-generated manifest —
-    // same auto-discovery data source <sketch-stack> uses, just rendered as
-    // a continuously scrolling row instead of the interactive stack, for
-    // categories that don't want that interaction (Archive, 3D & AI only —
-    // see the .dock-scroll* rules in styles.css, which are new/dedicated
-    // classes so this doesn't touch the unrelated .filmstrip-row/
-    // .polaroid-frame styling used elsewhere, e.g. the Personal Universe
-    // filmstrip). Handles both photos and videos, so a folder holding
-    // either works. After adding files to the folder, regenerate with:
+    // Renders an infinite-loop, dock-magnify, wheel/drag-scrollable filmstrip
+    // (see initDockScrollInteraction() below) of photos from a
+    // components/sketch-stack/generate-manifest.py-generated manifest. Used
+    // by every discipline gallery (Sketches, 3D & AI, Sewing, Archive,
+    // Crochet) — see the .dock-scroll* rules in styles.css, which are their
+    // own dedicated classes so this doesn't touch the unrelated
+    // .filmstrip-row/.polaroid-frame styling used elsewhere, e.g. the
+    // Personal Universe teaser strip. Handles both photos and videos, so a
+    // folder holding either works. After adding files to a gallery's
+    // folder, regenerate its manifest with:
     //   python3 components/sketch-stack/generate-manifest.py "<folder>" <manifestKey>
     // (add --with-video for a folder that contains videos, e.g. 3d-ai).
     //
     // `labels` sets the accessible text: { image: ..., video: ... }.
     var VIDEO_FILE_RE = /\.(mp4|webm|mov)$/i;
-    // Slower per-card pace than the first pass, tuned for the bigger
-    // full-bleed card size below so the loop still reads as a comfortable
-    // sweep rather than a rushed blur.
-    var DOCK_SCROLL_SECONDS_PER_CARD = 6;
-    var DOCK_SCROLL_MIN_SECONDS = 26;
 
     function renderManifestFilmstrip(containerId, manifestKey, folder, labels) {
       var container = document.getElementById(containerId);
@@ -1600,11 +1718,113 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       var firstPass = files.map(function (filename) { return renderCard(filename, false); }).join('');
       var secondPass = files.map(function (filename) { return renderCard(filename, true); }).join('');
 
-      // Duration scales with item count so the perceived scroll speed stays
-      // roughly consistent across sections with different-sized folders.
-      var duration = Math.max(files.length * DOCK_SCROLL_SECONDS_PER_CARD, DOCK_SCROLL_MIN_SECONDS) + 's';
-      container.style.setProperty('--dock-scroll-duration', duration);
       container.innerHTML = '<div class="dock-scroll__track">' + firstPass + secondPass + '</div>';
+      initDockScrollInteraction(container);
+    }
+
+    // Makes a .dock-scroll gallery (Archive / 3D Rendering & AI only —
+    // renderManifestFilmstrip() above is the only caller) user-scrollable:
+    // vertical wheel/trackpad drives horizontal movement, click-and-drag
+    // pans it, and both wrap seamlessly using the track's existing
+    // duplicate-set markup (rendered twice above, back to back, so the
+    // second copy is pixel-identical to the first).
+    //
+    // Loop technique: track everything as an unbounded virtual position
+    // ("pos") and only ever write a wrapped value into the real
+    // el.scrollLeft. Because the track is exactly two identical passes
+    // back to back, wrapping pos into [0, singlePassWidth) always lands on
+    // a frame that's visually indistinguishable from its neighbor, so the
+    // wrap never produces a visible jump or a blank gap — in either
+    // direction, unlike a naive "reset to 0 at the end" approach which
+    // only works forward.
+    function initDockScrollInteraction(el) {
+      var track = el.querySelector('.dock-scroll__track');
+      if (!track) return;
+
+      // Images/videos are natively draggable in every browser — left without
+      // this, starting a drag on a card kicks off the browser's own "drag
+      // this image out" ghost preview at the same time as our pointer-based
+      // drag-scroll below, fighting it visually and in some browsers
+      // capturing the pointer so our own drag never sees pointermove/up.
+      el.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
+      var pos = el.scrollLeft;
+
+      function singlePassWidth() {
+        return track.scrollWidth / 2;
+      }
+
+      function wrap(p) {
+        var w = singlePassWidth();
+        if (!w) return p;
+        p = p % w;
+        if (p < 0) p += w;
+        return p;
+      }
+
+      function setPos(next) {
+        pos = next;
+        el.scrollLeft = wrap(pos);
+      }
+
+      el.addEventListener('wheel', function (e) {
+        e.preventDefault();
+        var delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+        // Firefox reports wheel deltas in "lines" rather than pixels by
+        // default; scale those up so speed feels consistent with Chrome/Safari.
+        if (e.deltaMode === 1) delta *= 16;
+        setPos(pos + delta);
+      }, { passive: false });
+
+      var dragging = false;
+      var moved = false;
+      var suppressNextClick = false;
+      var startX = 0;
+      var startPos = 0;
+      var DRAG_CANCEL_THRESHOLD = 6;
+
+      el.addEventListener('pointerdown', function (e) {
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
+        dragging = true;
+        moved = false;
+        startX = e.clientX;
+        startPos = pos;
+        el.classList.add('is-drag-scrolling');
+      });
+
+      el.addEventListener('pointermove', function (e) {
+        if (!dragging) return;
+        var dx = e.clientX - startX;
+        if (!moved && Math.abs(dx) > DRAG_CANCEL_THRESHOLD) moved = true;
+        if (moved) e.preventDefault();
+        setPos(startPos - dx);
+      });
+
+      function endDrag() {
+        if (!dragging) return;
+        dragging = false;
+        el.classList.remove('is-drag-scrolling');
+        if (moved) suppressNextClick = true;
+      }
+
+      el.addEventListener('pointerup', endDrag);
+      el.addEventListener('pointercancel', endDrag);
+      el.addEventListener('pointerleave', endDrag);
+
+      // A drag past the threshold shouldn't also register as a click on
+      // whatever was under the pointer (a card link, a video's native
+      // play button) — swallow exactly the one click that follows it.
+      el.addEventListener('click', function (e) {
+        if (suppressNextClick) {
+          e.preventDefault();
+          e.stopPropagation();
+          suppressNextClick = false;
+        }
+      }, true);
+
+      window.addEventListener('resize', function () {
+        el.scrollLeft = wrap(pos);
+      });
     }
 
     // Discipline index tiles (Works section) — each tile is a direct entry
@@ -1622,17 +1842,6 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       if (content) content.classList.add('hidden');
       if (hub) hub.classList.remove('hidden');
     }
-
-    // The ProjectDetail windows (Crochet, Sewing — any [data-project-detail])
-    // fire this when their red traffic light is clicked. Closing a project
-    // window means the same thing as the "← All Disciplines" button above it:
-    // back out to the hub. One document-level listener covers every window of
-    // that type, including any added later.
-    document.addEventListener('project-detail:close', function (e) {
-      const section = e.target.closest('.project-showroom-section');
-      if (section) section.classList.add('hidden');
-      showHub();
-    });
 
     // Bilingual Dictionary Engine
     function setLanguage(lang) {
@@ -1790,6 +1999,7 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
     document.getElementById('dock-btn-panel-about').addEventListener('click', () => openPanel('panel-about'));
     document.getElementById('dock-btn-panel-portfolio').addEventListener('click', () => openPanel('panel-portfolio'));
     document.getElementById('dock-btn-panel-universe').addEventListener('click', () => openPanel('panel-universe'));
+    document.getElementById('dock-btn-panel-resume').addEventListener('click', () => openPanel('panel-resume'));
     document.getElementById('dock-btn-panel-journal').addEventListener('click', () => openPanel('panel-journal'));
 
     // Hero buttons listeners
@@ -1982,6 +2192,15 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
         image: 'AI-generated fashion visual',
         video: 'AI-generated fashion video'
       });
+      renderManifestFilmstrip('sketches-filmstrip', 'sketches', 'assets/projects/sketches/', {
+        image: 'Fashion sketch'
+      });
+      renderManifestFilmstrip('sewing-filmstrip', 'sewing', 'assets/projects/sewing/', {
+        image: 'Sewing piece'
+      });
+      renderManifestFilmstrip('crochet-filmstrip', 'crochet', 'assets/projects/crochet/', {
+        image: 'Crochet piece'
+      });
       // Order matters: the project blocks carry the .more-projects-grid-clean
       // elements that renderRelatedProjectCards() fills, and both must exist
       // before setLanguage() below walks [data-key] / .translatable.
@@ -1996,57 +2215,41 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
     });
   </script>
 
-  <!-- Sketches: interactive stack gallery component (self-contained, see components/sketch-stack/) -->
+  <!-- Sketches / Archive / 3D & AI / Sewing / Crochet: all five dock-scroll
+       galleries share the same manifest.js data source (generated by
+       components/sketch-stack/generate-manifest.py) — see
+       renderManifestFilmstrip() above. 3d-ai's manifest alone was generated
+       with --with-video, since that folder mixes renders and clips;
+       renderManifestFilmstrip() emits an <img> or a <video> per entry
+       accordingly. -->
   <script src="assets/projects/sketches/manifest.js"></script>
-  <script src="components/sketch-stack/sketch-stack-animations.js"></script>
-  <script src="components/sketch-stack/sketch-stack.js"></script>
-
-  <!-- Archive: same manifest.js data source as Sketches (generated by
-       components/sketch-stack/generate-manifest.py), rendered as a plain
-       filmstrip instead of the interactive stack — see
-       renderManifestFilmstrip() above. -->
   <script src="assets/projects/archive/manifest.js"></script>
-
-  <!-- 3D & AI: same manifest mechanism, generated with --with-video since
-       this folder mixes renders and clips — renderManifestFilmstrip()
-       emits an <img> or a <video> per entry accordingly. -->
   <script src="assets/projects/3d-ai/manifest.js"></script>
+  <script src="assets/projects/sewing/manifest.js"></script>
+  <script src="assets/projects/crochet/manifest.js"></script>
 
-  <!-- ProjectDetail: React "project window" template for Crochet/Sewing
-       (self-contained, see react-components/project-detail/). Scans for
-       [data-project-detail] elements below and mounts into them.
-
-       Loads one of two ways depending on how THIS page is being viewed:
+  <!-- loadEmbeddedComponent(): shared loader for embedded React components
+       (currently just Social Media's TikTok feed below). Loads one of two
+       ways depending on how THIS page is being viewed:
          - file:// (opened directly, the normal way) OR any static host
-           (GitHub Pages, etc.) — the prebuilt classic script
-           (dist-embed/project-detail.js). Has to be a classic, non-module
-           script here: type="module" is blocked by CORS when loaded from a
-           file:// page in real Chrome, and a static host has no bundler to
-           resolve bare imports like "react" anyway. Crochet/Sewing images
-           reflect whatever existed in their folders at the last
-           `npm run build:embed` (see react-components/project-detail/).
+           (GitHub Pages, etc.) — the prebuilt classic script. Has to be a
+           classic, non-module script here: type="module" is blocked by
+           CORS when loaded from a file:// page in real Chrome, and a
+           static host has no bundler to resolve bare imports like "react"
+           anyway.
          - served via the root-level `npm run dev` (Vite, localhost only) —
-           loads the component's own source as a real ES module instead,
-           which is what makes Crochet/Sewing's data-auto-folder image
-           discovery live: new files dropped into assets/projects/crochet
-           or /sewing appear on save/reload, no build step. See
-           vite.config.js and package.json at the project root.
+           loads the component's own source as a real ES module instead.
+           See vite.config.js and package.json at the project root.
 
            IMPORTANT: this used to branch on `location.protocol === 'file:'`,
            which wrongly took the Vite-module branch on ANY http(s) host —
            including GitHub Pages, where there's no bundler to resolve the
            module's imports, so the component silently failed to mount
-           (blank Crochet/Sewing and Social Media windows in production).
-           Branching on hostname instead so only the actual local dev
-           server gets the live-module treatment; every other host
-           (file://, GitHub Pages, any other static host) gets the
-           prebuilt bundle. -->
+           (blank Social Media window in production). Branching on hostname
+           instead so only the actual local dev server gets the live-module
+           treatment; every other host (file://, GitHub Pages, any other
+           static host) gets the prebuilt bundle. -->
   <script>
-    // Both React components load the same two ways, for the same reason, so
-    // the branch lives here once. `fileSrc` is the prebuilt classic script
-    // used everywhere except the local Vite dev server; `moduleSrc` is the
-    // component's own source, loaded as a real ES module only when running
-    // on `npm run dev` (localhost).
     function loadEmbeddedComponent(fileSrc, moduleSrc) {
       var s = document.createElement('script');
       var isLocalDevServer =
@@ -2060,18 +2263,12 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       }
       document.body.appendChild(s);
     }
-
-    loadEmbeddedComponent(
-      'react-components/project-detail/dist-embed/project-detail.js',
-      '/react-components/project-detail/src/mount.jsx'
-    );
   </script>
 
   <!-- Social Media: React TikTok feed (self-contained, see
        react-components/social-media/). Mounts into #social-media-root
-       above. Same file:// vs Vite-dev split as ProjectDetail above, for
-       the same CORS reason. Bundle filename is "creator-feed", not
-       "social-media" — see the <link> comment in <head> for why. -->
+       above. Bundle filename is "creator-feed", not "social-media" — see
+       the <link> comment in <head> for why. -->
   <script>
     loadEmbeddedComponent(
       'react-components/social-media/dist-embed/creator-feed.js',
@@ -2086,6 +2283,11 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
        blocked by common ad/tracker content-blocker filter lists
        (confirmed while testing this page). -->
   <script src='site-accessibility.js' defer></script>
+
+  <!-- Scroll Progress: vertical floating capsule, right edge, showing scroll
+       position. Self-mounting (see components/scroll-progress/), so this
+       script tag is the only integration point needed. -->
+  <script src='components/scroll-progress/scroll-progress.js' defer></script>
 </body>
 </html>
 

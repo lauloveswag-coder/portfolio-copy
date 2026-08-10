@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept — Restyled Discipline Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FCFAF6; --creamdark:#F7F3EE; --charcoal:#1E1E1E;
+    --sage:#A7B89E; --purple:#9882AC;
+    --directory-pink:#FF2E93; /* new, scoped to this prototype only — not the site's global --pink token */
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; font-family:'Space Mono',monospace; background:var(--cream); color:var(--charcoal);
+    background-image:
+      radial-gradient(circle, rgba(30,30,30,0.05) 1px, transparent 1px),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/></svg>");
+    background-size: 16px 16px, 120px 120px;
+  }
+  .font-serif-fashion{ font-family:'Playfair Display',serif; font-style:italic; }
+  .proto-badge{
+    position:fixed; top:12px; left:12px; z-index:70;
+    font-size:10px; letter-spacing:.08em;
+    background:var(--charcoal); color:var(--cream); padding:6px 10px; border-radius:999px;
+    text-transform:uppercase; opacity:.85;
+  }
+  .wrap{ max-width:1120px; margin:0 auto; padding:64px 20px 100px; text-align:center; }
+  .eyebrow{ font-size:10px; letter-spacing:.18em; text-transform:uppercase; opacity:.5; }
+  .title{ font-size:2.4rem; margin:8px 0 0; }
+  .dotted{ border:none; border-top:2px dotted rgba(30,30,30,0.22); margin:22px 0 8px; }
+
+  .hub-caption{ margin:0 0 40px; }
+  .hub-caption .a{ font-size:9px; letter-spacing:.14em; text-transform:uppercase; opacity:.4; display:block; }
+  .hub-caption .b{ font-size:1.15rem; margin-top:4px; }
+
+  .hub-row{
+    display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:center;
+    gap:44px 36px; margin:0 auto 40px;
+  }
+
+  .node{
+    position:relative; width:172px; transform:rotate(var(--tilt,0deg));
+    transition:transform .25s ease; text-align:center; cursor:pointer;
+  }
+  .node:hover{ z-index:10; transform:rotate(var(--tilt,0deg)) scale(1.06); }
+
+  .card{
+    position:relative; width:132px; margin:0 auto; aspect-ratio:3/4;
+  }
+  .card .edge{ position:absolute; inset:0; background:var(--creamdark); border-radius:8px; box-shadow:0 8px 18px rgba(30,30,30,0.18); }
+  .card .edge2{ transform:rotate(-6deg) translate(-4px,3px); }
+  .card .edge3{ transform:rotate(4deg) translate(3px,5px); }
+  .card .top{
+    position:relative; width:100%; height:100%; border-radius:8px; overflow:hidden;
+    box-shadow:0 12px 24px rgba(30,30,30,0.24); border:1px solid rgba(30,30,30,0.08);
+  }
+  .card .top img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .card .clip{ position:absolute; z-index:5; filter:drop-shadow(0 4px 4px rgba(0,0,0,0.3)); }
+
+  .badge{
+    display:inline-block; margin-top:12px; font-size:9px; letter-spacing:.1em;
+    border:1px solid rgba(30,30,30,0.25); border-radius:999px; padding:3px 9px;
+  }
+  .node:hover .badge, .node.is-selected .badge{ border-color:var(--directory-pink); color:var(--directory-pink); }
+  .name{ margin-top:8px; font-size:12.5px; text-transform:uppercase; letter-spacing:.03em; }
+  .node:hover .name, .node.is-selected .name{ color:var(--directory-pink); }
+  .count{ font-size:9px; opacity:.4; margin-top:2px; }
+
+  .status{
+    margin-top:8px; font-size:10px; letter-spacing:.08em; text-transform:uppercase; opacity:.5;
+  }
+  .status b{ color:var(--directory-pink); }
+
+  @media (max-width:700px){
+    .hub-row{ flex-direction:column; align-items:center; gap:32px; }
+    .node{ width:200px; }
+    .card{ width:150px; }
+  }
+</style>
+</head>
+<body>
+<div class="proto-badge">Prototype B — Restyled Hub</div>
+
+<div class="wrap">
+  <div class="eyebrow">EXHIBIT / PORTFOLIO.DXF</div>
+  <h1 class="title font-serif-fashion">Six Disciplines</h1>
+  <hr class="dotted">
+
+  <div class="hub-caption">
+    <span class="a">Five Disciplines</span>
+    <span class="b font-serif-fashion">Select One</span>
+  </div>
+
+  <div class="hub-row" id="hub"></div>
+
+  <div class="status" id="status">Hover a folder to preview · click to select</div>
+</div>
+
+<script>
+  var DISCIPLINES = [
+    { id:'sketches', num:1, label:'Sketches', tilt:'-3deg', count:62, preview:'../assets/projects/sketches/fit-one-final.webp',
+      clip:{ src:'../assets/ui/fasteners/pushpin-pink.png', width:44, top:-24, left:'50%', rotate:'-5deg' } },
+    { id:'3d-ai', num:2, label:'3D Rendering & AI', tilt:'2deg', count:15, preview:'../assets/projects/3d-ai/20260605_112144_1.webp',
+      clip:{ src:'../assets/ui/fasteners/pushpin-red.png', width:44, top:-24, left:'50%', rotate:'4deg' } },
+    { id:'sewing', num:3, label:'Sewing', tilt:'3deg', count:24, preview:'../assets/projects/sewing/2.webp',
+      clip:{ src:'../assets/ui/fasteners/pushpin-wood.png', width:70, top:-28, left:'50%', rotate:'6deg' } },
+    { id:'crochet', num:4, label:'Crochet', tilt:'-2deg', count:13, preview:'../assets/projects/crochet/IMG_20260214_163702821_HDR.webp',
+      clip:{ src:'../assets/ui/fasteners/bulldog-clip-cream.png', width:50, top:-27, left:'50%', rotate:'-2deg' } },
+    { id:'archive', num:5, label:'Archive', tilt:'-2.5deg', count:32, preview:'../assets/projects/archive/Illustration-1-layout.webp',
+      clip:{ src:'../assets/ui/fasteners/binder-clip-pink.png', width:62, top:-36, left:'50%', rotate:'3deg' } }
+  ];
+
+  var hub = document.getElementById('hub');
+  var status = document.getElementById('status');
+  var selected = null;
+
+  hub.innerHTML = DISCIPLINES.map(function(d, i){
+    var numStr = String(d.num).padStart(2,'0');
+    return '<div class="node" style="--tilt:'+d.tilt+'" data-id="'+d.id+'" data-label="'+d.label+'">'+
+      '<div class="card">'+
+        '<div class="edge edge3"></div>'+
+        '<div class="edge edge2"></div>'+
+        '<div class="top"><img src="'+d.preview+'" alt="" loading="lazy"></div>'+
+        '<img class="clip" src="'+d.clip.src+'" alt="" loading="lazy" style="width:'+d.clip.width+'px; top:'+d.clip.top+'px; left:'+d.clip.left+'; transform:translateX(-50%) rotate('+d.clip.rotate+');">'+
+      '</div>'+
+      '<span class="badge">[ '+numStr+' ]</span>'+
+      '<div class="name">'+d.label+'</div>'+
+      '<div class="count">'+d.count+' works</div>'+
+    '</div>';
+  }).join('');
+
+  hub.querySelectorAll('.node').forEach(function(node){
+    node.addEventListener('click', function(){
+      hub.querySelectorAll('.node').forEach(function(n){ n.classList.remove('is-selected'); });
+      node.classList.add('is-selected');
+      selected = node.getAttribute('data-id');
+      status.innerHTML = 'Selected: <b>'+node.getAttribute('data-label')+'</b> — would open its gallery';
+    });
+  });
+</script>
+</body>
+</html>

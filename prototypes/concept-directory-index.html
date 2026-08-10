@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Concept — Directory Index (SNASK-style)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FCFAF6; --creamdark:#F7F3EE; --charcoal:#1E1E1E;
+    --sage:#A7B89E; --purple:#9882AC;
+    --directory-pink:#FF2E93; /* new, scoped to this prototype only — not the site's global --pink token */
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; font-family:'Space Mono',monospace; background:var(--cream); color:var(--charcoal);
+    background-image:
+      radial-gradient(circle, rgba(30,30,30,0.05) 1px, transparent 1px),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/></svg>");
+    background-size: 16px 16px, 120px 120px;
+  }
+  .font-serif-fashion{ font-family:'Playfair Display',serif; font-style:italic; }
+  .proto-badge{
+    position:fixed; top:12px; left:12px; z-index:70;
+    font-size:10px; letter-spacing:.08em;
+    background:var(--charcoal); color:var(--cream); padding:6px 10px; border-radius:999px;
+    text-transform:uppercase; opacity:.85;
+  }
+  .wrap{ max-width:920px; margin:0 auto; padding:64px 20px 120px; }
+  header{ margin-bottom:28px; }
+  .eyebrow{ font-size:10px; letter-spacing:.18em; text-transform:uppercase; opacity:.5; }
+  .title{ font-size:2.4rem; margin:8px 0 0; }
+  .dotted{
+    border:none; border-top:2px dotted rgba(30,30,30,0.22); margin:22px 0;
+  }
+  .filter-row{ display:flex; flex-wrap:wrap; align-items:center; gap:10px 12px; }
+  .filter-toggle{
+    font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.04em; text-transform:uppercase;
+    background:transparent; border:1px solid rgba(30,30,30,0.2); border-radius:999px;
+    padding:7px 14px; cursor:pointer; color:var(--charcoal); display:inline-flex; align-items:center; gap:7px;
+    transition:all .15s ease;
+  }
+  .filter-toggle .box{ width:10px; height:10px; border:1px solid currentColor; display:inline-block; position:relative; flex:none; }
+  .filter-toggle.active{
+    background:var(--directory-pink); border-color:var(--directory-pink); color:#fff;
+  }
+  .filter-toggle.active .box::after{
+    content:''; position:absolute; inset:1px; background:#fff;
+  }
+  .filter-toggle:hover{ border-color:var(--directory-pink); }
+  .filter-reset{
+    margin-left:auto; font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+    background:none; border:none; color:var(--charcoal); opacity:.55; cursor:pointer; text-decoration:underline;
+  }
+  .filter-reset:hover{ opacity:1; color:var(--directory-pink); }
+  .count-row{ display:flex; justify-content:space-between; align-items:baseline; margin-top:16px; }
+  .count-label{ font-size:10px; letter-spacing:.14em; text-transform:uppercase; opacity:.45; }
+  .count-value{ font-size:13px; font-weight:700; letter-spacing:.04em; }
+  .count-value b{ color:var(--directory-pink); }
+
+  .listing{ position:relative; }
+  .row{
+    display:grid; grid-template-columns:52px 1fr auto; align-items:center; gap:18px;
+    padding:13px 4px; border-bottom:1px dotted rgba(30,30,30,0.18);
+    cursor:pointer; position:relative;
+  }
+  .row:hover{ background:rgba(255,46,147,0.05); }
+  .row .num{ font-size:11px; opacity:.4; }
+  .row:hover .num{ color:var(--directory-pink); opacity:1; }
+  .row .name{ font-size:13px; text-transform:uppercase; letter-spacing:.02em; }
+  .row .tag{
+    font-size:9.5px; letter-spacing:.08em; text-transform:uppercase;
+    border:1px solid rgba(30,30,30,0.25); border-radius:999px; padding:4px 10px; white-space:nowrap;
+  }
+  .row:hover .tag{ border-color:var(--directory-pink); color:var(--directory-pink); }
+  .empty-msg{ padding:40px 4px; font-size:11px; opacity:.5; text-transform:uppercase; letter-spacing:.1em; }
+
+  /* Floating paperclip-card preview, follows the cursor while hovering a row */
+  #preview{
+    position:fixed; top:0; left:0; width:150px; pointer-events:none; z-index:60;
+    opacity:0; transform:translate(-9999px,-9999px) rotate(-4deg); transition:opacity .15s ease;
+  }
+  #preview.show{ opacity:1; }
+  .pcard{ position:relative; width:150px; }
+  .pcard .edge{
+    position:absolute; inset:0; background:var(--creamdark); border-radius:6px;
+    box-shadow:0 10px 22px rgba(30,30,30,0.22);
+  }
+  .pcard .edge2{ transform:rotate(-6deg) translate(-4px,3px); }
+  .pcard .edge3{ transform:rotate(4deg) translate(3px,5px); }
+  .pcard .top{
+    position:relative; width:100%; aspect-ratio:3/4; border-radius:6px; overflow:hidden;
+    background:var(--creamdark); box-shadow:0 14px 28px rgba(30,30,30,0.28);
+    border:1px solid rgba(30,30,30,0.08);
+  }
+  .pcard .top img, .pcard .top video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .pcard .clip{ position:absolute; top:-16px; left:50%; transform:translateX(-50%) rotate(-3deg); width:34px; z-index:5; filter:drop-shadow(0 3px 3px rgba(0,0,0,0.35)); }
+  .pcard .label{
+    margin-top:8px; text-align:center; font-size:9px; letter-spacing:.08em; text-transform:uppercase;
+    background:var(--charcoal); color:var(--cream); border-radius:999px; padding:4px 8px;
+  }
+</style>
+</head>
+<body>
+<div class="proto-badge">Prototype A — Directory Index</div>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">EXHIBIT / PORTFOLIO.DXF</div>
+    <h1 class="title font-serif-fashion">Works Index</h1>
+  </header>
+
+  <hr class="dotted">
+
+  <div class="filter-row" id="filterRow"></div>
+  <div class="count-row">
+    <span class="count-label">Filtered / Total</span>
+    <span class="count-value" id="countValue">[ 0 / 0 ]</span>
+  </div>
+
+  <hr class="dotted">
+
+  <div class="listing" id="listing"></div>
+</div>
+
+<div id="preview">
+  <div class="pcard">
+    <div class="edge edge3"></div>
+    <div class="edge edge2"></div>
+    <div class="top" id="previewMedia"></div>
+    <svg class="clip" viewBox="0 0 24 60" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2 C4 2 4 10 4 14 L4 46 C4 54 20 54 20 46 L20 16 C20 10 14 10 14 16 L14 42 C14 45 10 45 10 42 L10 12" fill="none" stroke="#9aa0a6" stroke-width="3.2" stroke-linecap="round"/>
+    </svg>
+    <div class="label" id="previewLabel">Sketches</div>
+  </div>
+</div>
+
+<script>
+  var MANIFESTS = {
+    "sketches": ["0543c74e-1df5-4ea2-98d3-b41ef34b30f7.webp","1.webp","2-copy.webp","2.webp","2023_10_16-7_39-PM-Office-Lens-(5).webp","2023_10_16-9_27-AM-Office-Lens-(1).webp","2023_10_16-9_27-AM-Office-Lens-(3).webp","2024_05_03-11_24-AM-Office-Lens.webp","3.webp","4.webp","456a713d-82a3-4b25-b47b-14f46e4b84fc.webp","5.webp","53243893-934c-45ec-acb7-9b4497463e3b.webp","6.webp","IMG-20230609-WA0000.webp","IMG-20230609-WA0001.webp","IMG-20230609-WA0002.webp","IMG-20230609-WA0003.webp","IMG-20241125-WA0039.webp","IMG-20241125-WA0040.webp","IMG_20230602_120647.webp","IMG_20230602_120650(1).webp","IMG_20230602_120650.webp","IMG_20230602_120650_optimized.webp","IMG_20230602_164527.webp","IMG_20230602_165413.webp","IMG_20230607_095917.webp","IMG_20230607_095928.webp","IMG_20250601_131233.webp","IMG_20260604_230743066_HDR.webp","IMG_20260604_230805305_HDR.webp","IMG_20260604_230818044_HDR.webp","Ilfit2.webp","Layer-3.webp","Saber-Dridi-Stars-in-FACTORY-Fanzine-Summer-2022-Issue.webp","Screenshot-2023-09-28-at-3.41.22-PM.webp","The-Best-Street-Style-At-The-Paris-Menswear-SS23-Shows.webp","_.webp","a-vata-r-6mmm.webp","a-vata-r-8-horn.webp","bbbbhjhjh~2.webp","bbbbkkk~2.webp","details-pt.webp","fit-10.2.webp","fit-3.webp","fit-4.webp","fit-7.webp","fit-8.webp","fit-9.webp","fit-five-final.webp","fit-four-final.webp","fit-one-final.webp","fit-one.webp","fit-six-final.webp","fit-three-final.webp","fit-two-final.webp","fit1.webp","fit2.webp","fit3.webp","fzt5.webp","gg.webp","zooms-v-1.webp"],
+    "3d-ai": ["01kgj03gxhgpzdhxq3v61pzw9x.mp4","01kgj31nz9maez4gct3rvtn3aw.mp4","01kgj3jpkd0vrr4pxfpdaz78aa.mp4","01kgj3mp7q1eypj4556j2f3vfm.mp4","2026-01-15T14-27-51_high_fashion_runway_watermarked.mp4","20260605_112141_1.webp","20260605_112142_1.webp","20260605_112144_1-(1).webp","20260605_112144_1.webp","20260605_112257_1.webp","Gemini_Generated_Image_4jrr174jrr174jrr.webp","download_1780658850692.webp","download_1780659121138.webp","download_1780659980596.webp","download_1780659988155.webp"],
+    "sewing": ["0df4fb3e-e67a-4974-95e6-e667a6d078b2.webp","1.webp","123.webp","2-copy.webp","2.webp","3.webp","4.webp","DSC06870.webp","DSC_7148.webp","IMG_20230613_153047.webp","IMG_20231002_131643.webp","IMG_20231002_132552.webp","IMG_20231017_102906_274.webp","IMG_20231017_123120.webp","IMG_20231120_145545.webp","IMG_20231218_205745.webp","IMG_20240420_134022.webp","IMG_20240510_180920.webp","IMG_20240510_182045.webp","IMG_20240515_142037.webp","IMG_20241105_145038.webp","IMG_20241112_153035.webp","IMG_20241128_151009.webp","IMG_20260620_150647645_HDR.webp"],
+    "crochet": ["2023-02-09-13-29-50-231.webp","IMG-20240824-WA0000.webp","IMG_20230624_011316.webp","IMG_20231207_201530.webp","IMG_20240703_150609.webp","IMG_20240717_222830.webp","IMG_20240825_201817.webp","IMG_20240825_201915.webp","IMG_20240825_202049.webp","IMG_20240825_202142.webp","IMG_20241026_135700_089.webp","IMG_20260214_162327012_HDR.webp","IMG_20260214_163702821_HDR.webp"],
+    "archive": ["039-vivienne-westwood-spring-1994-ready-to-wear-CN10055443.webp","20200323_130253.webp","20200324_160531.webp","20200515_105618~2.webp","IMG_20160620_140216.webp","IMG_20220315_204607.webp","IMG_20220315_210113_918.webp","IMG_20220607_212308.webp","IMG_20220710_191523.webp","IMG_20220926_141851.webp","IMG_20220926_141903.webp","IMG_20220927_213341_984.webp","IMG_20220927_213342_071.webp","IMG_20221130_083452.webp","IMG_20221212_175332.webp","IMG_20221216_140534.webp","IMG_20230131_152613.webp","IMG_20230131_153726.webp","IMG_20230201_115138.webp","IMG_20231107_184918.webp","IMG_20241114_100150.webp","IMG_20241117_192358.webp","IMG_20241117_192418.webp","IMG_20241117_192443.webp","IMG_20241117_192455.webp","IMG_20241117_192501.webp","IMG_20241203_155038_690.webp","Illustration-1-layout.webp","Screenshot-2024-04-29-at-11.00.54-AM.webp","analyti.webp","charte-graphique.webp","logoo.webp"]
+  };
+  var CATS = [
+    { id:'sketches', label:'Sketches' },
+    { id:'3d-ai', label:'3D Rendering & AI' },
+    { id:'sewing', label:'Sewing' },
+    { id:'crochet', label:'Crochet' },
+    { id:'archive', label:'Archive' }
+  ];
+
+  var rows = [];
+  CATS.forEach(function(cat){
+    MANIFESTS[cat.id].forEach(function(file){
+      rows.push({ cat:cat.id, catLabel:cat.label, file:file, src:'../assets/projects/'+cat.id+'/'+file, isVideo:/\.mp4$/i.test(file) });
+    });
+  });
+  var TOTAL = rows.length;
+  var active = {}; CATS.forEach(function(c){ active[c.id] = true; });
+
+  function cleanName(file){
+    var n = file.replace(/\.(webp|mp4)$/i,'').replace(/[-_]+/g,' ').trim();
+    if (/^[0-9a-f-]{20,}$/i.test(n)) return 'Untitled Study';
+    return n.length > 34 ? n.slice(0,34)+'…' : n;
+  }
+
+  function renderFilters(){
+    var el = document.getElementById('filterRow');
+    el.innerHTML = CATS.map(function(c){
+      var count = MANIFESTS[c.id].length;
+      return '<button class="filter-toggle'+(active[c.id]?' active':'')+'" data-cat="'+c.id+'">'+
+             '<span class="box"></span>'+c.label+' ('+count+')</button>';
+    }).join('') + '<button class="filter-reset" id="resetBtn">Reset</button>';
+
+    el.querySelectorAll('.filter-toggle').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = btn.getAttribute('data-cat');
+        active[id] = !active[id];
+        renderFilters(); renderRows();
+      });
+    });
+    document.getElementById('resetBtn').addEventListener('click', function(){
+      CATS.forEach(function(c){ active[c.id] = true; });
+      renderFilters(); renderRows();
+    });
+  }
+
+  function renderRows(){
+    var visible = rows.filter(function(r){ return active[r.cat]; });
+    document.getElementById('countValue').innerHTML = '[ <b>'+visible.length+'</b> / '+TOTAL+' ]';
+    var listing = document.getElementById('listing');
+    if (!visible.length){
+      listing.innerHTML = '<div class="empty-msg">No works match the current filters.</div>';
+      return;
+    }
+    listing.innerHTML = visible.map(function(r, i){
+      var num = String(i+1).padStart(4,'0');
+      return '<div class="row" data-src="'+r.src+'" data-video="'+r.isVideo+'" data-cat="'+r.catLabel+'">'+
+        '<span class="num">'+num+'</span>'+
+        '<span class="name">'+cleanName(r.file)+'</span>'+
+        '<span class="tag">[ '+r.catLabel.toUpperCase()+' ]</span>'+
+      '</div>';
+    }).join('');
+
+    var preview = document.getElementById('preview');
+    var media = document.getElementById('previewMedia');
+    var label = document.getElementById('previewLabel');
+    listing.querySelectorAll('.row').forEach(function(row){
+      row.addEventListener('mouseenter', function(){
+        var isVideo = row.getAttribute('data-video') === 'true';
+        var src = row.getAttribute('data-src');
+        media.innerHTML = isVideo
+          ? '<video src="'+src+'" muted playsinline preload="metadata"></video>'
+          : '<img src="'+src+'" alt="" loading="lazy">';
+        label.textContent = row.getAttribute('data-cat');
+        preview.classList.add('show');
+      });
+      row.addEventListener('mousemove', function(e){
+        preview.style.transform = 'translate('+(e.clientX+22)+'px,'+(e.clientY-40)+'px) rotate(-4deg)';
+      });
+      row.addEventListener('mouseleave', function(){
+        preview.classList.remove('show');
+      });
+    });
+  }
+
+  renderFilters();
+  renderRows();
+</script>
+</body>
+</html>

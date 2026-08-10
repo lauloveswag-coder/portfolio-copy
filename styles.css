@@ -320,6 +320,7 @@ body {
 #panel-about { background: color-mix(in srgb, var(--cream) 90%, var(--sage) 10%); }
 #panel-portfolio { background: color-mix(in srgb, var(--cream) 90%, var(--purple) 10%); }
 #panel-universe { background: color-mix(in srgb, var(--cream) 88%, var(--pink) 12%); }
+#panel-resume { background: color-mix(in srgb, var(--cream) 93%, var(--purple) 7%); }
 #panel-journal { background: color-mix(in srgb, var(--cream) 94%, var(--charcoal) 6%); }
 
 .panel-header {
@@ -472,18 +473,18 @@ body {
   border-radius: 9999px;
 }
 
-/* Dock-scroll gallery: infinite horizontal loop + macOS dock magnification.
-   Used only by Archive and 3D Rendering & AI (renderManifestFilmstrip() in
-   index.html). Deliberately its own class names rather than reusing
-   .filmstrip-row/.polaroid-frame above, so the unrelated "Personal
-   Universe: Crochet Archive" filmstrip (which keeps using those classes)
-   is provably unaffected. */
+/* Dock-scroll gallery: infinite horizontal loop (wheel/trackpad + click-drag,
+   see initDockScrollInteraction() in index.html) + macOS dock magnification.
+   Used by Sketches, 3D Rendering & AI, Sewing, Archive, and Crochet
+   (renderManifestFilmstrip() in index.html). Deliberately its own class
+   names rather than reusing .filmstrip-row/.polaroid-frame above, so the
+   unrelated "Personal Universe: Crochet Archive" teaser strip (which keeps
+   using those classes) is provably unaffected. */
 
 /* Breaks the gallery out of .portfolio-container-clean's 1200px max-width
-   to span the true viewport edge-to-edge — same technique as
-   .pd-mount--fullbleed below, scoped to this wrapper only (the shared
-   .portfolio-container-clean rule itself is untouched, so every other
-   section using it is unaffected). overflow-x here (not on body/html)
+   to span the true viewport edge-to-edge, scoped to this wrapper only (the
+   shared .portfolio-container-clean rule itself is untouched, so every
+   other section using it is unaffected). overflow-x here (not on body/html)
    absorbs the ~1 scrollbar-width of slop 100vw can introduce; body already
    also carries its own overflow-x: hidden as a second, pre-existing
    safeguard against any full-bleed element on the page. */
@@ -510,10 +511,24 @@ body {
      case is the largest video card: 24rem wide, 4:5 aspect = 30rem (480px)
      tall at rest, 648px at the 1.35x hover scale = ~168px of upward growth.
      padding-top below has headroom above that; padding-bottom just clears
-     the hover box-shadow's blur. */
+     the hover box-shadow's blur.
+     overflow:hidden still allows JS-driven scrolling (setting scrollLeft
+     programmatically works fine — it only suppresses the native scrollbar
+     and native wheel/touch handling, which is exactly what the wheel/drag
+     handlers in initDockScrollInteraction() take over instead). */
   overflow: hidden;
   width: 100%;
   padding: 200px 0 80px;
+  cursor: grab;
+  /* Hand full control of touch gestures here to the pointer-event drag
+     handlers in index.html — without this, touchstart inside the gallery
+     can be captured by the browser as a page-scroll gesture instead of
+     starting our drag-scroll. */
+  touch-action: none;
+}
+
+.dock-scroll.is-drag-scrolling {
+  cursor: grabbing;
 }
 
 .dock-scroll__track {
@@ -521,16 +536,6 @@ body {
   align-items: flex-end;
   gap: 2.5rem;
   width: max-content;
-  animation: dock-scroll-loop var(--dock-scroll-duration, 36s) linear infinite;
-}
-
-.dock-scroll:hover .dock-scroll__track {
-  animation-play-state: paused;
-}
-
-@keyframes dock-scroll-loop {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 /* Card size scales with the viewport (clamp/vw), not a fixed px value, so
@@ -560,6 +565,12 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Belt-and-braces alongside the dragstart preventDefault() in
+     initDockScrollInteraction() (index.html) — stops Safari's native
+     "drag this image out" ghost from fighting the click-and-drag scroll
+     even before that JS listener runs. */
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .dock-scroll__card:hover {
@@ -598,12 +609,6 @@ body {
   }
   .dock-scroll__card--video {
     width: 13rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dock-scroll__track {
-    animation: none;
   }
 }
 
@@ -1053,45 +1058,50 @@ body {
   user-select: auto;
 }
 
-/* ---- Discipline hub: single unified entry screen, six disciplines
-   arranged radially (desktop/tablet), collapsing to a simple stacked
-   list on mobile. Replaces the old two-column list+detail split. ---- */
+/* ---- Discipline hub: single unified entry screen, five disciplines
+   (Social Media is soft-archived — flagged `archived: true` in
+   DISCIPLINE_FOLDERS, index.html — and excluded from this render, but its
+   own section/nav entry/homepage link all still work) laid out as a
+   horizontal row of tactile paperclip-cards, wrapping to a stacked column
+   on mobile. --directory-pink is scoped to this panel only — it does not
+   touch the site-wide, theme-switchable --pink token used elsewhere. ---- */
+#panel-portfolio {
+  --directory-pink: #FF2E93;
+}
+
 .discipline-hub-circle {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 44px 32px;
   width: 100%;
-  max-width: 560px;
-  aspect-ratio: 1;
-  /* The lowest node (hub-node-4, ~88% down) sits close to the circle's
-     own bottom edge. Without this, it lands under the fixed nav dock and
-     becomes unclickable once scrolled into view. */
-  margin-bottom: 170px;
+  max-width: 1040px;
+  margin: 0 auto 40px;
 }
 
 .discipline-hub-center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 150px;
+  width: 100%;
   text-align: center;
+  margin-bottom: 28px;
   pointer-events: none;
 }
 
 .hub-node {
-  position: absolute;
-  width: 168px;
-  transform: translate(-50%, -50%) rotate(var(--tilt, 0deg));
+  position: relative;
+  width: 164px;
+  transform: rotate(var(--tilt, 0deg));
   transition: transform 0.25s ease;
 }
 .hub-node:hover {
   z-index: 10;
-  transform: translate(-50%, -50%) rotate(var(--tilt, 0deg)) scale(1.05);
+  transform: rotate(var(--tilt, 0deg)) scale(1.05);
 }
 
-/* ---- Folder nodes: macOS-style folder icon per discipline, with a real
-   preview of that discipline's own work spilling out over the top edge,
-   like a folder stuffed just a little too full. Neutralizes the plain
-   .archive-card paper-card look (kept only for the search/data-keywords
-   mechanism) in favor of this shape. ---- */
+/* ---- Folder nodes: a tactile paperclip-card per discipline — a stacked
+   paper photo card (layered edges + drop shadow) clipped at the top by a
+   real fastener image (assets/ui/fasteners/, see each entry's `clip` field
+   in DISCIPLINE_FOLDERS) — replacing the previous macOS-style folder icon. ---- */
 .folder-node {
   background: none !important;
   border: none !important;
@@ -1102,264 +1112,99 @@ body {
   align-items: center;
 }
 
-/* Wraps the folder icon (back + front panels) and its spilling-out preview
-   items, so the caption below can sit in normal flow instead of overlaying
-   the pattern. */
-.folder-visual {
+.paperclip-card {
+  position: relative;
+  display: block;
+  width: 128px;
+  aspect-ratio: 3 / 4;
+  margin: 0 auto;
+}
+.paperclip-edge {
+  position: absolute;
+  inset: 0;
+  background: var(--cream-dark);
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgb(var(--color-text-primary) / 0.16);
+}
+.paperclip-edge2 { transform: rotate(-6deg) translate(-4px, 3px); }
+.paperclip-edge3 { transform: rotate(4deg) translate(3px, 5px); }
+.paperclip-top {
   position: relative;
   display: block;
   width: 100%;
-  padding-top: 34px; /* headroom for preview items poking up above the back panel */
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 12px 24px rgb(var(--color-text-primary) / 0.22);
+  border: 1px solid rgb(var(--color-text-primary) / 0.08);
 }
-
-/* The folder's shape and proportions come from assets/ui/icons8-folder-240.webp, used
-   as a mask — only its alpha channel. Everything visible is still CSS: the
-   per-discipline --folder-back-color / --folder-bg-color / --folder-pattern
-   below are untouched, so the color system is exactly what it was.
-
-   That file is a 240x240 canvas whose opaque folder occupies x 5→234,
-   y 25→204 — i.e. 230x180 with transparent padding around it. So this box
-   is sized to the FOLDER (230:180, the original's true proportions), and
-   each masked layer inside is blown up to the full 240x240 footprint and
-   offset by that padding, landing the folder exactly on this box. Sizing
-   the layers to the canvas instead would shrink the folder and leave dead
-   space on all four sides. */
-.folder-shape {
-  --folder-art: url('assets/ui/icons8-folder-240.webp');
-  --folder-art-w: 104.3478%;  /* 240/230 */
-  --folder-art-h: 133.3333%;  /* 240/180 */
-  --folder-art-x: -2.1739%;   /*  -5/230 */
-  --folder-art-y: -13.8889%;  /* -25/180 */
-  position: relative;
-  display: block;
-  /* Slightly inset from the node's full width, centered — the single knob
-     for the folder icon's size. Height follows via aspect-ratio, so the
-     proportions hold whatever this is set to. */
-  width: 90%;
-  aspect-ratio: 230 / 180;
-  margin: 14px auto 0;
-}
-
-/* Shared geometry + masking for the two color layers. */
-.folder-back,
-.folder-front {
-  position: absolute;
-  left: var(--folder-art-x);
-  top: var(--folder-art-y);
-  width: var(--folder-art-w);
-  height: var(--folder-art-h);
-  -webkit-mask-image: var(--folder-art);
-          mask-image: var(--folder-art);
-  -webkit-mask-size: 100% 100%;
-          mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-          mask-repeat: no-repeat;
-}
-
-/* Rear panel: the folder's own material, not a shaded copy of the front.
-   Solid color, no pattern. It carries the FULL icon silhouette — tab and
-   body — and the front panel below covers the body part of it, so what
-   stays visible is exactly the tab. The tab-notch geometry that used to be
-   hand-cut here with a clip-path polygon now comes from the PNG itself. */
-.folder-back {
-  background-color: var(--folder-back-color);
-  /* A mask clips box-shadow away along with the rest of the box, so the
-     cast shadow has to be a filter — which follows the masked silhouette
-     instead of the element's rectangle. */
-  filter: drop-shadow(0 10px 14px rgb(var(--color-text-primary) / 0.18));
-  z-index: 1;
-}
-
-/* Front panel: the same silhouette cut off at the icon's own body line
-   (y=53 of the 240px canvas — where the shape stops being just the tab and
-   goes full width), so the back panel's tab shows above it. Its top edge
-   crosses the lower portion of the tucked-in preview photos (z-index 2),
-   so they read as slipped inside the folder's opening rather than pinned
-   on top of it. */
-.folder-front {
-  clip-path: inset(22.08% 0 0 0); /* 53/240 */
-  background-color: var(--folder-bg-color);
-  background-image: var(--folder-pattern, none);
-  background-size: var(--folder-pattern-size, auto);
-  background-position: var(--folder-pattern-position, 0 0);
-  z-index: 3;
-}
-
-/* Preview items sit BETWEEN the back panel (z-index 1) and the front panel
-   (z-index 3) — positioned low enough that the front panel's top edge
-   crosses their lower third at rest, so they read as tucked inside the
-   folder's opening, not floating above it. */
-.folder-preview {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  /* Wide enough that the site-wide img{max-width:100%} reset never caps
-     the preview photos below — this element has no visible box of its
-     own, it's just a positioning anchor. */
-  width: 240px;
-  height: 0;
-  z-index: 2;
-  pointer-events: none;
-  transform: translateY(0);
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-/* The "sleeve" effect: hovering a folder slides its tucked-in items further
-   out of the opening — a clear pull-out motion, on top of the node's
-   existing tilt+scale hover — purely additive, doesn't change the
-   click/nav behavior below. */
-.hub-node:hover .folder-preview {
-  transform: translateY(-26px);
-}
-.folder-preview-img {
-  position: absolute;
-  top: 4px;
-  left: 0;
-  width: 64px;
-  height: 84px;
+.paperclip-top img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  /* No polaroid frame — image bleeds to its own edge. Same soft
-     rounded-squircle curve as the folder panels, scaled to this
-     element's smaller size. */
-  border-radius: 16px;
-  box-shadow: 0 8px 16px rgb(var(--color-text-primary) / 0.24);
+  display: block;
 }
-.folder-preview-img--1 { transform: translateX(-72%) rotate(-9deg); z-index: 1; }
-.folder-preview-img--2 { top: -2px; transform: translateX(-4%) rotate(7deg); z-index: 2; }
-/* Single-item folders (no second real asset yet) center the one photo. */
-.folder-preview-img--solo { transform: translateX(-50%) rotate(-6deg); }
+.paperclip-clip {
+  position: absolute;
+  z-index: 5;
+  filter: drop-shadow(0 4px 4px rgb(var(--color-text-primary) / 0.3));
+  pointer-events: none;
+}
 
-/* Caption lives below the folder icon now, like a handwritten label under
-   a physical folder — not layered on top of its pattern. */
+/* Caption lives below the card, directory-style monospace. */
 .folder-caption {
-  margin-top: 14px;
+  margin-top: 12px;
   display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: center;
-  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
   text-align: center;
 }
-.folder-caption .project-badge-clean {
-  font-size: 0.65rem;
-  /* Both the badge's 12px bottom margin and the h3's top margin would show
-     up as horizontal misalignment now that these sit side by side. */
-  margin-bottom: 0;
+.folder-index-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  border: 1px solid rgb(var(--color-text-primary) / 0.25);
+  border-radius: 999px;
+  padding: 3px 9px;
+  color: var(--charcoal);
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
-.folder-caption h3 {
-  margin-top: 0;
+.hub-node:hover .folder-index-badge,
+.discipline-tile.is-selected .folder-index-badge {
+  border-color: var(--directory-pink);
+  color: var(--directory-pink);
 }
-
-/* Each folder's surface pattern reproduces the reference icon set the
-   user provided (polka dot / plaid / corduroy "Folder Colorizer" style
-   macOS icons) rather than a flat color fill — this is a deliberate,
-   explicit exception to the site's normally-restrained surfaces. */
-
-/* Four of the six folders share one identical polka-dot surface — same dot
-   radius, grid pitch and half-step offset — differing only in dot color.
-   The geometry lives here once; each folder below sets --folder-dot-color
-   (plus its own back/ground colors). The two non-dotted folders (Sewing's
-   plaid, Archive's corduroy) keep their own --folder-pattern. */
-.folder--sketches,
-.folder--3d-ai,
-.folder--crochet,
-.folder--social {
-  --folder-pattern:
-    radial-gradient(circle, var(--folder-dot-color) 7px, transparent 7.5px),
-    radial-gradient(circle, var(--folder-dot-color) 7px, transparent 7.5px);
-  --folder-pattern-size: 34px 34px, 34px 34px;
-  --folder-pattern-position: 0 0, 17px 17px;
+.folder-name {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--charcoal);
+  transition: color 0.15s ease;
 }
-
-/* 01 Sketches — periwinkle back tab, dark brown ground, light-blue polka dots */
-.folder--sketches {
-  --folder-back-color: #8695D6;
-  --folder-bg-color: #2B1810;
-  --folder-dot-color: #AFC0E8;
+.hub-node:hover .folder-name,
+.discipline-tile.is-selected .folder-name {
+  color: var(--directory-pink);
 }
-
-/* 02 3D Rendering & AI — dark maroon back tab, cream ground, black polka dots */
-.folder--3d-ai {
-  --folder-back-color: #3A1210;
-  --folder-bg-color: #F1E4C8;
-  --folder-dot-color: #1A1210;
+.folder-count {
+  font-size: 0.6rem;
+  color: rgb(var(--color-text-primary) / 0.4);
 }
-
-/* 03 Crochet — deep maroon back tab, pink ground, deep maroon polka dots */
-.folder--crochet {
-  --folder-back-color: #3D0D14;
-  --folder-bg-color: #F0A0C0;
-  --folder-dot-color: #3D0D14;
-}
-
-/* 04 Sewing — solid pink back tab, pink plaid/tartan crosshatch front */
-.folder--sewing {
-  --folder-back-color: #D9548C;
-  --folder-bg-color: #E8A0BC;
-  --folder-pattern:
-    repeating-linear-gradient(0deg, rgba(196, 40, 40, 0.4) 0px, rgba(196, 40, 40, 0.4) 4px, transparent 4px, transparent 26px),
-    repeating-linear-gradient(90deg, rgba(196, 40, 40, 0.4) 0px, rgba(196, 40, 40, 0.4) 4px, transparent 4px, transparent 26px),
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.55) 0px, rgba(255, 255, 255, 0.55) 2px, transparent 2px, transparent 13px),
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.55) 0px, rgba(255, 255, 255, 0.55) 2px, transparent 2px, transparent 13px);
-}
-
-/* 05 Archive — matching olive back tab, olive-green corduroy ribbing front */
-.folder--archive {
-  --folder-back-color: #93A94C;
-  --folder-bg-color: #A3BE55;
-  --folder-pattern:
-    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.16) 0px, rgba(255, 255, 255, 0.16) 2px, rgba(0, 0, 0, 0.08) 2px, rgba(0, 0, 0, 0.08) 4px);
-}
-
-/* 06 Social Media — sage back tab, pale-pink ground, sage polka dots */
-.folder--social {
-  --folder-back-color: #94A879;
-  --folder-bg-color: #F6DCE4;
-  --folder-dot-color: #94A879;
-}
-
-/* Six points evenly spaced around the circle, starting at 12 o'clock. */
-.hub-node-1 { top: 12%;   left: 50%; }
-.hub-node-2 { top: 31%;   left: 82.9%; }
-.hub-node-3 { top: 69%;   left: 82.9%; }
-.hub-node-4 { top: 88%;   left: 50%; }
-.hub-node-5 { top: 69%;   left: 17.1%; }
-.hub-node-6 { top: 31%;   left: 17.1%; }
 
 @media (max-width: 767px) {
   .discipline-hub-circle {
-    max-width: none;
-    aspect-ratio: auto;
-    display: flex;
     flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 28px;
     /* The nav dock is a fixed full-width bar on mobile too — keep the
        last item clear of it. */
     margin-bottom: 140px;
   }
-  .discipline-hub-center {
-    position: static;
-    transform: none;
-    width: auto;
-    margin-bottom: 8px;
-  }
   .hub-node {
-    position: static;
-    width: 100%;
-    transform: none !important;
+    width: 200px;
   }
-  /* A small peeking preview above every row reads as clutter in a plain
-     stacked list — keep the folder shape, drop the spilling-out image. */
-  .folder-preview {
-    display: none;
-  }
-  .folder-visual {
-    padding-top: 0;
-  }
-  /* The rows go full-width on mobile, and the folder's height now follows
-     its width (fixed proportions), so an uncapped folder would be ~270px
-     tall per row. Pin it to the desktop size and center it instead. */
-  .folder-shape {
-    width: 152px; /* the desktop 168px node at the same 90% */
+  .paperclip-card {
+    width: 150px;
   }
 }
 
@@ -1375,43 +1220,6 @@ body {
   to { transform: translateX(-50%); }
 }
 
-/* ---- ProjectDetail full-bleed wrapper (Sewing / Crochet interior pages) ----
-   Breaks the window out of .portfolio-container-clean's 1200px max-width
-   to span the true viewport width. Used to size itself against the
-   surrounding .editorial-panel's fixed 100vh overlay chrome
-   (calc(100vh - 180px), plus a whole ":has() fill-the-panel mode" block
-   that made the window fill that overlay exactly). Now that Portfolio is
-   an in-flow section instead of a full-viewport overlay, "fill the rest of
-   the viewport" isn't a coherent goal any more — there's no fixed viewport
-   box to fill. Using a simple viewport-relative height instead, so the
-   embedded Sewing/Crochet project window still gets a sensible bounded box
-   to scroll its own contents in without hijacking the whole page's height. */
-.pd-mount--fullbleed {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  padding: 0 20px 40px;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  height: 75vh;
-  min-height: 480px;
-}
-.pd-mount--fullbleed > .pd-container--fullbleed {
-  flex: 1;
-  min-height: 0;
-}
-
-@media (max-width: 767px) {
-  .pd-mount--fullbleed {
-    height: 70vh;
-    min-height: 420px;
-    padding: 0 12px 32px;
-  }
-}
 
 /* ============================================================
    Theme + Dyslexia Accessibility Toolbar (see theme.js)

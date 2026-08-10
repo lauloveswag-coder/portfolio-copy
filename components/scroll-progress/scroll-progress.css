@@ -1,0 +1,83 @@
+/**
+ * Styles for <scroll-progress>, loaded inside its Shadow DOM via <link> —
+ * fully self-contained: nothing here leaks onto the page and no site
+ * styles (Tailwind included) leak in. Colors read the site's existing
+ * --color-* custom properties (defined on :root in styles.css), which
+ * inherit through the shadow boundary, so the capsule follows whichever
+ * palette + light/dark mode is active (html[data-palette] / html.dark)
+ * automatically — no separate theming logic needed here.
+ */
+
+:host {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  /* Above normal content (auto/0) and the sticky header (z-index 45),
+     below dropdown panels (60) and the always-on-top corner controls
+     (9995) — see styles.css — so it never fights either. */
+  z-index: 30;
+  /* Decorative/supplementary only — see aria-hidden on the host element,
+     set in scroll-progress.js. */
+  pointer-events: none;
+  display: block;
+}
+
+.capsule {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 8px;
+  border-radius: 99px;
+  background: rgb(var(--color-card-bg) / 0.72);
+  border: 1px solid rgb(var(--color-card-border));
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 8px 24px rgb(var(--color-text-primary) / 0.12);
+}
+
+.label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgb(var(--color-text-primary));
+  line-height: 1;
+  min-width: 2ch;
+  text-align: center;
+}
+
+.track {
+  width: 12px;
+  height: clamp(120px, 30vh, 220px);
+  border-radius: 99px;
+  overflow: hidden;
+  background: rgb(var(--color-text-primary) / 0.12);
+}
+
+.fill {
+  width: 100%;
+  height: 0%;
+  border-radius: 99px;
+  background: rgb(var(--color-accent-2));
+  transition: height 0.1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
+}
+
+/* Extremely short viewports (embedded webviews, landscape phones in a
+   split-screen layout, etc.): the capsule can no longer vertically center
+   with comfortable margins even at its clamped minimum height, so hide it
+   rather than risk overlapping the header or overflowing the viewport.
+   Width is deliberately left alone — the capsule's footprint (~40px) is
+   narrow enough not to need a separate mobile-width rule the way the
+   site's wider corner control clusters do. */
+@media (max-height: 380px) {
+  :host {
+    display: none;
+  }
+}
