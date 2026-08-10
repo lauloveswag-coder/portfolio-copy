@@ -1068,6 +1068,12 @@ body {
 #panel-portfolio {
   --directory-pink: #FF2E93;
 }
+/* Dotted directory-index rule, scoped to this panel only — every other
+   panel keeps the shared solid .panel-header border. */
+#panel-portfolio .panel-header {
+  border-bottom-style: dotted;
+  border-bottom-width: 2px;
+}
 
 .discipline-hub-circle {
   display: flex;

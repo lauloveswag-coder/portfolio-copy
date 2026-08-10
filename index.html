@@ -666,16 +666,18 @@
                  placeholder='TRY SKETCHES, CROCHET, 3D...'>
         </div>
 
-        <!-- Discipline Index: six creative disciplines arranged around a
-             circle, each a direct entry point into its gallery. -->
+        <!-- Discipline Index: five creative disciplines in a horizontal
+             row, each a direct entry point into its gallery. Social Media
+             is soft-archived (DISCIPLINE_FOLDERS, archived:true) and
+             excluded here — see renderDisciplineFolders(). -->
         <div id='archive-board' class='archive-board discipline-hub-circle relative mx-auto select-none'>
 
           <div class='discipline-hub-center'>
-            <span class='block text-center font-mono text-[8px] text-charcoal/40 tracking-widest pointer-events-none uppercase translatable' data-en='Six Disciplines' data-fr='Six Disciplines'>Six Disciplines</span>
+            <span class='block text-center font-mono text-[8px] text-charcoal/40 tracking-widest pointer-events-none uppercase translatable' data-en='Five Disciplines' data-fr='Cinq Disciplines'>Five Disciplines</span>
             <span class='block text-center font-serif-fashion italic text-lg text-charcoal/70 pointer-events-none translatable' data-en='Select One' data-fr='Sélectionner'>Select One</span>
           </div>
 
-          <!-- The 6 discipline folder buttons are rendered into this board
+          <!-- The 5 visible discipline folder buttons are rendered into this board
                by renderDisciplineFolders() from the DISCIPLINE_FOLDERS data
                array below, not hardcoded here — see that function to add,
                reorder, or restyle a discipline. -->
@@ -1279,43 +1281,51 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
     // add/reorder/restyle a discipline here, not in the HTML.
     var DISCIPLINE_FOLDERS = [
       {
-        num: 1, catId: 'cat-sketches', tilt: '-3deg', variant: 'folder--sketches',
+        num: 1, catId: 'cat-sketches', tilt: '-3deg', manifestKey: 'sketches',
         keywords: 'sketches illustration concept technical drawing research ideation croquis',
         nameEn: 'Sketches', nameFr: 'Croquis',
-        previews: ['assets/projects/sketches/fit-one-final.webp', 'assets/projects/sketches/2.webp']
+        previews: ['assets/projects/sketches/fit-one-final.webp', 'assets/projects/sketches/2.webp'],
+        clip: { src: 'assets/ui/fasteners/pushpin-pink.png', width: 44, top: -24, left: '50%', rotate: '-5deg' }
       },
       {
-        num: 2, catId: 'cat-3d-ai', tilt: '2deg', variant: 'folder--3d-ai',
+        num: 2, catId: 'cat-3d-ai', tilt: '2deg', manifestKey: '3d-ai',
         keywords: '3d ai clo3d style3d moda ai digital garment simulation render fashion visualization video',
         nameEn: '3D Rendering &amp; AI', nameFr: 'Rendu 3D &amp; IA',
-        previews: ['assets/projects/3d-ai/20260605_112144_1.webp', 'assets/projects/3d-ai/20260605_112141_1.webp']
+        previews: ['assets/projects/3d-ai/20260605_112144_1.webp', 'assets/projects/3d-ai/20260605_112141_1.webp'],
+        clip: { src: 'assets/ui/fasteners/pushpin-red.png', width: 44, top: -24, left: '50%', rotate: '4deg' }
       },
       {
-        num: 3, catId: 'personal-crochet', tilt: '-2deg', variant: 'folder--crochet',
+        num: 3, catId: 'personal-crochet', tilt: '-2deg', manifestKey: 'crochet',
         keywords: 'crochet knits craft yarn textile handmade',
         nameEn: 'Crochet', nameFr: 'Crochet',
-        previews: ['assets/projects/crochet/IMG_20260214_163702821_HDR.webp']
+        previews: ['assets/projects/crochet/IMG_20260214_163702821_HDR.webp'],
+        clip: { src: 'assets/ui/fasteners/bulldog-clip-cream.png', width: 50, top: -27, left: '50%', rotate: '-2deg' }
       },
       {
-        num: 4, catId: 'cat-sewing', tilt: '3deg', variant: 'folder--sewing',
+        num: 4, catId: 'cat-sewing', tilt: '3deg', manifestKey: 'sewing',
         keywords: 'sewing construction garment prototype pattern tailoring finished look',
         nameEn: 'Sewing', nameFr: 'Couture',
-        previews: ['assets/projects/sewing/2.webp', 'assets/projects/sewing/1.webp']
+        previews: ['assets/projects/sewing/2.webp', 'assets/projects/sewing/1.webp'],
+        clip: { src: 'assets/ui/fasteners/pushpin-wood.png', width: 70, top: -28, left: '50%', rotate: '6deg' }
       },
       {
-        num: 5, catId: 'cat-archive', tilt: '-2.5deg', variant: 'folder--archive',
+        num: 5, catId: 'cat-archive', tilt: '-2.5deg', manifestKey: 'archive',
         keywords: 'archive experimental research textile graphic design photography visual exploration branding',
         nameEn: 'Archive', nameFr: 'Archives',
-        previews: ['assets/projects/archive/Illustration-1-layout.webp', 'assets/projects/archive/Screenshot-2024-04-29-at-11.00.54-AM.webp']
+        previews: ['assets/projects/archive/Illustration-1-layout.webp', 'assets/projects/archive/Screenshot-2024-04-29-at-11.00.54-AM.webp'],
+        clip: { src: 'assets/ui/fasteners/binder-clip-pink.png', width: 62, top: -36, left: '50%', rotate: '3deg' }
       },
       {
-        // No dedicated real asset folder exists yet for Social Media, so no
-        // previews spill out here (folder shape only) — add a path to
-        // `previews` once one exists.
-        num: 6, catId: 'social', tilt: '2.5deg', variant: 'folder--social',
+        // Soft-archived per user direction: no longer shown in the
+        // discipline hub or counted in it, but the entry, its section
+        // (#project-showroom-social), sidebar nav button, and homepage
+        // marquee link are all untouched and still work — see
+        // renderDisciplineFolders() below, which filters on `archived`.
+        num: 6, catId: 'social', tilt: '2.5deg', manifestKey: null, archived: true,
         keywords: 'social media digital creation campaigns branding content instagram tiktok youtube',
         nameEn: 'Social Media', nameFr: 'Réseaux Sociaux',
-        previews: []
+        previews: [],
+        clip: null
       }
     ];
 
@@ -1323,33 +1333,31 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
       var board = document.getElementById('archive-board');
       if (!board) return;
 
-      var html = DISCIPLINE_FOLDERS.map(function (item) {
-        var previewBlock = '';
-        if (item.previews.length) {
-          var imgs = item.previews.map(function (src, i) {
-            var posClass = item.previews.length === 1 ? 'folder-preview-img--solo' : 'folder-preview-img--' + (i + 1);
-            return '<img class="folder-preview-img ' + posClass + '" src="' + src + '" alt="" loading="lazy" decoding="async">';
-          }).join('');
-          previewBlock = '<span class="folder-preview">' + imgs + '</span>';
-        }
+      var visible = DISCIPLINE_FOLDERS.filter(function (item) { return !item.archived; });
 
-        var numStr = String(item.num).padStart(2, '0');
+      var html = visible.map(function (item, i) {
+        var numStr = String(i + 1).padStart(2, '0');
+        var previewSrc = item.previews[0] || '';
+        var manifest = item.manifestKey && window.STACK_MANIFESTS ? window.STACK_MANIFESTS[item.manifestKey] : null;
+        var countBlock = manifest ? '<span class="folder-count">' + manifest.length + ' works</span>' : '';
+        var clip = item.clip;
 
         return (
-          '<button class="archive-card discipline-tile hub-node hub-node-' + item.num + ' folder-node cursor-pointer" ' +
+          '<button class="archive-card discipline-tile hub-node folder-node cursor-pointer" ' +
           'style="--tilt: ' + item.tilt + ';" ' +
           'data-keywords="' + item.keywords + '" ' +
           'onclick="selectDiscipline(\'' + item.catId + '\', this)">' +
-            '<span class="folder-visual">' +
-              previewBlock +
-              '<span class="folder-shape ' + item.variant + '">' +
-                '<span class="folder-back"></span>' +
-                '<span class="folder-front"></span>' +
-              '</span>' +
+            '<span class="paperclip-card">' +
+              '<span class="paperclip-edge paperclip-edge3"></span>' +
+              '<span class="paperclip-edge paperclip-edge2"></span>' +
+              '<span class="paperclip-top"><img src="' + previewSrc + '" alt="" loading="lazy" decoding="async"></span>' +
+              '<img class="paperclip-clip" src="' + clip.src + '" alt="" loading="lazy" ' +
+                'style="width:' + clip.width + 'px; top:' + clip.top + 'px; left:' + clip.left + '; transform:translateX(-50%) rotate(' + clip.rotate + ');">' +
             '</span>' +
             '<span class="folder-caption">' +
-              '<span class="project-badge-clean">' + numStr + '</span>' +
-              '<h3 class="font-serif-fashion italic text-base text-charcoal translatable" data-en="' + item.nameEn + '" data-fr="' + item.nameFr + '">' + item.nameEn + '</h3>' +
+              '<span class="folder-index-badge font-mono">[ ' + numStr + ' ]</span>' +
+              '<span class="folder-name font-mono translatable" data-en="' + item.nameEn + '" data-fr="' + item.nameFr + '">' + item.nameEn + '</span>' +
+              countBlock +
             '</span>' +
           '</button>'
         );
