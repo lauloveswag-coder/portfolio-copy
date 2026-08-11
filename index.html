@@ -805,7 +805,7 @@
         <div class='space-y-6'>
           <h3 class='font-serif-fashion italic text-4xl text-charcoal translatable' data-en='Freelance Services' data-fr='Services Freelance'>Freelance Services</h3>
 
-          <div class='accordion-group-clean space-y-5'>
+          <div class='accordion-group-clean space-y-5' data-reveal-group='services'>
 
             <!-- Service 01: Editorial & Campaign Styling -->
             <div class='bg-creamdark rounded-3xl border border-charcoal/10 shadow-organic overflow-hidden'>
@@ -2296,6 +2296,20 @@ translations.fr["cat-sewing-desc"] = "Construction, prototypes et vêtements fin
        position. Self-mounting (see components/scroll-progress/), so this
        script tag is the only integration point needed. -->
   <script src='components/scroll-progress/scroll-progress.js' defer></script>
+
+  <!-- Kinetic scroll (Lenis) + scroll-driven animation (GSAP/ScrollTrigger).
+       Plain CDN <script> tags, same pattern as the rest of this page — no
+       bundler. All init logic lives in scroll-animations.js, which registers
+       its own DOMContentLoaded listener; since that fires after the page's
+       own DOMContentLoaded handler above (renderDisciplineFolders(),
+       renderManifestFilmstrip(), showHub(), etc.) has already run, every
+       target element it looks for already exists in the DOM by the time it
+       runs. -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js' defer></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js' defer></script>
+  <link rel='stylesheet' href='https://unpkg.com/lenis@1.1.9/dist/lenis.css'>
+  <script src='https://unpkg.com/lenis@1.1.9/dist/lenis.min.js' defer></script>
+  <script src='scroll-animations.js' defer></script>
 </body>
 </html>
 

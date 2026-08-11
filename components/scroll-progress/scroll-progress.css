@@ -13,14 +13,27 @@
   top: 50%;
   right: 24px;
   transform: translateY(-50%);
-  /* Above normal content (auto/0) and the sticky header (z-index 45),
-     below dropdown panels (60) and the always-on-top corner controls
-     (9995) — see styles.css — so it never fights either. */
-  z-index: 30;
-  /* Decorative/supplementary only — see aria-hidden on the host element,
-     set in scroll-progress.js. */
+  /* Above normal content (auto/0), the sticky site header (z-index 45),
+     and the pinned panel-header ScrollTrigger pins from
+     scroll-animations.js (z-index 40) — below dropdown panels (60) and
+     the always-on-top corner controls (9995) — see styles.css. This was
+     30 for a while, which never actually cleared 45 despite this same
+     comment saying it should; that only became visible/wrong once the
+     panel-header pin (40) landed and started covering part of the
+     capsule while scrolled to a pinned section. */
+  z-index: 50;
+  /* No longer purely decorative (it's a real scrubber now — see
+     role="slider" in scroll-progress.js) but the host's own box is
+     larger than the visible pill, so it stays inert; .track-hit below
+     opts back into pointer-events for the actual click target. */
   pointer-events: none;
   display: block;
+}
+
+:host(:focus-visible) {
+  outline: 2px solid rgb(var(--color-accent-2));
+  outline-offset: 4px;
+  border-radius: 99px;
 }
 
 .capsule {
@@ -47,6 +60,23 @@
   text-align: center;
 }
 
+.track-hit {
+  /* Expands the clickable/tappable area from .track's own 12px visual
+     width to ~24px without changing its footprint in the capsule's flex
+     column layout — the padding grows this element's actual (hit-testable)
+     box, and the matching negative margin cancels the extra space it would
+     otherwise reserve, so .track ends up rendered in the exact same spot
+     it would've been without any of this. */
+  padding: 6px;
+  margin: -6px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.track-hit:hover .fill {
+  filter: brightness(1.25);
+}
+
 .track {
   width: 12px;
   height: clamp(120px, 30vh, 220px);
@@ -60,7 +90,7 @@
   height: 0%;
   border-radius: 99px;
   background: rgb(var(--color-accent-2));
-  transition: height 0.1s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: height 0.1s cubic-bezier(0.25, 1, 0.5, 1), filter 0.15s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1492,3 +1492,22 @@ html.dyslexia-ruler-active .dyslexia-ruler-dim { opacity: 1; }
 .a11y-reset-btn:hover {
   background: rgb(var(--color-badge-bg));
 }
+
+/* ==========================================================================
+   Scroll-reveal starting state (scroll-animations.js / GSAP ScrollTrigger).
+   scroll-animations.js adds .js-reveal right before creating each element's
+   ScrollTrigger tween, then drives opacity + transform (translateY/scale)
+   from JS so it can read and preserve any pre-existing rotation (polaroid
+   tilts, folder-card tilts) instead of flattening it — this rule only ever
+   needs to own opacity. Never added under prefers-reduced-motion, so the
+   media query below is a defensive fallback, not the primary guard.
+   ========================================================================== */
+.js-reveal {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js-reveal {
+    opacity: 1;
+  }
+}
